@@ -1,7 +1,11 @@
 package org.jopenclass.controller;
 
+import java.util.List;
+
 import org.jopenclass.dao.CourseDao;
+import org.jopenclass.dao.LecturerDao;
 import org.jopenclass.form.Course;
+import org.jopenclass.form.Lecturer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -19,13 +23,31 @@ public class CourseController {
 
 	@Autowired
 	private CourseDao courseDao;
+	@Autowired
+	private LecturerDao lecturerDao;
 
 	@RequestMapping(value = "/viewaddcourse")
 	public ModelAndView viewAddCourse() {
-		ModelAndView mav = new ModelAndView("course/course", "command",
-				new Course());
-		mav.addObject("operation", "Add a new course");
-		return mav;
+		List<Lecturer> lecturers = lecturerDao.getAllLecturers();
+		if (lecturers.isEmpty() || lecturers.equals(null)) {
+			ModelAndView mav = new ModelAndView("lecturer/lecturer", "command",
+					new Lecturer());
+
+			mav.addObject("operation", "Add a new Lecturer");
+			mav.addObject("message",
+					"Please add a lecturer before adding a course");
+
+			return mav;
+		} else {
+			ModelAndView mav = new ModelAndView("course/course", "command",
+					new Course());
+
+			mav.addObject("lecturers", lecturers);
+			mav.addObject("operation", "Add a new course");
+
+			return mav;
+		}
+
 	}
 
 	/**
@@ -35,10 +57,11 @@ public class CourseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/savecourse")
-	public ModelAndView saveCourse(@ModelAttribute("course")Course course,
+	public ModelAndView saveCourse(@ModelAttribute("course") Course course,
 			BindingResult result) {
 		ModelAndView mav = new ModelAndView("course/course", "command",
 				new Course());
+		mav.addObject("lecturers", lecturerDao.getAllLecturers());
 		mav.addObject("operation", "Add a new course");
 		try {
 

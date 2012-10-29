@@ -22,7 +22,6 @@ public class CourseDao {
 	 */
 	public void saveCourse(Course course) {
 
-		System.out.println(course.getCourseName());
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		session.save(course);
