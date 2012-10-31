@@ -1,30 +1,32 @@
 package org.jopenclass.controller;
 
+import javax.validation.Valid;
+
 import org.jopenclass.dao.LecturerDao;
 import org.jopenclass.form.Lecturer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 /**
  * 
  * @author madhumal
- *
+ * 
  */
 @Controller
 public class LecturerController {
-	
+
 	@Autowired
 	private LecturerDao lecturerDao;
-	
-	@RequestMapping(value = "/viewaddlecturer")
-	public ModelAndView viewAddCourse() {
-		ModelAndView mav = new ModelAndView("lecturer/lecturer", "command",
-				new Lecturer());
-		mav.addObject("operation", "Add a new Lecturer");
-		return mav;
+
+	@RequestMapping(value = "/savelecturer", method = RequestMethod.GET)
+	public String viewAddCourse(ModelMap model) {
+		model.addAttribute("lecturer", new Lecturer());
+		model.addAttribute("operation", "Add a new Lecturer");
+		return "lecturer/lecturer";
 	}
 
 	/**
@@ -34,21 +36,25 @@ public class LecturerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/savelecturer")
-	public ModelAndView addLecturer(
-			@ModelAttribute("lecturer") Lecturer lecturer, BindingResult result) {
+	public String addLecturer(ModelMap model, @Valid Lecturer lecturer,
+			BindingResult result) {
 
-		ModelAndView mav = new ModelAndView("lecturer/lecturer", "command",
-				new Lecturer());
-		mav.addObject("operation", "Register a new lecturer");
+		model.addAttribute("operation", "Register a new lecturer");
+
+		if (result.hasErrors()) {
+			return "lecturer/lecturer";
+		}
+
 		try {
 			lecturerDao.saveLecturer(lecturer);
-			mav.addObject("message", "Registration successfull");
+			model.addAttribute("message", "Registration successfull");
+			model.addAttribute("lecturer", new Lecturer());
 		} catch (Exception e) {
-			mav.addObject("message", "Something went in the registration process");
+			model.addAttribute("message",
+					"Something went in the registration process");
 		}
-		
 
-		return mav;
+		return "lecturer/lecturer";
 	}
 
 }

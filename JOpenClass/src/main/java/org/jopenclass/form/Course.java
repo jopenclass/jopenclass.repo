@@ -10,6 +10,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 @Table(name = "course")
 public class Course {
@@ -19,6 +21,7 @@ public class Course {
 	private long id;
 
 	@Column(name = "course_name")
+	@NotEmpty(message="Course name cannot be empty")
 	private String courseName;
 
 	private String grade;

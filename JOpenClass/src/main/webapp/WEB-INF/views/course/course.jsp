@@ -8,16 +8,16 @@
 <title>Course</title>
 </head>
 <body>
-
 	<h3>${operation}</h3>
 	<h3>${message}</h3>
 
-	<form:form method="post" action="savecourse.html">
+	<form:form method="post" action="savecourse.html" commandName="course">
 
 		<table>
 			<tr>
 				<td><form:label path="courseName">Course Name</form:label></td>
 				<td><form:input path="courseName" /></td>
+				<td><form:errors path="courseName" /></td>
 			</tr>
 			<tr>
 				<td><form:label path="grade">Grade</form:label></td>

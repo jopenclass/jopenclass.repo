@@ -11,16 +11,18 @@
 	<h3>${operation}</h3>
 	<h3>${message}</h3>
 
-	<form:form method="post" action="savelecturer.html">
+	<form:form method="post" action="savelecturer.html" commandName="lecturer">
 
 		<table>
 			<tr>
 				<td><form:label path="firstName">First Name</form:label></td>
 				<td><form:input path="firstName" /></td>
+				<td><form:errors path="firstName" /></td>
 			</tr>
 			<tr>
 				<td><form:label path="lastName">Last Name</form:label></td>
 				<td><form:input path="lastName" /></td>
+				<td><form:errors path="lastName" /></td>
 			</tr>
 			<tr>
 				<td><form:label path="address">Address</form:label></td>
@@ -30,8 +32,11 @@
 				<td><form:label path="contactNumber">Contact Number</form:label></td>
 				<td><form:input path="contactNumber" /></td>
 			</tr>
-			
-
+			<tr>
+				<td><form:label path="email">Email address</form:label></td>
+				<td><form:input path="email" /></td>
+				<td><form:errors path="email" /></td>
+			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" value="submit" /></td>
 			</tr>

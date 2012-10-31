@@ -13,6 +13,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * 
@@ -28,14 +30,21 @@ public class Lecturer {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	@Column(name = "first_name")
+	@NotEmpty(message = "First name cannot be empty")
 	private String firstName;
-	@Column(name="last_name")
+	@Column(name = "last_name")
+	@NotEmpty(message = "Last name cannot be empty")
 	private String lastName;
+	@NotFound(action = NotFoundAction.IGNORE)
 	private String address;
 	@Column(name = "contact_number")
+	@NotFound(action = NotFoundAction.IGNORE)
 	private String contactNumber;
-	@OneToMany(mappedBy="lecturer")
-	@NotFound(action=NotFoundAction.IGNORE)
+	@Email
+	@NotFound(action = NotFoundAction.IGNORE)
+	private String email;
+	@OneToMany(mappedBy = "lecturer")
+	@NotFound(action = NotFoundAction.IGNORE)
 	private List<Course> courseList = new ArrayList<Course>();
 
 	public long getId() {
@@ -84,6 +93,14 @@ public class Lecturer {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }
