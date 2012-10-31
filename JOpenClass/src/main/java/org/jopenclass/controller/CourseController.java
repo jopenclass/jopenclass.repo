@@ -14,7 +14,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 
@@ -36,17 +35,18 @@ public class CourseController {
 	 */
 	@RequestMapping(value = "/savecourse", method = RequestMethod.GET)
 	public String viewAddCourse(final ModelMap model) {
+		
 		List<Lecturer> lecturers = lecturerDao.getAllLecturers();
+		
 		if (lecturers.isEmpty() || lecturers.equals(null)) {
-			ModelAndView mav = new ModelAndView("lecturer/lecturer", "command",
-					new Lecturer());
-
-			mav.addObject("operation", "Add a new Lecturer");
-			mav.addObject("message",
+			
+			model.addAttribute("operation", "Add a new Lecturer");
+			model.addAttribute("message",
 					"Please add a lecturer before adding a course");
-
-			return "course/course";
+			model.addAttribute("lecturer", new Lecturer());
+			return "lecturer/lecturer";
 		} else {
+			
 			model.addAttribute("course", new Course());
 			model.addAttribute("lecturers", lecturers);
 			model.addAttribute("operation", "Add a new course");
