@@ -65,7 +65,7 @@ public class LecturerController {
 		} else {
 			try {
 				lecturer.setId(lecturerDao.saveLecturer(lecturer));
-				// response.put("lecturer", lecturer);
+				response.put("lecturer", lecturer);
 				response.put("message", "successfully saved!!!");
 			} catch (Exception e) {
 				System.out.println(e);
