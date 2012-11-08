@@ -1,5 +1,9 @@
 package org.jopenclass.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.validation.Valid;
 
 import org.jopenclass.dao.LecturerDao;
@@ -8,8 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 
@@ -22,6 +30,11 @@ public class LecturerController {
 	@Autowired
 	private LecturerDao lecturerDao;
 
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/savelecturer", method = RequestMethod.GET)
 	public String viewAddCourse(ModelMap model) {
 		model.addAttribute("lecturer", new Lecturer());
@@ -35,26 +48,85 @@ public class LecturerController {
 	 * @param result
 	 * @return
 	 */
-	@RequestMapping(value = "/savelecturer")
-	public String addLecturer(ModelMap model, @Valid Lecturer lecturer,
+	@RequestMapping(value = "/savelecturer", method = RequestMethod.POST)
+	public @ResponseBody
+	Object saveLecturer(
+			@Valid @ModelAttribute(value = "lecturer") Lecturer lecturer,
 			BindingResult result) {
 
-		model.addAttribute("operation", "Register a new lecturer");
+		Map<String, Object> response = new HashMap<String, Object>();
 
 		if (result.hasErrors()) {
-			return "lecturer/lecturer";
+			List<ObjectError> results = result.getAllErrors();
+			for (ObjectError objectError : results) {
+				System.out.println(objectError.getDefaultMessage());
+			}
+			response.put("message", "Could not add the Lecturer to the system.");
+		} else {
+			try {
+				lecturer.setId(lecturerDao.saveLecturer(lecturer));
+				// response.put("lecturer", lecturer);
+				response.put("message", "successfully saved!!!");
+			} catch (Exception e) {
+				System.out.println(e);
+				response.put("message",
+						"Sorry, an error has occured. Could not add the Lecturer to the system.");
+			}
 		}
 
+		return response;
+	}
+
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/getlecturerlist", method = RequestMethod.GET)
+	public String getLecturerList(ModelMap model) {
+		model.addAttribute("lecturerList", lecturerDao.getAllLecturers());
+		model.addAttribute("operation", "Add a new Lecturer");
+		return "lecturer/lecturer_list";
+	}
+
+	/**
+	 * 
+	 * @param lec_ids
+	 * @return
+	 */
+	@RequestMapping(value = "/deletelecturers", method = RequestMethod.POST)
+	public @ResponseBody
+	Object deleteLecturers(@RequestBody Long[] lec_ids) {
+
+		Map<String, Object> response = new HashMap<String, Object>();
 		try {
-			lecturerDao.saveLecturer(lecturer);
-			model.addAttribute("message", "Registration successfull");
-			model.addAttribute("lecturer", new Lecturer());
+			lecturerDao.deleteLecturersById(lec_ids);
+			response.put("message", "deletion successfull");
 		} catch (Exception e) {
-			model.addAttribute("message",
-					"Something went in the registration process");
+			response.put("message", "deletion was not successfull");
 		}
+		return response;
+	}
 
-		return "lecturer/lecturer";
+	/**
+	 * 
+	 * @param lecturer
+	 * @return
+	 */
+	@RequestMapping(value = "/getlecturerbyid", method = RequestMethod.POST)
+	public @ResponseBody
+	Object getLecturer(@ModelAttribute(value = "id") Lecturer lecturer) {
+		Map<String, Object> response = new HashMap<String, Object>();
+		response.put("message", "succeess");
+		Lecturer lec = new Lecturer();
+		lec.setFirstName(lecturer.getFirstName());
+		lec.setLastName(lecturer.getLastName());
+		lec.setContactNumber(lecturer.getContactNumber());
+		lec.setAddress(lecturer.getAddress());
+		lec.setEmail(lecturer.getEmail());
+		lec.setId(lecturer.getId());
+		response.put("lecturer", lec);
+		return response;
 	}
 
 }

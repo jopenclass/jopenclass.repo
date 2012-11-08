@@ -10,6 +10,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -21,13 +23,13 @@ public class Course {
 	private long id;
 
 	@Column(name = "course_name")
-	@NotEmpty(message="Course name cannot be empty")
+	@NotEmpty(message = "Course name cannot be empty")
 	private String courseName;
-
+	@NotFound(action = NotFoundAction.IGNORE)
 	private String grade;
 	private double fee;
 	@ManyToOne
-	@JoinTable(name="course_lecturer",joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "lecturer_id"))
+	@JoinTable(name = "course_lecturer", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "lecturer_id"))
 	private Lecturer lecturer;
 
 	public String getCourseName() {

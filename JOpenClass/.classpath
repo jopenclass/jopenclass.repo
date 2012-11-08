@@ -72,6 +72,13 @@
 			<attribute name="javadoc_location" value="jar:file:/home/madhumal/.m2/repository/org/hibernate/hibernate-validator/4.3.0.Final/hibernate-validator-4.3.0.Final-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/org/codehaus/jackson/jackson-mapper-asl/1.9.9/jackson-mapper-asl-1.9.9.jar" sourcepath="M2_REPO/org/codehaus/jackson/jackson-mapper-asl/1.9.9/jackson-mapper-asl-1.9.9-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/codehaus/jackson/jackson-core-asl/1.9.9/jackson-core-asl-1.9.9.jar" sourcepath="M2_REPO/org/codehaus/jackson/jackson-core-asl/1.9.9/jackson-core-asl-1.9.9-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/google/code/gson/gson/2.2.2/gson-2.2.2.jar" sourcepath="M2_REPO/com/google/code/gson/gson/2.2.2/gson-2.2.2-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/home/madhumal/.m2/repository/com/google/code/gson/gson/2.2.2/gson-2.2.2-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>

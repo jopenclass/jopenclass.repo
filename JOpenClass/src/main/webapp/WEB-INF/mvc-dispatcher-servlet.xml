@@ -27,6 +27,7 @@
 		<property name="converters">
 			<list>
 				<bean class="org.jopenclass.util.converter.StringToLecturer" />
+				<bean class="org.jopenclass.util.converter.StringToCourse" />
 			</list>
 		</property>
 	</bean>

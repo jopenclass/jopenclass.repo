@@ -33,12 +33,21 @@ public class LecturerDao {
 	 * 
 	 * @param lectuer
 	 */
-	public void saveLecturer(Lecturer lectuer) {
+	public long saveLecturer(Lecturer lectuer) {
+		Long id;
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		session.save(lectuer);
+		System.out.println(lectuer.getId());
+		if(lectuer.getId()>=0){
+			session.update(lectuer);
+			id=lectuer.getId();
+		}else{
+			id = (Long) session.save(lectuer);
+			
+		}
 		session.getTransaction().commit();
 		session.close();
+		return id;
 	}
 
 	/**
@@ -70,6 +79,20 @@ public class LecturerDao {
 		session.getTransaction().commit();
 		session.close();
 		return lecturer;
+	}
+
+	public void deleteLecturersById(Long[] lec_ids) {
+		
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("delete from Lecturer where id=:id");
+		
+		for (Long id : lec_ids) {
+			query.setLong("id", id);
+			query.executeUpdate();
+		}
+		session.getTransaction().commit();
+		session.close();
 	}
 
 }

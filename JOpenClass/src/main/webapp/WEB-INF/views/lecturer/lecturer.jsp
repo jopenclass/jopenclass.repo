@@ -5,24 +5,57 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Lecturer</title>
+
+<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+<script type="text/javascript">
+	function insertLecturer() {
+
+		var firstName = $('#firstName').val();
+		var lastName = $('#lastName').val();
+		var address = $('#address').val();
+		var contactNumber = $('#contactNumber').val();
+		var email = $('#email').val();
+
+		$.ajax({
+			type : "POST",
+			url : "/JOpenClass/savelecturer",
+			data : "firstName=" + firstName + "&lastName=" + lastName
+					+ "&address=" + address + "&contactNumber=" + contactNumber
+					+ "&email=" + email + "&id=-1",
+			success : function(response) {
+				$('#info').html(response.message);
+				$('#firstName').val('');
+				$('#lastName').val('');
+				$('#address').val('');
+				$('#contactNumber').val('');
+				$('#email').val('');
+			},
+			error : function(e) {
+				alert('Error: ' + e);
+			}
+		});
+	}
+</script>
+
 </head>
 <body>
 
-	<h3>${operation}</h3>
-	<h3>${message}</h3>
-
-	<form:form method="post" action="savelecturer.html" commandName="lecturer">
-
+	<h4>Add Lecturer</h4>
+	<div id="info"></div>
+	<form:form method="post" action="savelecturer.html"
+		commandName="lecturer">
+		<form:hidden path="id" value="-1" />
 		<table>
+			<tr>
+				<td colspan="2"><div id="info"></div></td>
+			</tr>
 			<tr>
 				<td><form:label path="firstName">First Name</form:label></td>
 				<td><form:input path="firstName" /></td>
-				<td><form:errors path="firstName" /></td>
 			</tr>
 			<tr>
 				<td><form:label path="lastName">Last Name</form:label></td>
 				<td><form:input path="lastName" /></td>
-				<td><form:errors path="lastName" /></td>
 			</tr>
 			<tr>
 				<td><form:label path="address">Address</form:label></td>
@@ -35,10 +68,10 @@
 			<tr>
 				<td><form:label path="email">Email address</form:label></td>
 				<td><form:input path="email" /></td>
-				<td><form:errors path="email" /></td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" value="submit" /></td>
+				<td colspan="2"><input type="button" value="submit"
+					onclick="insertLecturer()" /></td>
 			</tr>
 		</table>
 
