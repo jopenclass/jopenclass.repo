@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * 
  */
 @Controller
-public class LecturerController {
+public class LecturerDetailController {
 
 	@Autowired
 	private LecturerDao lecturerDao;
