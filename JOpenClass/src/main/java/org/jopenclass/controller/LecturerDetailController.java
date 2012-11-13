@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.jopenclass.dao.LecturerDao;
 import org.jopenclass.form.Lecturer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -35,6 +36,7 @@ public class LecturerDetailController {
 	 * @param model
 	 * @return
 	 */
+	@PreAuthorize("isAuthenticated() and hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/savelecturer", method = RequestMethod.GET)
 	public String viewAddCourse(ModelMap model) {
 		model.addAttribute("lecturer", new Lecturer());
@@ -48,6 +50,7 @@ public class LecturerDetailController {
 	 * @param result
 	 * @return
 	 */
+	@PreAuthorize("isAuthenticated() and hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/savelecturer", method = RequestMethod.POST)
 	public @ResponseBody
 	Object saveLecturer(
@@ -94,6 +97,7 @@ public class LecturerDetailController {
 	 * @param lec_ids
 	 * @return
 	 */
+	@PreAuthorize("isAuthenticated() and hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/deletelecturers", method = RequestMethod.POST)
 	public @ResponseBody
 	Object deleteLecturers(@RequestBody Long[] lec_ids) {
