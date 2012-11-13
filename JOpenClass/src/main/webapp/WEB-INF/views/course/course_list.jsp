@@ -299,7 +299,7 @@ div#courses-contain table td,div#courses-contain table th {
 	});
 </script>
 </head>
-<h1>Existing Lecturers:</h1>
+<h1>Existing Courses:</h1>
 <body>
 	<div id="dialog-confirm" title="Delete the item?">
 		<p>

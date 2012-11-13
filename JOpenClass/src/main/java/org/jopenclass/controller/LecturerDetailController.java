@@ -118,14 +118,9 @@ public class LecturerDetailController {
 	Object getLecturer(@ModelAttribute(value = "id") Lecturer lecturer) {
 		Map<String, Object> response = new HashMap<String, Object>();
 		response.put("message", "succeess");
-		Lecturer lec = new Lecturer();
-		lec.setFirstName(lecturer.getFirstName());
-		lec.setLastName(lecturer.getLastName());
-		lec.setContactNumber(lecturer.getContactNumber());
-		lec.setAddress(lecturer.getAddress());
-		lec.setEmail(lecturer.getEmail());
-		lec.setId(lecturer.getId());
-		response.put("lecturer", lec);
+		// to avoid lazy initialization exception
+		lecturer.setCourseList(null);
+		response.put("lecturer", lecturer);
 		return response;
 	}
 

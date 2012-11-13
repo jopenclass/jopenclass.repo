@@ -2,7 +2,6 @@ package org.jopenclass.util.converter;
 
 import org.jopenclass.dao.CourseDao;
 import org.jopenclass.form.Course;
-import org.jopenclass.form.Lecturer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 

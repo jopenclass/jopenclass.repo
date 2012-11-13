@@ -7,7 +7,6 @@ import javax.validation.Valid;
 
 import org.jopenclass.form.User;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,15 +15,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class UserListController {
+public class UserController {
     private List<User> userList = new ArrayList<User>();
 
-    @RequestMapping(value="/AddUser",method=RequestMethod.GET)
+    @RequestMapping(value="/saveuser",method=RequestMethod.GET)
     public String showForm(){
-        return "AddUser";
+        return "user";
     }
 
-    @RequestMapping(value="/AddUser",method=RequestMethod.POST)
+    @RequestMapping(value="/saveuser",method=RequestMethod.POST)
     public @ResponseBody String addUser(@Valid @ModelAttribute(value="user") User user, BindingResult result ){
         String returnText;
         List<ObjectError> errors = result.getAllErrors();
@@ -40,9 +39,4 @@ public class UserListController {
         return returnText;
     }
 
-    @RequestMapping(value="/ShowUsers")
-    public String showUsers(ModelMap model){
-        model.addAttribute("Users", userList);
-        return "ShowUsers";
-    }
 }

@@ -2,6 +2,7 @@ package org.jopenclass.form;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,7 +29,7 @@ public class Course {
 	@NotFound(action = NotFoundAction.IGNORE)
 	private String grade;
 	private double fee;
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinTable(name = "course_lecturer", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "lecturer_id"))
 	private Lecturer lecturer;
 

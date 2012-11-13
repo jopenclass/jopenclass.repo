@@ -85,18 +85,9 @@ public class CourseController {
 		} else {
 			try {
 				course.setId(courseDao.saveCourse(course));
-				course.setLecturer(course.getLecturer());
-				Course cse = new Course();
-				cse.setId(course.getId());
-				cse.setCourseName(course.getCourseName());
-				cse.setFee(course.getFee());
-				Lecturer lec = new Lecturer();
-				lec.setId(course.getLecturer().getId());
-				lec.setFirstName(course.getLecturer().getFirstName());
-				lec.setLastName(course.getLecturer().getLastName());
-				cse.setLecturer(lec);
-				cse.setGrade(course.getGrade());
-				response.put("course", cse);
+				// to avoid lazy initialization exception
+				course.getLecturer().setCourseList(null);
+				response.put("course", course);
 				response.put("message", "successfully saved !!!");
 
 			} catch (Exception e) {
@@ -144,17 +135,9 @@ public class CourseController {
 	Object getLecturer(@ModelAttribute(value = "id") Course course) {
 		Map<String, Object> response = new HashMap<String, Object>();
 		response.put("message", "succeess");
-		Lecturer lec = new Lecturer();
-		lec.setFirstName(course.getLecturer().getFirstName());
-		lec.setLastName(course.getLecturer().getLastName());
-		lec.setId(course.getLecturer().getId());
-		Course cse = new Course();
-		cse.setLecturer(lec);
-		cse.setCourseName(course.getCourseName());
-		cse.setFee(course.getFee());
-		cse.setGrade(course.getGrade());
-		cse.setId(course.getId());
-		response.put("course", cse);
+		// to avoid lazy initialization exception
+		course.getLecturer().setCourseList(null);
+		response.put("course", course);
 		return response;
 	}
 
