@@ -23,7 +23,7 @@
 
 		<table>
 			<tr>
-				<td>User:</td>
+				<td>Email Address:</td>
 				<td><input type='text' name='j_username' value=''></td>
 			</tr>
 			<tr>

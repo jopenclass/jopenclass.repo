@@ -1,19 +1,25 @@
 package org.jopenclass.form;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -29,23 +35,36 @@ public class Lecturer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+
 	@Column(name = "first_name")
 	@NotEmpty(message = "First name cannot be empty")
 	private String firstName;
+
 	@Column(name = "last_name")
 	@NotEmpty(message = "Last name cannot be empty")
 	private String lastName;
+
 	@NotFound(action = NotFoundAction.IGNORE)
 	private String address;
+
 	@Column(name = "contact_number")
 	@NotFound(action = NotFoundAction.IGNORE)
 	private String contactNumber;
-	@Email
+
+	@Column(name = "lecturer_info")
 	@NotFound(action = NotFoundAction.IGNORE)
-	private String email;
-	@OneToMany(mappedBy = "lecturer")
+	@Lob
+	private String lecturerInfo;
+
+	@OneToOne(fetch = FetchType.EAGER)
 	@NotFound(action = NotFoundAction.IGNORE)
-	private List<Course> courseList = new ArrayList<Course>();
+	@Cascade({ CascadeType.ALL, CascadeType.REMOVE })
+	private User user;
+
+	@JoinTable(joinColumns = @JoinColumn(name = "lecturer_id"), inverseJoinColumns = @JoinColumn(name = "subject_id"))
+	@ManyToMany(fetch = FetchType.EAGER)
+	@Cascade(value = { CascadeType.ALL,CascadeType.PERSIST,CascadeType.DELETE })
+	private Set<Subject> subjectList = new HashSet<Subject>();
 
 	public long getId() {
 		return id;
@@ -71,14 +90,6 @@ public class Lecturer {
 		this.contactNumber = contactNumber;
 	}
 
-	public List<Course> getCourseList() {
-		return courseList;
-	}
-
-	public void setCourseList(List<Course> courseList) {
-		this.courseList = courseList;
-	}
-
 	public String getFirstName() {
 		return firstName;
 	}
@@ -95,12 +106,29 @@ public class Lecturer {
 		this.lastName = lastName;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getLecturerInfo() {
+		return lecturerInfo;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setLecturerInfo(String lecturerInfo) {
+		this.lecturerInfo = lecturerInfo;
 	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Set<Subject> getSubjectList() {
+		return subjectList;
+	}
+
+	public void setSubjectList(Set<Subject> subjectList) {
+		this.subjectList = subjectList;
+	}
+
 
 }

@@ -38,6 +38,16 @@
 			<attribute name="javadoc_location" value="jar:file:/home/madhumal/.m2/repository/org/springframework/security/spring-security-config/3.1.2.RELEASE/spring-security-config-3.1.2.RELEASE-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/security/spring-security-taglibs/3.1.2.RELEASE/spring-security-taglibs-3.1.2.RELEASE.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/home/madhumal/.m2/repository/org/springframework/security/spring-security-taglibs/3.1.2.RELEASE/spring-security-taglibs-3.1.2.RELEASE-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/security/spring-security-acl/3.1.2.RELEASE/spring-security-acl-3.1.2.RELEASE.jar" sourcepath="M2_REPO/org/springframework/security/spring-security-acl/3.1.2.RELEASE/spring-security-acl-3.1.2.RELEASE-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/home/madhumal/.m2/repository/org/springframework/security/spring-security-acl/3.1.2.RELEASE/spring-security-acl-3.1.2.RELEASE-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-orm/3.1.2.RELEASE/spring-orm-3.1.2.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-orm/3.1.2.RELEASE/spring-orm-3.1.2.RELEASE-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/hibernate/hibernate-core/4.1.6.Final/hibernate-core-4.1.6.Final.jar" sourcepath="M2_REPO/org/hibernate/hibernate-core/4.1.6.Final/hibernate-core-4.1.6.Final-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/antlr/antlr/2.7.7/antlr-2.7.7.jar"/>
@@ -71,6 +81,11 @@
 	</classpathentry>
 	<classpathentry kind="var" path="M2_REPO/org/codehaus/jackson/jackson-mapper-asl/1.9.9/jackson-mapper-asl-1.9.9.jar" sourcepath="M2_REPO/org/codehaus/jackson/jackson-mapper-asl/1.9.9/jackson-mapper-asl-1.9.9-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/codehaus/jackson/jackson-core-asl/1.9.9/jackson-core-asl-1.9.9.jar" sourcepath="M2_REPO/org/codehaus/jackson/jackson-core-asl/1.9.9/jackson-core-asl-1.9.9-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/google/code/gson/gson/2.2.2/gson-2.2.2.jar" sourcepath="M2_REPO/com/google/code/gson/gson/2.2.2/gson-2.2.2-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/home/madhumal/.m2/repository/com/google/code/gson/gson/2.2.2/gson-2.2.2-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>

@@ -7,7 +7,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title>Course List</title>
+<title>Subject List</title>
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
@@ -66,9 +66,8 @@ div#courses-contain table td,div#courses-contain table th {
 </style>
 <script>
 	$(function() {
-		var courseName = $("#courseName"), fee = $("#fee"), lecturer = $("#lecturer"), courseDetails = $("#courseDetails"), courseCategory = $("#courseCategory"), allFields = $(
-				[]).add(courseName).add(fee).add(lecturer).add(courseDetails)
-				.add(courseCategory), tips = $(".validateTips");
+		var subjectName = $("#subjectName"), grade = $("#grade"), allFields = $(
+				[]).add(subjectName).add(grade), tips = $(".validateTips");
 		var editId = -1;
 		function updateTips(t) {
 			tips.text(t).addClass("ui-state-highlight");
@@ -97,14 +96,14 @@ div#courses-contain table td,div#courses-contain table th {
 				return true;
 			}
 		}
-		function deleteLecturers() {
+		function deleteSubjects() {
 			var del_ids = $('input[name="del_list"]:checkbox:checked').map(
 					function() {
 						return this.value;
 					}).get();
 			var response = $.ajax({
 				type : "POST",
-				url : "/JOpenClass/deletecourses",
+				url : "/JOpenClass/deletesubjects",
 				contentType : "application/json; charset=utf-8",
 				data : JSON.stringify(del_ids),
 				success : function(response) {
@@ -119,72 +118,47 @@ div#courses-contain table td,div#courses-contain table th {
 			});
 
 		}
-		function insertCourse() {
-			alert(editId);
+		function insertSubject() {
 			var response = $
 					.ajax({
 						type : "POST",
-						url : "/JOpenClass/savecourse",
-						data : "courseName=" + courseName.val() + "&fee="
-								+ fee.val() + "&lecturer=" + lecturer.val()
-								+ "&courseCategory=" + courseCategory.val()
-								+ "&id=" + editId + "&courseDetails="
-								+ courseDetails.val(),
+						url : "/JOpenClass/savesubject",
+						data : "subjectName=" + subjectName.val() + "&grade="
+								+ grade.val() + "&id="
+								+ editId,
 						success : function(response) {
 							$('#info').html(response["message"]);
 							if (editId < 0) {
-								$("#courses tbody")
+								$("#subjects tbody")
 										.append(
-												"<tr id='"+response.course.id+"'>"
+												"<tr id='"+response.subject.id+"'>"
 														+ "<td>"
-														+ response.course.courseName
+														+ response.subject.subjectName
 														+ "</td>"
 														+ "<td>"
-														+ response.course.courseCategory.categoryName
+														+ response.subject.grade
 														+ "</td>"
-														+ "<td>"
-														+ response.course.lecturer.firstName
-														+ " "
-														+ response.course.lecturer.lastName
-														+ "</td>"
-														+ "<td>"
-														+ response.course.courseCategory.grade
-														+ "</td>"
-														+ "<td>"
-														+ response.course.fee
-														+ "</td>"
-														+ "<td><a class='edit_course' href='#"
-										+ response.course.id
-										+ "'>edit</a></td>"
-														+ "<td><input type='checkbox' name='del_list' value='" + response.course.id
-					+ "'></td>"
+														+ "<td><a class='edit_subject' href='#"
+														+ response.subject.id
+														+ "'>edit</a></td>"
+														+ "<td><input type='checkbox' name='del_list' value='" + response.subject.id
+									+ "'></td>"
 														+ "</tr>");
 							} else {
 
-								$("tr#" + response.course.id)
+								$("tr#" + response.subject.id)
 										.replaceWith(
-												"<tr id='"+response.course.id+"'>"
+												"<tr id='"+response.subject.id+"'>"
 														+ "<td>"
-														+ response.course.courseName
+														+ response.subject.subjectName
 														+ "</td>"
 														+ "<td>"
-														+ response.course.courseCategory.categoryName
+														+ response.subject.grade
 														+ "</td>"
-														+ "<td>"
-														+ response.course.lecturer.firstName
-														+ " "
-														+ response.course.lecturer.lastName
-														+ "</td>"
-														+ "<td>"
-														+ response.course.courseCategory.grade
-														+ "</td>"
-														+ "<td>"
-														+ response.course.fee
-														+ "</td>"
-														+ "<td><a class='edit_course' href='#"
-												+ response.course.id
+														+ "<td><a class='edit_subject' href='#"
+												+ response.subject.id
 												+ "'>edit</a></td>"
-														+ "<td><input type='checkbox' name='del_list' value='" + response.course.id
+														+ "<td><input type='checkbox' name='del_list' value='" + response.subject.id
 							+ "'></td>"
 														+ "</tr>");
 							}
@@ -200,7 +174,7 @@ div#courses-contain table td,div#courses-contain table th {
 		$("#dialog-form").dialog(
 				{
 					autoOpen : false,
-					height : 400,
+					height : 350,
 					width : 400,
 					modal : true,
 					buttons : {
@@ -209,12 +183,12 @@ div#courses-contain table td,div#courses-contain table th {
 							allFields.removeClass("ui-state-error");
 
 							bValid = bValid
-									&& checkLength(courseName, "Course Name",
+									&& checkLength(subjectName, "Subject Name",
 											2, 25);
 
 							if (bValid) {
 
-								insertCourse();
+								insertSubject();
 								$(this).dialog("close");
 							}
 						},
@@ -227,7 +201,7 @@ div#courses-contain table td,div#courses-contain table th {
 					}
 				});
 
-		$("#create-course").button().live('click', function() {
+		$("#create_subject").button().live('click', function() {
 			editId = -1;
 			$("#dialog-form").dialog("open");
 		});
@@ -240,7 +214,7 @@ div#courses-contain table td,div#courses-contain table th {
 			buttons : {
 				"Delete" : function() {
 					$(this).dialog("close");
-					deleteLecturers();
+					deleteSubjects();
 				},
 				Cancel : function() {
 					$(this).dialog("close");
@@ -258,7 +232,7 @@ div#courses-contain table td,div#courses-contain table th {
 			}
 		});
 
-		$("#delete_lecturers").button().live(
+		$("#delete_subjects").button().live(
 				'click',
 				function() {
 					var values = $('input[name="del_list"]:checkbox:checked')
@@ -285,47 +259,37 @@ div#courses-contain table td,div#courses-contain table th {
 			}
 		});
 
-		$('a.edit_course').live(
-				'click',
-				function() {
-					editId = $(this).attr('href').substring(1);
-					var response = $.ajax({
-						type : "POST",
-						url : "/JOpenClass/getcoursebyid",
-						data : "id=" + editId,
-						success : function(response) {
-							//alert(response.course.courseCategory.categoryName);
-							$('#info').html(response["message"]);
-							$('input#courseName').val(
-									response.course.courseName);
-							$('input#courseDetails').val(
-									response.course.courseDetails);
-							$('input#fee').val(response.course.fee);
-							$('select#lecturer').val(
-									response.course.lecturer.id);
-							$('select#courseCategory').val(
-									response.course.courseCategory.id);
-							$('input#course_id').val(response.course.id);
-							$("#dialog-form").dialog("open");
-						},
-						error : function(e) {
-							alert('Error: ' + e);
-						}
-					});
-				});
+		$('a.edit_subject').live('click', function() {
+			editId = $(this).attr('href').substring(1);
+			alert(editId);
+			var response = $.ajax({
+				type : "POST",
+				url : "/JOpenClass/getsubjectbyid",
+				data : "id=" + editId,
+				success : function(response) {
+					$('#info').html(response["message"]);
+					$('input#subjectName').val(response.subject.subjectName);
+					$('input#grade').val(response.subject.grade);
+					$("#dialog-form").dialog("open");
+				},
+				error : function(e) {
+					alert('Error: ' + e);
+				}
+			});
+		});
 
 	});
 </script>
 </head>
-<h1>Existing Courses:</h1>
+<h1>Existing Subjects:</h1>
 <body>
 
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<div id="dialog-confirm" title="Delete the item?">
 			<p>
 				<span class="ui-icon ui-icon-alert"
-					style="float: left; margin: 0 7px 20px 0;"></span>Items/item will
-				be permanently deleted and cannot be recovered. Are you sure?
+					style="float: left; margin: 0 7px 20px 0;"></span>All the Course Categories and Courses related to the category will
+				be permanently deleted and cannot be recovered. Are you really sure?
 			</p>
 		</div>
 
@@ -335,50 +299,32 @@ div#courses-contain table td,div#courses-contain table th {
 
 		<p id="info"></p>
 
-		<button id="create-course">Add</button>
-		<button id="delete_lecturers">Delete</button>
+		<button id="create_subject">Add</button>
+		<button id="delete_subjects">Delete</button>
 
 	</sec:authorize>
 
-	<div id="dialog-form" title="Add a new Course">
+	<div id="dialog-form" title="Add a new Course Category">
 		<p class="validateTips">All form fields are required.</p>
 
 		<form>
 			<fieldset>
-				<label for="courseName">Course Name</label> <input type="text"
-					name="courseName" id="courseName"
-					class="text ui-widget-content ui-corner-all" /> <label for="fee">Fee</label>
-				<input type="text" name="fee" id="fee"
-					class="text ui-widget-content ui-corner-all" /> <label
-					for="courseDetails">Course Details</label> <input type="text"
-					name="courseDetails" id="courseDetails"
-					class="text ui-widget-content ui-corner-all" /><label
-					for="courseCategory">Course Category</label> <select
-					name="courseCategory" id="courseCategory">
-					<c:forEach items="${courseCategories}" var="category"
-						varStatus="status">
-						<option value="${category.id}">${category.categoryName}</option>
-					</c:forEach>
-				</select> <label for="lecturer">Lecturer</label> <select name="lecturer"
-					id="lecturer">
-					<c:forEach items="${lecturerList}" var="lec" varStatus="status">
-						<option value="${lec.id}">${lec.firstName}&nbsp;${lec.lastName}</option>
-					</c:forEach>
-				</select> <input type="hidden" name="lec_id" id="lec_id" value="" />
+				<label for="subjectName">Subject Name</label> <input type="text"
+					name="subjectName" id="subjectName"
+					class="text ui-widget-content ui-corner-all" /> <label for="grade">Grade</label>
+				<input type="text" name="grade" id="grade"
+					class="text ui-widget-content ui-corner-all" />
 			</fieldset>
 		</form>
 	</div>
 
 	<div id="courses-contain" class="ui-widget">
 
-		<table id="courses" class="ui-widget ui-widget-content">
+		<table id="subjects" class="ui-widget ui-widget-content">
 			<thead>
 				<tr class="ui-widget-header ">
-					<th>Course Name</th>
-					<th>Course Category</th>
-					<th>Lecturer</th>
+					<th>Subject Name</th>
 					<th>Grade</th>
-					<th>Fee</th>
 					<sec:authorize access="hasRole('ROLE_ADMIN')">
 						<th>Edit</th>
 						<th>Delete<input type="checkbox" name="select-all"
@@ -387,17 +333,14 @@ div#courses-contain table td,div#courses-contain table th {
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${courseList}" var="course" varStatus="status">
-					<tr id="${course.id}">
-						<td>${course.courseName}</td>
-						<td>${course.courseCategory.categoryName}</td>
-						<td>${course.lecturer.firstName}&nbsp;${course.lecturer.lastName}</td>
-						<td>${course.courseCategory.grade}</td>
-						<td>${course.fee }</td>
+				<c:forEach items="${subjectList}" var="subject" varStatus="status">
+					<tr id="${subject.id}">
+						<td>${subject.subjectName}</td>
+						<td>${subject.grade}</td>
 						<sec:authorize access="hasRole('ROLE_ADMIN')">
-							<td><a class="edit_course" href="#${course.id}">edit</a></td>
+							<td><a class="edit_subject" href="#${subject.id}">edit</a></td>
 							<td><input type="checkbox" name="del_list"
-								value="${course.id}"></td>
+								value="${subject.id}"></td>
 						</sec:authorize>
 					</tr>
 				</c:forEach>

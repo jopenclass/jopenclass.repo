@@ -15,14 +15,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.validator.constraints.Email;
 
 /**
  * 
  * @author madhumal
  * 
  */
-
 @Entity
 @Table(name = "user")
 public class User {
@@ -30,19 +31,18 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	@NotEmpty
-	@Column(name = "user_name", unique = true, nullable = false)
-	@Size(min = 4, max = 25)
-	private String userName;
-	@NotEmpty
-	@Size(min = 4)
 	private String password;
 	@Column(name = "enabled")
 	private boolean enabled;
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
 	@Column(name = "authority")
+	@Cascade({CascadeType.ALL,CascadeType.REMOVE})
 	private List<String> userRoles = new ArrayList<String>();
+	@Email
+	@Size(min = 5)
+	@Column(unique = true)
+	private String email;
 
 	public long getId() {
 		return id;
@@ -50,14 +50,6 @@ public class User {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
 	}
 
 	public String getPassword() {
@@ -72,8 +64,8 @@ public class User {
 		return userRoles;
 	}
 
-	public void setUserRoles(ArrayList<String> userRoles) {
-		this.userRoles = userRoles;
+	public void setUserRoles(List<String> list) {
+		this.userRoles = list;
 	}
 
 	public boolean getEnabled() {
@@ -82,6 +74,14 @@ public class User {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }

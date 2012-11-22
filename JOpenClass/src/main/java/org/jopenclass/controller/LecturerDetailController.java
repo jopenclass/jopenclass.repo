@@ -1,19 +1,23 @@
 package org.jopenclass.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
-import javax.validation.Valid;
-
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.jopenclass.dao.LecturerDao;
+import org.jopenclass.dao.SubjectDao;
 import org.jopenclass.form.Lecturer;
+import org.jopenclass.form.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,17 +34,20 @@ public class LecturerDetailController {
 
 	@Autowired
 	private LecturerDao lecturerDao;
+	@Autowired
+	private SubjectDao subjectDao;
 
 	/**
 	 * 
 	 * @param model
 	 * @return
 	 */
-	@PreAuthorize("isAuthenticated() and hasRole('ROLE_ADMIN')")
+
 	@RequestMapping(value = "/savelecturer", method = RequestMethod.GET)
 	public String viewAddCourse(ModelMap model) {
 		model.addAttribute("lecturer", new Lecturer());
 		model.addAttribute("operation", "Add a new Lecturer");
+		model.addAttribute("allSubjects", subjectDao.getAllSubjects());
 		return "lecturer/lecturer";
 	}
 
@@ -49,32 +56,43 @@ public class LecturerDetailController {
 	 * @param lecturer
 	 * @param result
 	 * @return
+	 * @throws IOException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	@PreAuthorize("isAuthenticated() and hasRole('ROLE_ADMIN')")
+
 	@RequestMapping(value = "/savelecturer", method = RequestMethod.POST)
 	public @ResponseBody
-	Object saveLecturer(
-			@Valid @ModelAttribute(value = "lecturer") Lecturer lecturer,
-			BindingResult result) {
+	Object saveLecturer(@RequestBody String json) throws JsonParseException,
+			JsonMappingException, IOException {
 
 		Map<String, Object> response = new HashMap<String, Object>();
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode rootNode = mapper.readTree(json);
+		JsonNode lecturerNode = rootNode.path("lecturer");
+		JsonNode subjectIdNode = rootNode.path("selectedSubjects");
+		Lecturer lecturer = mapper.readValue(lecturerNode, Lecturer.class);
+		String[] subjectIdList = mapper
+				.readValue(subjectIdNode, String[].class);
+		Set<Subject> selectedSubjects = new HashSet<Subject>();
+		if (subjectIdList != null) {
+			for (int i = 0; i < subjectIdList.length; i++) {
+				selectedSubjects.add(subjectDao.getSubjectById(Long
+						.valueOf(subjectIdList[i])));
+			}
 
-		if (result.hasErrors()) {
-			List<ObjectError> results = result.getAllErrors();
-			for (ObjectError objectError : results) {
-				System.out.println(objectError.getDefaultMessage());
-			}
-			response.put("message", "Could not add the Lecturer to the system.");
-		} else {
-			try {
-				lecturer.setId(lecturerDao.saveLecturer(lecturer));
-				response.put("lecturer", lecturer);
-				response.put("message", "successfully saved!!!");
-			} catch (Exception e) {
-				System.out.println(e);
-				response.put("message",
-						"Sorry, an error has occured. Could not add the Lecturer to the system.");
-			}
+			lecturer.setSubjectList(selectedSubjects);
+		}
+		try {
+			lecturer.setId(lecturerDao.saveLecturer(lecturer));
+			lecturer.setSubjectList(null);
+			lecturer.setUser(lecturer.getUser());
+			response.put("lecturer", lecturer);
+			response.put("message", "successfully saved!!!");
+		} catch (Exception e) {
+			System.out.println(e);
+			response.put("message",
+					"Sorry, an error has occured. Could not add the Lecturer to the system.");
 		}
 
 		return response;
@@ -89,6 +107,7 @@ public class LecturerDetailController {
 	public String getLecturerList(ModelMap model) {
 		model.addAttribute("lecturerList", lecturerDao.getAllLecturers());
 		model.addAttribute("operation", "Add a new Lecturer");
+		model.addAttribute("allSubjects", subjectDao.getAllSubjects());
 		return "lecturer/lecturer_list";
 	}
 
@@ -122,8 +141,6 @@ public class LecturerDetailController {
 	Object getLecturer(@ModelAttribute(value = "id") Lecturer lecturer) {
 		Map<String, Object> response = new HashMap<String, Object>();
 		response.put("message", "succeess");
-		// to avoid lazy initialization exception
-		lecturer.setCourseList(null);
 		response.put("lecturer", lecturer);
 		return response;
 	}

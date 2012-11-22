@@ -14,6 +14,9 @@
 
 	<context:component-scan base-package="org.jopenclass" />
 	<mvc:annotation-driven conversion-service="conversionService" />
+	<bean class = "org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	
 	<sec:global-method-security
 		pre-post-annotations="enabled" />
 	<bean
@@ -31,7 +34,8 @@
 		<property name="converters">
 			<list>
 				<bean class="org.jopenclass.util.converter.StringToLecturer" />
-				<bean class="org.jopenclass.util.converter.StringToCourse" />
+				<bean class="org.jopenclass.util.converter.StringToSubject" />
+				<bean class="org.jopenclass.util.converter.LongToSubject" />
 			</list>
 		</property>
 	</bean>

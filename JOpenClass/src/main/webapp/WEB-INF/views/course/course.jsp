@@ -13,26 +13,31 @@
 	function insertCourse() {
 
 		var courseName = $('#courseName').val();
-		var grade = $('#grade').val();
 		var fee = $('#fee').val();
 		var lecturer = $('#lecturer').val();
+		var courseCategory = $('#courseCategory').val();
+		var courseDetails = $('#courseDetails').val();
 
-		$.ajax({
-			type : "POST",
-			url : "/JOpenClass/savecourse",
-			data : "courseName=" + courseName + "&grade=" + grade + "&fee="
-					+ fee + "&lecturer=" + lecturer + "&id=-1",
-			success : function(response) {
-				$('#info').html(response.message);
-				$('#courseName').val('');
-				$('#grade').val('');
-				$('#fee').val('0.0');
-				$('#lecturer').val('');
-			},
-			error : function(e) {
-				alert('Error: ' + e);
-			}
-		});
+		$
+				.ajax({
+					type : "POST",
+					url : "/JOpenClass/savecourse",
+					data : "courseName=" + courseName + "&fee=" + fee
+							+ "&courseDetails=" + courseDetails + "&lecturer="
+							+ lecturer + "&courseCategory=" + courseCategory
+							+ "&id=-1",
+					success : function(response) {
+						$('#info').html(response.message);
+						$('#courseName').val('');
+						$('#fee').val('0.0');
+						$('#lecturer').val('');
+						$('#courseCategory').val('');
+						$('#courseDetails').val('');
+					},
+					error : function(e) {
+						alert('Error: ' + e);
+					}
+				});
 	}
 </script>
 </head>
@@ -48,20 +53,28 @@
 				<td><form:input path="courseName" /></td>
 			</tr>
 			<tr>
-				<td><form:label path="grade">Grade</form:label></td>
-				<td><form:input path="grade" /></td>
-			</tr>
-			<tr>
 				<td><form:label path="fee">Course Fee</form:label></td>
 				<td><form:input path="fee" /></td>
 			</tr>
-
-
+			<tr>
+				<td><form:label path="courseDetails">Course Details</form:label></td>
+				<td><form:input path="courseDetails" /></td>
+			</tr>
 			<tr>
 				<td><form:label path="lecturer">Lecturer</form:label></td>
 				<td><form:select path="lecturer">
 						<c:forEach items="${lecturers}" var="lec" varStatus="status">
 							<form:option value="${lec.id}">${lec.firstName}&nbsp;${lec.lastName}</form:option>
+						</c:forEach>
+					</form:select></td>
+			</tr>
+
+			<tr>
+				<td><form:label path="courseCategory">Course Category</form:label></td>
+				<td><form:select path="courseCategory">
+						<c:forEach items="${courseCategories}" var="courseCategory"
+							varStatus="status">
+							<form:option value="${courseCategory.id}">${courseCategory.categoryName}</form:option>
 						</c:forEach>
 					</form:select></td>
 			</tr>

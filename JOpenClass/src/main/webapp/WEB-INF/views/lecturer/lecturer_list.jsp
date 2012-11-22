@@ -1,22 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <!doctype html>
 <html lang="en">
 <head>
+
 <meta charset="utf-8" />
+
 <title>Lecturer List</title>
+
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/chosen/chosen.css">
 <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+<script
+	src="<%=request.getContextPath()%>/resources/chosen/chosen.jquery.min.js"
+	type="text/javascript"></script>
 <style>
 body {
 	font-size: 62.5%;
-}
-
-label,input {
-	display: block;
 }
 
 input.text {
@@ -62,12 +68,15 @@ div#lecturers-contain table td,div#lecturers-contain table th {
 	padding: 0.3em;
 }
 </style>
+
 <script>
 	$(function() {
 		var firstName = $("#firstName"), lastName = $("#lastName"), email = $("#email"), address = $("#address"), contactNumber = $("#contactNumber"), allFields = $(
 				[]).add(firstName).add(lastName).add(email).add(address).add(
 				contactNumber), tips = $(".validateTips");
 		var editId = -1;
+		var editUserId = -1;
+		var editObject = null;
 		function updateTips(t) {
 			tips.text(t).addClass("ui-state-highlight");
 			setTimeout(function() {
@@ -119,15 +128,37 @@ div#lecturers-contain table td,div#lecturers-contain table th {
 
 		}
 		function insertLecturer() {
-
+			var data = new Object();
+			var lecturer = new Object();
+			lecturer.firstName = $('#firstName').val();
+			lecturer.lastName = $('#lastName').val();
+			lecturer.address = $('#address').val();
+			lecturer.contactNumber = $('#contactNumber').val();
+			lecturer.user = new Object();
+			lecturer.user.email = $('#email').val();
+			lecturer.id = editId;
+			lecturer.user.id = editUserId;
+			data.lecturer = lecturer;
+			if(editId>0){
+				data.lecturer = editObject.lecturer;
+				data.lecturer.firstName = $('#firstName').val();
+				data.lecturer.lastName = $('#lastName').val();
+				data.lecturer.address = $('#address').val();
+				data.lecturer.contactNumber = $('#contactNumber').val();
+				data.lecturer.user.userRoles =  $('input[name="roles"]:checkbox:checked')
+				.map(function() {
+					return this.value;
+				}).get();
+				data.lecturer.user.email = $('#email').val();
+				data.selectedSubjects = $(".chzn-select").val();
+				editObject=null;
+			}
 			var response = $
 					.ajax({
 						type : "POST",
 						url : "/JOpenClass/savelecturer",
-						data : "firstName=" + firstName.val() + "&lastName="
-								+ lastName.val() + "&address=" + address.val()
-								+ "&contactNumber=" + contactNumber.val()
-								+ "&email=" + email.val() + "&id=" + editId,
+						contentType : "application/json; charset=utf-8",
+						data : JSON.stringify(data),
 						success : function(response) {
 							$('#info').html(response["message"]);
 							if (editId < 0) {
@@ -143,7 +174,7 @@ div#lecturers-contain table td,div#lecturers-contain table th {
 														+ response.lecturer.contactNumber
 														+ "</td>"
 														+ "<td>"
-														+ response.lecturer.email
+														+ response.lecturer.user.email
 														+ "</td>"
 														+ "<td>"
 														+ response.lecturer.address
@@ -168,7 +199,7 @@ div#lecturers-contain table td,div#lecturers-contain table th {
 														+ response.lecturer.contactNumber
 														+ "</td>"
 														+ "<td>"
-														+ response.lecturer.email
+														+ response.lecturer.user.email
 														+ "</td>"
 														+ "<td>"
 														+ response.lecturer.address
@@ -193,7 +224,7 @@ div#lecturers-contain table td,div#lecturers-contain table th {
 				.dialog(
 						{
 							autoOpen : false,
-							height : 400,
+							height : 500,
 							width : 400,
 							modal : true,
 							buttons : {
@@ -225,6 +256,7 @@ div#lecturers-contain table td,div#lecturers-contain table th {
 								},
 								Cancel : function() {
 									$(this).dialog("close");
+									editUserId = -1;
 								}
 							},
 							close : function() {
@@ -302,6 +334,7 @@ div#lecturers-contain table td,div#lecturers-contain table th {
 										url : "/JOpenClass/getlecturerbyid",
 										data : "id=" + editId,
 										success : function(response) {
+											editObject = response;
 											$('#info')
 													.html(response["message"]);
 											$('input#firstName')
@@ -311,13 +344,36 @@ div#lecturers-contain table td,div#lecturers-contain table th {
 													response.lecturer.lastName);
 											$('input#address').val(
 													response.lecturer.address);
-											$('input#email').val(
-													response.lecturer.email);
+											$('input#email')
+													.val(
+															response.lecturer.user.email);
 											$('input#contactNumber')
 													.val(
 															response.lecturer.contactNumber);
 											$('input#lec_id').val(
 													response.lecturer.id);
+											editUserId = response.lecturer.user.id;
+											if (response.lecturer.subjectList != null) {
+												var subjects = response.lecturer.subjectList;
+												var subjectIds = new Array();
+												for(var i=0;i<subjects.length;i++){
+													
+													$('option#option'+subjects[i].id).attr('selected', 'selected');	
+												}
+												$('#subjectSelect').trigger("liszt:updated");
+											}
+											if(response.lecturer.user.userRoles!=null){
+												var userRoles = response.lecturer.user.userRoles;
+												for(var i=0;i<userRoles.length;i++){
+													if(userRoles[i]=='ROLE_ADMIN'){
+														$('#check_admin_role').prop('checked', true);
+													}
+													if(userRoles[i]=='ROLE_LEC'){
+														$('#check_lec_role').prop('checked', true);
+													}
+													
+												}
+											}
 											$("#dialog-form").dialog("open");
 										},
 										error : function(e) {
@@ -328,24 +384,34 @@ div#lecturers-contain table td,div#lecturers-contain table th {
 
 	});
 </script>
-</head>
-<h1>Existing Lecturers:</h1>
-<body>
-	<div id="dialog-confirm" title="Delete the item?">
-		<p>
-			<span class="ui-icon ui-icon-alert"
-				style="float: left; margin: 0 7px 20px 0;"></span>Items/item will be
-			permanently deleted and cannot be recovered. Are you sure?
-		</p>
-	</div>
 
-	<div id="dialog-message" title="No items selected">
-		<p>You have not selected any item to delete.</p>
-	</div>
-	<p id="info"></p>
-	<button id="create-lecturer">Add</button>
-	<button id="delete_lecturers">Delete</button>
-	<div id="dialog-form" title="Add a new Lecturer">
+</head>
+
+<h1>Existing Lecturers:</h1>
+
+<body>
+
+	<sec:authorize access="hasRole('ROLE_ADMIN')">
+
+		<div id="dialog-confirm" title="Delete the item?">
+			<p>
+				<span class="ui-icon ui-icon-alert"
+					style="float: left; margin: 0 7px 20px 0;"></span>Items/item will
+				be permanently deleted and cannot be recovered. Are you sure?
+			</p>
+		</div>
+
+		<div id="dialog-message" title="No items selected">
+			<p>You have not selected any item to delete.</p>
+		</div>
+		<p id="info"></p>
+		<!-- 		<button id="create-lecturer">Add</button> -->
+		<button id="delete_lecturers">Delete</button>
+
+	</sec:authorize>
+
+
+	<div id="dialog-form" title="Lecturer">
 		<p class="validateTips">All form fields are required.</p>
 
 		<form>
@@ -363,39 +429,77 @@ div#lecturers-contain table td,div#lecturers-contain table th {
 					class="text ui-widget-content ui-corner-all" /> <label for="email">Email</label>
 				<input type="text" name="email" id="email" value=""
 					class="text ui-widget-content ui-corner-all" /> <input
-					type="hidden" name="lec_id" id="lec_id" value="" />
+					type="hidden" name="lec_id" id="lec_id" value="" /> <label
+					for="userRoles">User Roles</label> <input type="checkbox"
+					name="roles" id="check_lec_role" value="ROLE_LEC">Lecturer
+				<input type="checkbox" name="roles" id="check_admin_role"
+					value="ROLE_ADMIN">Admin <select id='subjectSelect' name="selected"
+					data-placeholder="Choose subjects" class="chzn-select" multiple
+					style="width: 350px;" tabindex="2">
+					<option value=""></option>
+					<c:forEach items="${allSubjects}" var="subject" varStatus="status">
+						<option id="option${subject.id}" value="${subject.id}">${subject.subjectName}</option>
+					</c:forEach>
+				</select>
+				<script type="text/javascript">
+					$(".chzn-select").chosen();
+					$(".chzn-select-deselect").chosen({
+						allow_single_deselect : true
+					});
+				</script>
 			</fieldset>
 		</form>
 	</div>
 
+
 	<div id="lecturers-contain" class="ui-widget">
 
 		<table id="lecturers" class="ui-widget ui-widget-content">
+
 			<thead>
+
 				<tr class="ui-widget-header ">
+
 					<th>Lecturer Name</th>
 					<th>Contact Number</th>
 					<th>Email Address</th>
 					<th>Residential Address</th>
-					<th>Edit</th>
-					<th>Delete<input type="checkbox" name="select-all"
-						id="select-all"></th>
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<th>Edit</th>
+						<th>Delete<input type="checkbox" name="select-all"
+							id="select-all"></th>
+					</sec:authorize>
 				</tr>
+
 			</thead>
+
 			<tbody>
+
 				<c:forEach items="${lecturerList}" var="lecturer" varStatus="status">
+
 					<tr id="${lecturer.id}">
+
 						<td>${lecturer.firstName}&nbsp;${lecturer.lastName}</td>
 						<td>${lecturer.contactNumber}</td>
-						<td>${lecturer.email}</td>
+						<td>${lecturer.user.email}</td>
 						<td>${lecturer.address }</td>
-						<td><a class="edit_lecturer" href="#${lecturer.id}">edit</a></td>
-						<td><input type="checkbox" name="del_list"
-							value="${lecturer.id}"></td>
+
+						<sec:authorize access="hasRole('ROLE_ADMIN')">
+							<td><a class="edit_lecturer" href="#${lecturer.id}">edit</a></td>
+							<td><input type="checkbox" name="del_list"
+								value="${lecturer.id}"></td>
+						</sec:authorize>
+
 					</tr>
+
 				</c:forEach>
+
 			</tbody>
+
 		</table>
+
 	</div>
+
 </body>
+
 </html>

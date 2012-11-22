@@ -1,11 +1,16 @@
 package org.jopenclass.dao;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.jopenclass.form.Lecturer;
+import org.jopenclass.form.Subject;
+import org.jopenclass.form.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -32,18 +37,51 @@ public class LecturerDao {
 	/**
 	 * 
 	 * @param lectuer
+	 * @throws NoSuchAlgorithmException
 	 */
-	public long saveLecturer(Lecturer lectuer) {
+	public long saveLecturer(Lecturer lectuer) throws NoSuchAlgorithmException {
 		Long id;
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		System.out.println(lectuer.getId());
-		if(lectuer.getId()>=0){
-			session.update(lectuer);
-			id=lectuer.getId();
-		}else{
+		String hexStr = "";
+		// if a password is set, then update to sha1 length of sha1 in db is 40
+		if (lectuer.getUser() != null
+				&& (lectuer.getUser().getPassword() != null)
+				&& (lectuer.getUser().getPassword().length()) > 0
+				&& lectuer.getUser().getPassword().length() < 40) {
+			MessageDigest md = MessageDigest.getInstance("SHA1");
+			byte[] passwordByte = lectuer.getUser().getPassword().getBytes();
+			md.update(passwordByte);
+			byte[] digest = md.digest();
+
+			for (int i = 0; i < digest.length; i++) {
+				hexStr += Integer.toString((digest[i] & 0xff) + 0x100, 16)
+						.substring(1);
+			}
+			lectuer.getUser().setPassword(hexStr);
+		}
+
+		if (lectuer.getId() >= 0) {
+			Lecturer lec = (Lecturer) session.get(Lecturer.class,
+					lectuer.getId());
+			lec.setFirstName(lectuer.getFirstName());
+			lec.setLastName(lectuer.getLastName());
+			lec.setAddress(lectuer.getAddress());
+			lec.setContactNumber(lectuer.getContactNumber());
+			//length of sha1 encoded string in db
+			if (lectuer.getUser().getPassword() != null
+					&& lectuer.getUser().getPassword().length() < 40
+					&& lectuer.getUser().getPassword().length() > 0) {
+				lec.getUser().setPassword(hexStr);
+			}
+			lec.getUser().setEmail(lectuer.getUser().getEmail());
+			lec.getUser().setUserRoles(lectuer.getUser().getUserRoles());
+			lec.setSubjectList(lectuer.getSubjectList());
+			session.merge(lec);
+			id = lectuer.getId();
+		} else {
 			id = (Long) session.save(lectuer);
-			
+
 		}
 		session.getTransaction().commit();
 		session.close();
@@ -76,20 +114,42 @@ public class LecturerDao {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		Lecturer lecturer = (Lecturer) session.get(Lecturer.class, id);
+		Set<Subject> subjetcs = lecturer.getSubjectList();
 		session.getTransaction().commit();
 		session.close();
+		//to avoid lazy init exception
+		for (Subject subject : subjetcs) {
+			subject.setLecturerList(null);
+		}
+		lecturer.setSubjectList(subjetcs);
 		return lecturer;
 	}
 
+	/**
+	 * 
+	 * @param lec_ids
+	 */
 	public void deleteLecturersById(Long[] lec_ids) {
-		
+
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
+
 		Query query = session.createQuery("delete from Lecturer where id=:id");
-		
+		Query query1 = session.createQuery("delete from User where id=:id");
+
 		for (Long id : lec_ids) {
+
+			Lecturer lecturer = getLecturerById(id);
+			lecturer.getSubjectList().clear();
+			session.update(lecturer);
+
+			User user = lecturer.getUser();
+			user.getUserRoles().clear();
+			session.update(user);
 			query.setLong("id", id);
+			query1.setLong("id", user.getId());
 			query.executeUpdate();
+			query1.executeUpdate();
 		}
 		session.getTransaction().commit();
 		session.close();
