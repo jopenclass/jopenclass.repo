@@ -123,7 +123,9 @@ div#courses-contain table td,div#courses-contain table th {
 								$("#batches tbody")
 										.append(
 												"<tr id='batch"+response.batch.id+"'>"
-														+ "<td><a href='#'>"
+														+ "<td><a class='batchlink' href='enterbatch.html?batchId="
+														+ response.batch.id
+														+ "'>"
 														+ response.batch.batchName
 														+ "</a></td>"
 														+ "<td>"
@@ -145,11 +147,13 @@ div#courses-contain table td,div#courses-contain table th {
 							+ "'></td>"
 														+ "</tr>");
 							} else {
-								
+
 								$("tr#batch" + response.batch.id)
 										.replaceWith(
 												"<tr id='batch"+response.batch.id+"'>"
-														+ "<td><a href='#'>"
+														+ "<td><a class='batchlink' href='enterbatch.html?batchId="
+														+ response.batch.id
+														+ "'>"
 														+ response.batch.batchName
 														+ "</a></td>"
 														+ "<td>"
@@ -384,7 +388,8 @@ div#courses-contain table td,div#courses-contain table th {
 						<c:forEach items="${lecturer.batchList}" var="batch"
 							varStatus="status">
 							<tr id="batch${batch.id}">
-								<td><a href="#">${batch.batchName}</a></td>
+								<td><a class="batchlink"
+									href="enterbatch.html?batchId=${batch.id}">${batch.batchName}</a></td>
 								<td>${batch.subject.subjectName}</td>
 								<td>${batch.subject.grade}</td>
 								<td>${batch.intake}</td>

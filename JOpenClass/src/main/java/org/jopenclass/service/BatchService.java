@@ -1,4 +1,4 @@
-package org.jopenclass.controller;
+package org.jopenclass.service;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -9,32 +9,20 @@ import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.jopenclass.dao.BatchDao;
-import org.jopenclass.dao.LecturerDao;
 import org.jopenclass.dao.SubjectDao;
 import org.jopenclass.form.Batch;
-import org.jopenclass.form.Lecturer;
 import org.jopenclass.form.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.stereotype.Service;
 
 /**
  * 
  * @author madhumal
  * 
  */
-@Controller
-public class LecturerActivityController {
+@Service
+public class BatchService {
 
-	@Autowired
-	private LecturerDao lecturerDao;
 	@Autowired
 	private BatchDao batchDao;
 	@Autowired
@@ -42,26 +30,13 @@ public class LecturerActivityController {
 
 	/**
 	 * 
-	 * @param model
+	 * @param json
 	 * @return
+	 * @throws JsonProcessingException
+	 * @throws IOException
 	 */
-	@PreAuthorize("isAuthenticated() and hasRole('ROLE_LEC')")
-	@RequestMapping(value = "/getlecturerprofile", method = RequestMethod.GET)
-	public String getLecturerProfile(ModelMap model) {
-		Lecturer lecturer = lecturerDao.getLoggedInLecturer();
-		if (lecturer != null) {
-			model.addAttribute("lecturer", lecturer);
-			return "lecturer/lecturer_page";
-		}
-		return null;
-	}
-
-	@PreAuthorize("isAuthenticated() and hasRole('ROLE_LEC')")
-	@RequestMapping(value = "/createbatch", method = RequestMethod.POST)
-	public @ResponseBody
-	Object createBatch(@RequestBody String json)
-			throws JsonProcessingException, IOException {
-		System.out.println(json);
+	public Object saveBatch(String json) throws JsonProcessingException,
+			IOException {
 		Map<String, Object> response = new HashMap<String, Object>();
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode rootNode = mapper.readTree(json);
@@ -93,14 +68,8 @@ public class LecturerActivityController {
 	 * 
 	 * @param delIds
 	 * @return
-	 * @throws JsonProcessingException
-	 * @throws IOException
 	 */
-	@PreAuthorize("isAuthenticated() and hasRole('ROLE_LEC')")
-	@RequestMapping(value = "/deletebatches", method = RequestMethod.POST)
-	public @ResponseBody
-	Object deleteBatches(@RequestBody Long[] delIds)
-			throws JsonProcessingException, IOException {
+	public Object deleteBatches(Long[] delIds) {
 		Map<String, Object> response = new HashMap<String, Object>();
 		try {
 			List<Long> deledtedIds = batchDao.deleteBatchesByIds(delIds);
@@ -124,13 +93,11 @@ public class LecturerActivityController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "/getbatchbyid", method = RequestMethod.POST)
-	@ExceptionHandler(Exception.class)
-	public @ResponseBody
-	Object getBatchById(@ModelAttribute(value = "id") Long id) {
+	public Object getBatchById(Long id) {
 		Batch batch = batchDao.getBatchById(id);
 		Map<String, Object> response = new HashMap<String, Object>();
 		response.put("batch", batch);
 		return response;
 	}
+
 }
