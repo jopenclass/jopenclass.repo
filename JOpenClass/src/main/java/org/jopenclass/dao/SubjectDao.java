@@ -1,5 +1,6 @@
 package org.jopenclass.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -50,6 +51,8 @@ public class SubjectDao {
 		session.beginTransaction();
 		Subject subject = (Subject) session.get(Subject.class, id);
 		session.getTransaction().commit();
+		subject.setBatchList(null);
+		subject.setLecturerList(null);
 		session.close();
 		return subject;
 	}
@@ -73,17 +76,28 @@ public class SubjectDao {
 	 * 
 	 * @param subjectIds
 	 */
-	public void deleteSubjectsById(Long[] subjectIds) {
+	public List<Long> deleteSubjectsById(Long[] subjectIds) {
+		List<Long> delList = new ArrayList<Long>();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		Query query = session.createQuery("delete from Subject where id=:id");
 		for (Long id : subjectIds) {
-			query.setLong("id", id);
-			query.executeUpdate();
+			Subject subject = getSubjectById(id);
+			if (subject.getLecturerList() == null
+					|| subject.getLecturerList().size() == 0) {
+				query.setLong("id", id);
+				try {
+					query.executeUpdate();
+					delList.add(id);
+				} catch (Exception e) {
+					System.out.println("cannot delete since there are some lectuers assigned to the subject");
+				}
+				
+			}
 		}
 		session.getTransaction().commit();
 		session.close();
-
+		return delList;
 	}
 
 }

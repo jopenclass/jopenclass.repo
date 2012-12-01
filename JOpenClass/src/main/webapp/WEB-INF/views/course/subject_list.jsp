@@ -66,8 +66,8 @@ div#courses-contain table td,div#courses-contain table th {
 </style>
 <script>
 	$(function() {
-		var subjectName = $("#subjectName"), grade = $("#grade"), allFields = $(
-				[]).add(subjectName).add(grade), tips = $(".validateTips");
+		var subjectName = $("#subjectName"), grade = $("#grade"), subjectDetails = $("#subjectDetails"), allFields = $(
+				[]).add(subjectName).add(grade).add(subjectDetails), tips = $(".validateTips");
 		var editId = -1;
 		function updateTips(t) {
 			tips.text(t).addClass("ui-state-highlight");
@@ -108,6 +108,7 @@ div#courses-contain table td,div#courses-contain table th {
 				data : JSON.stringify(del_ids),
 				success : function(response) {
 					$('#info').html(response["message"]);
+					del_ids = response.delList;
 					for ( var i = 0; i < del_ids.length; i++) {
 						$("tr#" + del_ids[i]).remove();
 					}
@@ -124,8 +125,7 @@ div#courses-contain table td,div#courses-contain table th {
 						type : "POST",
 						url : "/JOpenClass/savesubject",
 						data : "subjectName=" + subjectName.val() + "&grade="
-								+ grade.val() + "&id="
-								+ editId,
+								+ grade.val() + "&id=" + editId+ "&subjectDetails=" + $('input#subjectDetails').val(),
 						success : function(response) {
 							$('#info').html(response["message"]);
 							if (editId < 0) {
@@ -270,6 +270,7 @@ div#courses-contain table td,div#courses-contain table th {
 					$('#info').html(response["message"]);
 					$('input#subjectName').val(response.subject.subjectName);
 					$('input#grade').val(response.subject.grade);
+					$('input#subjectDetails').val(response.subject.subjectDetails)
 					$("#dialog-form").dialog("open");
 				},
 				error : function(e) {
@@ -288,8 +289,9 @@ div#courses-contain table td,div#courses-contain table th {
 		<div id="dialog-confirm" title="Delete the item?">
 			<p>
 				<span class="ui-icon ui-icon-alert"
-					style="float: left; margin: 0 7px 20px 0;"></span>All the Course Categories and Courses related to the category will
-				be permanently deleted and cannot be recovered. Are you really sure?
+					style="float: left; margin: 0 7px 20px 0;"></span>All the Course
+				Categories and Courses related to the category will be permanently
+				deleted and cannot be recovered. Are you really sure?
 			</p>
 		</div>
 
@@ -313,6 +315,9 @@ div#courses-contain table td,div#courses-contain table th {
 					name="subjectName" id="subjectName"
 					class="text ui-widget-content ui-corner-all" /> <label for="grade">Grade</label>
 				<input type="text" name="grade" id="grade"
+					class="text ui-widget-content ui-corner-all" /> <label
+					for="subjectDetails">Subject Details</label> <input type="text"
+					name="subjectDetails" id="subjectDetails"
 					class="text ui-widget-content ui-corner-all" />
 			</fieldset>
 		</form>

@@ -6,10 +6,18 @@
 <title>Lecturer</title>
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/chosen/chosen.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/chosen/chosen.css">
 <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
-<script src="<%=request.getContextPath()%>/resources/chosen/chosen.jquery.min.js" type="text/javascript"></script>
+<script
+	src="<%=request.getContextPath()%>/resources/chosen/chosen.jquery.min.js"
+	type="text/javascript"></script>
+<style type="text/css">
+body {
+	font-size: 65.5%;
+}
+</style>
 <script type="text/javascript">
 	$(function() {
 
@@ -48,7 +56,8 @@
 					$('#email').val('');
 					$('#password').val('');
 					$('#passwordMatch').val('');
-					$('.chzn-select').val('');
+					$('#ROLE_LEC').prop('checked', false);
+					$('#ROLE_ADMIN').prop('checked', false);
 				},
 				error : function(e) {
 					alert('Error: ' + e);
@@ -82,10 +91,9 @@
 		<p>Password mismatch or no password found</p>
 	</div>
 	<h4>Add Lecturer</h4>
-	<button id="create-lecturer">Add</button>
 	<div id="info"></div>
 	<form:form method="post" action="savelecturer.html"
-		commandName="lecturer">
+		commandName="lecturer" onsubmit="return false;">
 		<form:hidden path="id" value="-1" />
 		<table>
 			<tr>
@@ -119,15 +127,16 @@
 				<td><label>Password</label></td>
 				<td><input type="password" id="passwordMatch" /></td>
 			</tr>
-<!-- 			<tr> -->
-<!-- 				<td><label>Enable?</label></td> -->
-<!-- 				<td><input type="radio" name="enabled" value=1 />Yes <input -->
-<!-- 					type="radio" name="enabled" value=0 />No</td> -->
-<!-- 			</tr> -->
+			<!-- 			<tr> -->
+			<!-- 				<td><label>Enable?</label></td> -->
+			<!-- 				<td><input type="radio" name="enabled" value=1 />Yes <input -->
+			<!-- 					type="radio" name="enabled" value=0 />No</td> -->
+			<!-- 			</tr> -->
 			<tr>
 				<td><label>User Roles</label></td>
-				<td><input type="checkbox" name="roles" value="ROLE_LEC">Lecturer
-					<input type="checkbox" name="roles" value="ROLE_ADMIN">Admin</td>
+				<td><input type="checkbox" id="ROLE_LEC" name="roles"
+					value="ROLE_LEC">Lecturer <input type="checkbox"
+					id="ROLE_ADMIN" name="roles" value="ROLE_ADMIN">Admin</td>
 			</tr>
 			<tr>
 
@@ -136,14 +145,17 @@
 					class="chzn-select" multiple style="width: 350px;" tabindex="2">
 						<option value=""></option>
 						<c:forEach items="${allSubjects}" var="subject" varStatus="status">
-						<option value="${subject.id}">${subject.subjectName}</option>
+							<option class="subjectOption" value="${subject.id}">${subject.subjectName}</option>
 						</c:forEach>
-				</select>
-				<script type="text/javascript"> $(".chzn-select").chosen(); $(".chzn-select-deselect").chosen({allow_single_deselect:true}); </script>
-				</td>
+				</select> <script type="text/javascript">
+					$(".chzn-select").chosen();
+					$(".chzn-select-deselect").chosen({
+						allow_single_deselect : true
+					});
+				</script></td>
 			</tr>
 		</table>
-
+		<button id="create-lecturer">Add</button>
 	</form:form>
 </body>
 </html>

@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.NotFound;
@@ -31,6 +32,9 @@ public class Subject {
 	@NotEmpty
 	@Column(name = "subject_name")
 	private String subjectName;
+	
+	@Column(name="subject_details")
+	private String subjectDetails;
 
 	@NotFound(action = NotFoundAction.IGNORE)
 	private String grade;
@@ -39,6 +43,10 @@ public class Subject {
 	@NotFound(action=NotFoundAction.IGNORE)
 	private Set<Lecturer> lecturerList = new HashSet<Lecturer>();
 
+	@OneToMany(mappedBy="subject")
+	@NotFound(action=NotFoundAction.IGNORE)
+	private Set<Batch> batchList = new HashSet<Batch>();
+	
 	public long getId() {
 		return id;
 	}
@@ -69,6 +77,22 @@ public class Subject {
 
 	public void setLecturerList(Set<Lecturer> lecturerList) {
 		this.lecturerList = lecturerList;
+	}
+
+	public Set<Batch> getBatchList() {
+		return batchList;
+	}
+
+	public void setBatchList(Set<Batch> batchList) {
+		this.batchList = batchList;
+	}
+
+	public String getSubjectDetails() {
+		return subjectDetails;
+	}
+
+	public void setSubjectDetails(String subjectDetails) {
+		this.subjectDetails = subjectDetails;
 	}
 
 }

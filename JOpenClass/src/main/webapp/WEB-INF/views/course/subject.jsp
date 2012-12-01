@@ -10,20 +10,22 @@
 <title>Course Category</title>
 <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 <script type="text/javascript">
-	function insertCourseCategory() {
+	function insertSubject() {
 
 		var subjectName = $('#subjectName').val();
 		var grade = $('#grade').val();
+		var subjectDetails = $('#subjectDetails').val();
 
 		$.ajax({
 			type : "POST",
 			url : "/JOpenClass/savesubject",
-			data : "subjectName=" + subjectName + "&grade=" + grade
+			data : "subjectName=" + subjectName + "&grade=" + grade+ "&subjectDetails=" + subjectDetails
 					+ "&id=-1",
 			success : function(response) {
 				$('#info').html(response.message);
 				$('#subjectName').val('');
 				$('#grade').val('');
+				$('#subjectDetails').val('');
 			},
 			error : function(e) {
 				alert('Error: ' + e);
@@ -49,8 +51,12 @@
 				<td><form:input path="grade" /></td>
 			</tr>
 			<tr>
+				<td><form:label path="subjectDetails">Subject Details</form:label></td>
+				<td><form:input path="subjectDetails" /></td>
+			</tr>
+			<tr>
 				<td colspan="2"><input type="button" value="save"
-					onclick="insertCourseCategory()" /></td>
+					onclick="insertSubject()" /></td>
 			</tr>
 		</table>
 

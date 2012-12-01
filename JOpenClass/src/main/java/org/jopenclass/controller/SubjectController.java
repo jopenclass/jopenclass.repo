@@ -67,7 +67,7 @@ public class SubjectController {
 			for (ObjectError objectError : results) {
 				System.out.println(objectError.getDefaultMessage());
 			}
-			response.put("message", "Could not add the Course to the system.");
+			response.put("message", "Could not add the subject to the system.");
 		} else {
 			try {
 				subject.setId(subjectDao.saveSubject(subject));
@@ -96,6 +96,7 @@ public class SubjectController {
 		response.put("message", "succeess");
 		Subject subject = subjectDao.getSubjectById(id);
 		subject.setLecturerList(null);
+		subject.setBatchList(null);
 		response.put("subject", subject);
 		return response;
 	}
@@ -123,8 +124,12 @@ public class SubjectController {
 
 		Map<String, Object> response = new HashMap<String, Object>();
 		try {
-			subjectDao.deleteSubjectsById(subjectIds);
-			response.put("message", "deletion successfull");
+			List<Long> delList = subjectDao.deleteSubjectsById(subjectIds);
+			response.put("delList", delList);
+			if (subjectIds.length == delList.size())
+				response.put("message", "deletion successfull");
+			else
+				response.put("message", "couldn't delete some subjects since there are lecturers assigned to the subject");
 		} catch (Exception e) {
 			response.put("message", "deletion was not successfull");
 		}

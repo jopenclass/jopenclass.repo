@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -65,6 +66,10 @@ public class Lecturer {
 	@ManyToMany(fetch = FetchType.EAGER)
 	@Cascade(value = { CascadeType.ALL,CascadeType.PERSIST,CascadeType.DELETE })
 	private Set<Subject> subjectList = new HashSet<Subject>();
+	
+	@OneToMany(mappedBy="lecturer")
+	@Cascade(value = { CascadeType.ALL,CascadeType.PERSIST,CascadeType.DELETE })
+	private Set<Batch> batchList = new HashSet<Batch>();
 
 	public long getId() {
 		return id;
@@ -128,6 +133,14 @@ public class Lecturer {
 
 	public void setSubjectList(Set<Subject> subjectList) {
 		this.subjectList = subjectList;
+	}
+
+	public Set<Batch> getBatchList() {
+		return batchList;
+	}
+
+	public void setBatchList(Set<Batch> batchList) {
+		this.batchList = batchList;
 	}
 
 
