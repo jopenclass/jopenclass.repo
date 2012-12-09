@@ -12,6 +12,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -71,18 +73,22 @@ public class Subject {
 		this.subjectName = subjectName;
 	}
 
+	@JsonIgnore
 	public Set<Lecturer> getLecturerList() {
 		return lecturerList;
 	}
 
+	@JsonProperty
 	public void setLecturerList(Set<Lecturer> lecturerList) {
 		this.lecturerList = lecturerList;
 	}
 
+	@JsonIgnore
 	public Set<Batch> getBatchList() {
 		return batchList;
 	}
 
+	@JsonProperty
 	public void setBatchList(Set<Batch> batchList) {
 		this.batchList = batchList;
 	}

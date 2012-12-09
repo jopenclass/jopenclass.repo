@@ -21,6 +21,9 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import javax.persistence.CascadeType;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -137,10 +140,12 @@ public class Batch {
 		this.scheduleDiscription = scheduleDiscription;
 	}
 
+	@JsonIgnore
 	public Collection<BatchSchedule> getBatchScheduleList() {
 		return batchScheduleList;
 	}
 
+	@JsonProperty
 	public void setBatchScheduleList(Collection<BatchSchedule> batchScheduleList) {
 		this.batchScheduleList = batchScheduleList;
 	}
@@ -153,10 +158,12 @@ public class Batch {
 		this.lecturer = lecturer;
 	}
 
+	@JsonIgnore
 	public Collection<Enrollment> getEnrollmentList() {
 		return enrollmentList;
 	}
 
+	@JsonProperty
 	public void setEnrollmentList(Collection<Enrollment> enrollmentList) {
 		this.enrollmentList = enrollmentList;
 	}

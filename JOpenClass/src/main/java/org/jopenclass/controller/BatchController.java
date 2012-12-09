@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 
@@ -67,5 +69,20 @@ public class BatchController {
 	Object getBatchById(@ModelAttribute(value = "id") Long id) {
 
 		return batchService.getBatchById(id);
+	}
+
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@PreAuthorize("isAuthenticated() and hasAnyRole('ROLE_LEC','ROLE_STUDENT')")
+	@RequestMapping(value = "/enterbatch", method = RequestMethod.GET)
+	public ModelAndView viewAddCourse(@RequestParam(value = "batchId") Long id) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("batchId", id);
+		mav.addObject("batchObject", batchService.getBatchContent(id));
+		mav.setViewName("batch/batch");
+		return mav;
 	}
 }

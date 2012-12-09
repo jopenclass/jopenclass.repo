@@ -133,17 +133,8 @@ public class LecturerDao {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		Lecturer lecturer = (Lecturer) session.get(Lecturer.class, id);
-		Set<Subject> subjetcs = lecturer.getSubjectList();
 		session.getTransaction().commit();
 		session.close();
-		// to avoid lazy init exception in ajax response.
-		for (Subject subject : subjetcs) {
-			subject.setLecturerList(null);
-			subject.setBatchList(null);
-		}
-		// to avoid lazy init exception in ajax response.
-		lecturer.setBatchList(null);
-		lecturer.setSubjectList(subjetcs);
 		return lecturer;
 	}
 
@@ -210,7 +201,7 @@ public class LecturerDao {
 
 		session.getTransaction().commit();
 		// setting null after committing since we do not need to lose enrolement
-		// and batch schedules and avoid jackson serialization deficulties
+		// and batch schedules and avoid hibernate lazy init deficulties
 		if (batchList != null) {
 			for (Batch batch : batchList) {
 				batch.setEnrollmentList(null);

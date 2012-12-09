@@ -63,7 +63,6 @@ public class LecturerService {
 		}
 		try {
 			lecturer.setId(lecturerDao.saveLecturer(lecturer));
-			lecturer.setSubjectList(null);
 			lecturer.setUser(lecturer.getUser());
 			response.put("lecturer", lecturer);
 			response.put("message", "successfully saved!!!");

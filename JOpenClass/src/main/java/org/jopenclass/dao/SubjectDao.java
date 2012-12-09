@@ -51,8 +51,6 @@ public class SubjectDao {
 		session.beginTransaction();
 		Subject subject = (Subject) session.get(Subject.class, id);
 		session.getTransaction().commit();
-		subject.setBatchList(null);
-		subject.setLecturerList(null);
 		session.close();
 		return subject;
 	}

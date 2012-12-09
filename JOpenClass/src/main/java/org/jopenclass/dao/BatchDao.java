@@ -81,18 +81,6 @@ public class BatchDao {
 
 		Batch batch = (Batch) session.get(Batch.class, batchId);
 		session.getTransaction().commit();
-
-		if (batch != null) {
-
-			batch.setEnrollmentList(null);
-			batch.setBatchScheduleList(null);
-			batch.getLecturer().setBatchList(null);
-			batch.getLecturer().setSubjectList(null);
-			batch.getSubject().setBatchList(null);
-			batch.getSubject().setLecturerList(null);
-
-		}
-
 		session.close();
 		return batch;
 	}

@@ -69,8 +69,6 @@ public class SubjectService {
 		Map<String, Object> response = new HashMap<String, Object>();
 		response.put("message", "succeess");
 		Subject subject = subjectDao.getSubjectById(id);
-		subject.setLecturerList(null);
-		subject.setBatchList(null);
 		response.put("subject", subject);
 		return response;
 	}

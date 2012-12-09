@@ -48,11 +48,6 @@ public class BatchService {
 		batch.setSubject(subject);
 		try {
 			batch.setId(batchDao.saveBatch(batch));
-			batch.setEnrollmentList(null);
-			batch.setLecturer(null);
-			batch.setBatchScheduleList(null);
-			batch.getSubject().setBatchList(null);
-			batch.getSubject().setLecturerList(null);
 			response.put("batch", batch);
 			response.put("message", "successfully saved");
 
@@ -98,6 +93,10 @@ public class BatchService {
 		Map<String, Object> response = new HashMap<String, Object>();
 		response.put("batch", batch);
 		return response;
+	}
+
+	public Object getBatchContent(Long id) {
+		return null;
 	}
 
 }

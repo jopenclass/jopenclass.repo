@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.NotFound;
@@ -135,10 +137,12 @@ public class Lecturer {
 		this.subjectList = subjectList;
 	}
 
+	@JsonIgnore
 	public Set<Batch> getBatchList() {
 		return batchList;
 	}
 
+	@JsonProperty
 	public void setBatchList(Set<Batch> batchList) {
 		this.batchList = batchList;
 	}
