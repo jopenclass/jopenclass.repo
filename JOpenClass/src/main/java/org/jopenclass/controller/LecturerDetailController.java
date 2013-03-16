@@ -71,8 +71,8 @@ public class LecturerDetailController {
 	 */
 	@PreAuthorize("isAuthenticated() and hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/deletelecturers", method = RequestMethod.POST)
-	public @ResponseBody
-	Object deleteLecturers(@RequestBody Long[] lec_ids) {
+	@ResponseBody
+	public Object deleteLecturers(@RequestBody Long[] lec_ids) {
 
 		return lecturerService.deleteLecturers(lec_ids);
 	}
