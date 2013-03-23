@@ -20,6 +20,7 @@ public class StudentDetailController {
 	public @ResponseBody
 	Object saveLecturer(@RequestBody String json) throws JsonParseException,
 			JsonMappingException, IOException {		
+		
 		return null;
 	}
 }
