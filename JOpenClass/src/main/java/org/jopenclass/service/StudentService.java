@@ -6,7 +6,9 @@ package org.jopenclass.service;
 
 import org.jopenclass.dao.StudentDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class StudentService {
 
 	@Autowired
