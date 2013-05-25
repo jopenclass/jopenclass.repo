@@ -98,6 +98,7 @@ public class SubjectService {
 						"message",
 						"couldn't delete some subjects since there are lecturers assigned to the subject");
 		} catch (Exception e) {
+			System.out.println("error is : "+e);
 			response.put("message", "deletion was not successfull");
 		}
 		return response;

@@ -80,9 +80,11 @@ public class SubjectDao {
 		session.beginTransaction();
 		Query query = session.createQuery("delete from Subject where id=:id");
 		for (Long id : subjectIds) {
-			Subject subject = getSubjectById(id);
+			Subject subject = (Subject) session.get(Subject.class, id);
+			
 			if (subject.getLecturerList() == null
 					|| subject.getLecturerList().size() == 0) {
+				
 				query.setLong("id", id);
 				try {
 					query.executeUpdate();

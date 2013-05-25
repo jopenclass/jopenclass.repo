@@ -35,6 +35,7 @@
 					function() {
 						return this.value;
 					}).get();
+			
 			var response = $.ajax({
 				type : "POST",
 				url : "/JOpenClass/deletesubjects",
