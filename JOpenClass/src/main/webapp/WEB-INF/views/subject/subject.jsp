@@ -9,31 +9,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Course Category</title>
 <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
-<script type="text/javascript">
-	function insertSubject() {
-
-		var subjectName = $('#subjectName').val();
-		var grade = $('#grade').val();
-		var subjectDetails = $('#subjectDetails').val();
-
-		$.ajax({
-			type : "POST",
-			url : "/JOpenClass/savesubject",
-			data : "subjectName=" + subjectName + "&grade=" + grade+ "&subjectDetails=" + subjectDetails
-					+ "&id=-1",
-			success : function(response) {
-				$('#info').html(response.message);
-				$('#subjectName').val('');
-				$('#grade').val('');
-				$('#subjectDetails').val('');
-			},
-			error : function(e) {
-				alert('Error: ' + e);
-			}
-		});
-	}
-</script>
+<script
+	src="<%=request.getContextPath()%>/resources/subject/subject.js"
+	type="text/javascript"></script>
 </head>
+
 <body>
 	<h3>${operation}</h3>
 	<div id="info"></div>
