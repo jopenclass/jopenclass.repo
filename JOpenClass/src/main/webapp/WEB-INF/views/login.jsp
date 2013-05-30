@@ -4,7 +4,7 @@
 <title>Login Page</title>
 </head>
 <body onload='document.f.j_username.focus();'>
-	<h3>Login</h3>
+	<h3>Login to the system</h3>
 
 	<c:if test="${not empty message}">
 		<div>
