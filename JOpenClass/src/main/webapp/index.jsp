@@ -22,11 +22,11 @@ body {
 	<div id="aboutModal" class="modal hide fade" tabindex="-1">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h3 id="aboutModalLabel">About Us</h3>
+			<h3 id="aboutModalLabel">About JOpen class</h3>
 		</div>
 
 		<div class="modal-body">
-			<p>This is all about us</p>
+			<p>Jopenclass is a java based free and opensource software project. The software is intended for the purpose of online tutoring</p>
 		</div>
 		<div class="modal-footer">
 			<button class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -40,7 +40,9 @@ body {
 		</div>
 
 		<div class="modal-body">
-			<p>This is how you can contact us</p>
+			<p>You can contact us through following email addresses
+				<ul><li>madhumal.lahiru.hd@gmail.com or ambegodas@gmail.com</li></ul>
+			</p>
 		</div>
 		<div class="modal-footer">
 			<button class="btn btn-primary" data-dismiss="modal">Close</button>
