@@ -14,11 +14,14 @@
 <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/subject/subject_list.css" />
+<link
+	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.css"
+	rel="stylesheet">
 <script
 	src="<%=request.getContextPath()%>/resources/subject/subject_list.js"
 	type="text/javascript"></script>
 </head>
-<h1>Existing Subjects:</h1>
+<h4>Existing Subjects:</h4>
 <body>
 
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -37,8 +40,8 @@
 
 		<p id="info"></p>
 
-		<button id="create_subject">Add</button>
-		<button id="delete_subjects">Delete</button>
+		<button id="create_subject" class="btn btn-success btn-small">Add</button>
+		<button id="delete_subjects" class="btn btn-danger btn-small">Delete</button>
 
 	</sec:authorize>
 
@@ -61,9 +64,9 @@
 
 	<div id="courses-contain" class="ui-widget">
 
-		<table id="subjects" class="ui-widget ui-widget-content">
+		<table id="subjects" class="table table-hover table-striped">
 			<thead>
-				<tr class="ui-widget-header ">
+				<tr>
 					<th>Subject Name</th>
 					<th>Grade</th>
 					<sec:authorize access="hasRole('ROLE_ADMIN')">

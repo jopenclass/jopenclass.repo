@@ -13,6 +13,9 @@
 
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+<link
+	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.css"
+	rel="stylesheet">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/chosen/chosen.css">
 <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
@@ -23,9 +26,10 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/lecturer/lecturer_list.css">
 
-<script src="<%=request.getContextPath()%>/resources/lecturer/lecturer_list.js"
+<script
+	src="<%=request.getContextPath()%>/resources/lecturer/lecturer_list.js"
 	type="text/javascript">
-
+	
 </script>
 
 </head>
@@ -49,7 +53,7 @@
 		</div>
 		<p id="info"></p>
 		<!-- 		<button id="create-lecturer">Add</button> -->
-		<button id="delete_lecturers">Delete</button>
+		<button id="delete_lecturers" class="btn btn-danger btn-small">Delete</button>
 
 	</sec:authorize>
 
@@ -76,9 +80,9 @@
 					for="userRoles">User Roles</label> <input type="checkbox"
 					name="roles" id="check_lec_role" value="ROLE_LEC">Lecturer
 				<input type="checkbox" name="roles" id="check_admin_role"
-					value="ROLE_ADMIN">Admin <select id='subjectSelect' name="selected"
-					data-placeholder="Choose subjects" class="chzn-select" multiple
-					style="width: 350px;" tabindex="2">
+					value="ROLE_ADMIN">Admin <select id='subjectSelect'
+					name="selected" data-placeholder="Choose subjects"
+					class="chzn-select" multiple style="width: 350px;" tabindex="2">
 					<option value=""></option>
 					<c:forEach items="${allSubjects}" var="subject" varStatus="status">
 						<option id="option${subject.id}" value="${subject.id}">${subject.subjectName}</option>
@@ -95,13 +99,13 @@
 	</div>
 
 
-	<div id="lecturers-contain" class="ui-widget">
+	<div id="lecturers-contain">
 
-		<table id="lecturers" class="ui-widget ui-widget-content">
+		<table id="lecturers" class="table table-hover table-striped">
 
 			<thead>
 
-				<tr class="ui-widget-header ">
+				<tr>
 
 					<th>Lecturer Name</th>
 					<th>Contact Number</th>

@@ -2,6 +2,9 @@
 <html>
 <head>
 <title>Login Page</title>
+<link
+	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.css"
+	rel="stylesheet">
 </head>
 <body onload='document.f.j_username.focus();'>
 	<h3>Login to the system</h3>
@@ -32,10 +35,10 @@
 			</tr>
 			<tr>
 				<td colspan='2'><input name="submit" type="submit"
-					value="submit" /></td>
+					value="submit" class="btn btn-success" /></td>
 			</tr>
 			<tr>
-				<td colspan='2'><input name="reset" type="reset" /></td>
+				<td colspan='2'><input name="reset" type="reset" class="btn btn-info" /></td>
 			</tr>
 		</table>
 

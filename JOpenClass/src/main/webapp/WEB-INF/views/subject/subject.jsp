@@ -8,6 +8,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Course Category</title>
+<link
+	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.css"
+	rel="stylesheet">
 <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 <script
 	src="<%=request.getContextPath()%>/resources/subject/subject.js"
@@ -15,7 +18,7 @@
 </head>
 
 <body>
-	<h3>${operation}</h3>
+	<h4>${operation}</h4>
 	<div id="info"></div>
 
 	<form:form method="post" action="savesubject.html"
@@ -36,7 +39,7 @@
 			</tr>
 			<tr>
 				<td colspan="2"><input type="button" value="save"
-					onclick="insertSubject()" /></td>
+					onclick="insertSubject()" class="btn btn-success"/></td>
 			</tr>
 		</table>
 

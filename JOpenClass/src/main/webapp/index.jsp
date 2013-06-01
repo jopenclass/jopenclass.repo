@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -21,12 +25,13 @@ body {
 	<!-- Modals -->
 	<div id="aboutModal" class="modal hide fade" tabindex="-1">
 		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
+			<!-- 			<button type="button" class="close" data-dismiss="modal">×</button> -->
 			<h3 id="aboutModalLabel">About JOpen class</h3>
 		</div>
 
 		<div class="modal-body">
-			<p>Jopenclass is a java based free and opensource software project. The software is intended for the purpose of online tutoring</p>
+			<p>Jopenclass is a java based free and opensource software
+				project. The software is intended for the purpose of online tutoring</p>
 		</div>
 		<div class="modal-footer">
 			<button class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -35,13 +40,15 @@ body {
 
 	<div id="contactModal" class="modal hide fade" tabindex="-1">
 		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
+			<!-- 			<button type="button" class="close" data-dismiss="modal">×</button> -->
 			<h3 id="contactModalLabel">Contact Us</h3>
 		</div>
 
 		<div class="modal-body">
 			<p>You can contact us through following email addresses
-				<ul><li>madhumal.lahiru.hd@gmail.com or ambegodas@gmail.com</li></ul>
+			<ul>
+				<li>madhumal.lahiru.hd@gmail.com or ambegodas@gmail.com</li>
+			</ul>
 			</p>
 		</div>
 		<div class="modal-footer">
@@ -61,9 +68,14 @@ body {
 					<ul class="nav">
 
 						<li class="active"><a href="<%=request.getContextPath()%>">Home</a></li>
+						<sec:authorize access="isAuthenticated()">
+							<li><a href='<c:url value="/j_spring_security_logout" />'>Logout</a></li>
+						</sec:authorize>
+						<sec:authorize access="!isAuthenticated()">
 						<li><a href="<%=request.getContextPath()%>/welcome">Sign
 								In</a></li>
-
+						</sec:authorize>
+						
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown"> Register <b class="caret"></b>
 						</a>
@@ -100,70 +112,69 @@ body {
 				data-slide="prev">&lsaquo;</a> <a class="carousel-control right"
 				href="#this-carousel-id" data-slide="next">&rsaquo;</a>
 		</div>
-		<!-- .carousel -->
 
 		<div class="row">
 			<div class="span4">
-				<h2>Course 1</h2>
+				<h3>Course 1</h3>
 				<p>he was an effective performer with bat and ball, and a
 					forceful though occasionally controversial leader; contemporaries
 					judged him the best captain in England. From 1921, he played
 					occasionally i</p>
 				<p>
-					<a class="btn" href="#">View details &raquo;</a>
+					<a class="btn btn-inverse" href="#">View details &raquo;</a>
 				</p>
 			</div>
 			<div class="span4">
-				<h2>Course 2</h2>
+				<h3>Course 2</h3>
 				<p>he was an effective performer with bat and ball, and a
 					forceful though occasionally controversial leader; contemporaries
 					judged him the best captain in England. From 1921, he played
 					occasionally i</p>
 				<p>
-					<a class="btn" href="#">View details &raquo;</a>
+					<a class="btn btn-inverse" href="#">View details &raquo;</a>
 				</p>
 			</div>
 			<div class="span4">
-				<h2>Course 3</h2>
+				<h3>Course 3</h3>
 				<p>he was an effective performer with bat and ball, and a
 					forceful though occasionally controversial leader; contemporaries
 					judged him the best captain in England. From 1921, he played
 					occasionally i</p>
 				<p>
-					<a class="btn" href="#">View details &raquo;</a>
+					<a class="btn btn-inverse" href="#">View details &raquo;</a>
 				</p>
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="span4">
-				<h2>Course 1</h2>
+				<h3>Course 1</h3>
 				<p>he was an effective performer with bat and ball, and a
 					forceful though occasionally controversial leader; contemporaries
 					judged him the best captain in England. From 1921, he played
 					occasionally i</p>
 				<p>
-					<a class="btn" href="#">View details &raquo;</a>
+					<a class="btn btn-inverse" href="#">View details &raquo;</a>
 				</p>
 			</div>
 			<div class="span4">
-				<h2>Course 2</h2>
+				<h3>Course 2</h3>
 				<p>he was an effective performer with bat and ball, and a
 					forceful though occasionally controversial leader; contemporaries
 					judged him the best captain in England. From 1921, he played
 					occasionally i</p>
 				<p>
-					<a class="btn" href="#">View details &raquo;</a>
+					<a class="btn btn-inverse" href="#">View details &raquo;</a>
 				</p>
 			</div>
 			<div class="span4">
-				<h2>Course 3</h2>
+				<h3>Course 3</h3>
 				<p>he was an effective performer with bat and ball, and a
 					forceful though occasionally controversial leader; contemporaries
 					judged him the best captain in England. From 1921, he played
 					occasionally i</p>
 				<p>
-					<a class="btn" href="#">View details &raquo;</a>
+					<a class="btn btn-inverse" href="#">View details &raquo;</a>
 				</p>
 			</div>
 		</div>
@@ -176,11 +187,9 @@ body {
 
 	</div>
 
-	<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
 	<script
 		src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 
-	<!-- Bootstrap jQuery plugins compiled and minified -->
 	<script
 		src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
 	<script>
@@ -190,5 +199,6 @@ body {
 			});
 		});
 	</script>
+
 </body>
 </html>

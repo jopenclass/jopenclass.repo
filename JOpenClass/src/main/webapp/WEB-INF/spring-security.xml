@@ -7,7 +7,7 @@
 
 	<http auto-config="true">
 		<intercept-url pattern="/welcome*" access="ROLE_USER,ROLE_ADMIN" />
-		<form-login login-page="/login" default-target-url="/welcome"
+		<form-login login-page="/login" default-target-url="/getlecturerprofile"
 			authentication-failure-url="/loginfailed" />
 		<logout logout-success-url="/logout" />
 	</http>
