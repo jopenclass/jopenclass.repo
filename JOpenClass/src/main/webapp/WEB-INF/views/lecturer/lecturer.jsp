@@ -22,11 +22,6 @@ body {
 	padding-bottom: 40px;
 }
 </style>
-<style type="text/css">
-body {
-	font-size: 65.5%;
-}
-</style>
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/lecturer/lecturer.js">
 	

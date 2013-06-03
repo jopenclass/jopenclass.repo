@@ -20,13 +20,13 @@ public class LoginController {
 	 * @param principal
 	 * @return
 	 */
-	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
+	@RequestMapping(value = "/signin", method = RequestMethod.GET)
 	public String printWelcome(ModelMap model, Principal principal) {
 
 		String name = principal.getName();
 		model.addAttribute("username", name);
 		model.addAttribute("message", "Spring Security Custom Form example");
-		return "hello";
+		return "index";
 
 	}
 

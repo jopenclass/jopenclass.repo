@@ -24,12 +24,6 @@ body {
 <link
 	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap-responsive.css"
 	rel="stylesheet">
-<style type="text/css">
-body {
-	font-size: 75%;
-}
-</style>
-
 <script>
 	$(function() {
 		$("#tabs").tabs();

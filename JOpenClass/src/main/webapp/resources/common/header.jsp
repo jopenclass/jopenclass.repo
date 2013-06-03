@@ -48,11 +48,37 @@
 				<ul class="nav">
 
 					<li class="active"><a href="<%=request.getContextPath()%>">Home</a></li>
+					<sec:authorize access="hasRole('ROLE_LEC')">
+						<li><a href="<%=request.getContextPath()%>/getlecturerprofile">My
+								Profile</a></li>
+					</sec:authorize>
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown">Subjects<b class="caret"></b>
+						</a>
+							<ul class="dropdown-menu">
+								<li><a href="<%=request.getContextPath()%>/savesubject">Add
+										Subject</a></li>
+								<li><a href="<%=request.getContextPath()%>/getsubjectlist">Subject
+										List</a></li>
+							</ul></li>
+
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown">Lecturers<b class="caret"></b>
+						</a>
+							<ul class="dropdown-menu">
+								<li><a href="<%=request.getContextPath()%>/savelecturer">Add
+										Lecturer</a></li>
+								<li><a href="<%=request.getContextPath()%>/getlecturerlist">Lecturer
+										List</a></li>
+							</ul></li>
+					</sec:authorize>
+
 					<sec:authorize access="isAuthenticated()">
 						<li><a href='<c:url value="/j_spring_security_logout" />'>Logout</a></li>
 					</sec:authorize>
 					<sec:authorize access="!isAuthenticated()">
-						<li><a href="<%=request.getContextPath()%>/welcome">Sign
+						<li><a href="<%=request.getContextPath()%>/signin">Sign
 								In</a></li>
 
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
