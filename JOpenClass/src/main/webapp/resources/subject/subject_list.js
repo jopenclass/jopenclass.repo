@@ -114,8 +114,8 @@ $(function() {
 	$("#dialog-form").dialog(
 			{
 				autoOpen : false,
-				height : 350,
-				width : 400,
+				height : 400,
+				width : 300,
 				modal : true,
 				buttons : {
 					"Submit" : function() {
@@ -201,7 +201,7 @@ $(function() {
 
 	$('a.edit_subject').live('click', function() {
 		editId = $(this).attr('href').substring(1);
-		alert(editId);
+		//alert(editId);
 		var response = $.ajax({
 			type : "POST",
 			url : "/JOpenClass/getsubjectbyid",

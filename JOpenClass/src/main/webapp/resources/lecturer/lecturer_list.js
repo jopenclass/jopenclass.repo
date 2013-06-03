@@ -156,10 +156,11 @@ $(function() {
 			.dialog(
 					{
 						autoOpen : false,
-						height : 500,
-						width : 400,
+						height : 650,
+						width : 370,
 						modal : true,
 						buttons : {
+							
 							"Submit" : function() {
 								var bValid = true;
 								allFields.removeClass("ui-state-error");

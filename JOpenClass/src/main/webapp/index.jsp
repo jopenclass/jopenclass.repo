@@ -181,10 +181,6 @@ body {
 
 		<hr>
 
-		<footer>
-			<p>Jopenclass</p>
-		</footer>
-
 	</div>
 
 	<script
@@ -199,6 +195,6 @@ body {
 			});
 		});
 	</script>
-
+<%@ include file="/resources/common/footer.jsp" %>
 </body>
 </html>

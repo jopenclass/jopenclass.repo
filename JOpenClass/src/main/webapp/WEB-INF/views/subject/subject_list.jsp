@@ -91,5 +91,6 @@
 			</tbody>
 		</table>
 	</div>
+	<%@ include file="/resources/common/footer.jsp" %>
 </body>
 </html>

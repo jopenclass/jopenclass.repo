@@ -96,5 +96,6 @@ body {
 		</table>
 		<button id="create-lecturer" class="btn btn-success btn-small" >Add</button>
 	</form:form>
+	<%@ include file="/resources/common/footer.jsp" %>
 </body>
 </html>

@@ -128,8 +128,8 @@ $(function() {
 
 	$("#dialog-form-batch").dialog({
 		autoOpen : false,
-		height : 450,
-		width : 400,
+		height : 570,
+		width : 300,
 		modal : true,
 		buttons : {
 			"Submit" : function() {

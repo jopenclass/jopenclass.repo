@@ -12,8 +12,7 @@
 	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.css"
 	rel="stylesheet">
 <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
-<script
-	src="<%=request.getContextPath()%>/resources/subject/subject.js"
+<script src="<%=request.getContextPath()%>/resources/subject/subject.js"
 	type="text/javascript"></script>
 </head>
 
@@ -39,11 +38,11 @@
 			</tr>
 			<tr>
 				<td colspan="2"><input type="button" value="save"
-					onclick="insertSubject()" class="btn btn-success"/></td>
+					onclick="insertSubject()" class="btn btn-success" /></td>
 			</tr>
 		</table>
 
 	</form:form>
-
+	<%@ include file="/resources/common/footer.jsp"%>
 </body>
 </html>
