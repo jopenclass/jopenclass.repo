@@ -14,9 +14,15 @@
 <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 <script src="<%=request.getContextPath()%>/resources/subject/subject.js"
 	type="text/javascript"></script>
+<script
+	src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
+<link
+	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap-responsive.css"
+	rel="stylesheet">
 </head>
 
 <body>
+	<%@ include file="/resources/common/header.jsp"%>
 	<h4>${operation}</h4>
 	<div id="info"></div>
 

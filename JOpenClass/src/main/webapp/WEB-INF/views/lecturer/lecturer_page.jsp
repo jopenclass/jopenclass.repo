@@ -16,22 +16,33 @@
 	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.css"
 	rel="stylesheet">
 <script type="text/javascript"
-	src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.js"
-	></script>
+	src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript"
 	src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tab.js"></script>
 
 <script
 	src="<%=request.getContextPath()%>/resources/lecturer/lecturer_page.js"
 	type="text/javascript"></script>
+
+<link
+	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap-responsive.css"
+	rel="stylesheet">
+<style type="text/css">
+body {
+	padding-top: 60px;
+	padding-bottom: 40px;
+}
+</style>
 </head>
 <body>
-	<div class="tabbable">
+	<%@ include file="/resources/common/header.jsp"%>
+	<div class="tabbable tabs-left">
 		<ul class="nav nav-tabs">
-			<li class="active"><a href="#profilediv1" data-toggle="tab">Profile Details
-			</a></li>
+			<li class="active"><a href="#profilediv1" data-toggle="tab">Profile
+					Details </a></li>
 			<li><a href="#batchsdiv1" data-toggle="tab">Batches/Classes</a></li>
-			<li><a href="#subjectdiv1" data-toggle="tab">Subjects Entitled to</a></li>
+			<li><a href="#subjectdiv1" data-toggle="tab">Subjects
+					Entitled to</a></li>
 		</ul>
 		<div class="tab-content">
 			<div id="profilediv1" class="tab-pane active">
@@ -48,7 +59,8 @@
 			<div id="batchsdiv1" class="tab-pane">
 				<button id="create-batch" class="btn btn-success">Create
 					Class Room/Batch</button>
-				<button id="delete-batch" class="btn btn-danger" >Delete Class Room/Batch</button>
+				<button id="delete-batch" class="btn btn-danger">Delete
+					Class Room/Batch</button>
 				<div id="info"></div>
 
 				<div id="dialog-confirm-batchdelete" title="Delete the item?">
@@ -67,7 +79,7 @@
 
 					<table id="batches" class="table table-hover table-striped">
 						<thead>
-							<tr >
+							<tr>
 								<th>Batch/Class Name</th>
 								<th>Subject Name</th>
 								<th>Grade</th>
@@ -139,6 +151,6 @@
 			</div>
 		</div>
 	</div>
-	<%@ include file="/resources/common/footer.jsp" %>
+	<%@ include file="/resources/common/footer.jsp"%>
 </body>
 </html>

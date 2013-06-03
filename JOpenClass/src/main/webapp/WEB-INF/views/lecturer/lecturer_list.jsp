@@ -31,12 +31,19 @@
 	type="text/javascript">
 	
 </script>
+<script
+	src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
+<link
+	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap-responsive.css"
+	rel="stylesheet">
 
+</head>
 </head>
 
 <h1>Existing Lecturers:</h1>
 
 <body>
+	<%@ include file="/resources/common/header.jsp"%>
 
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
 
@@ -146,7 +153,7 @@
 		</table>
 
 	</div>
-	<%@ include file="/resources/common/footer.jsp" %>
+	<%@ include file="/resources/common/footer.jsp"%>
 </body>
 
 </html>

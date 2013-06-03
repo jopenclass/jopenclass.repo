@@ -12,6 +12,20 @@
 
 <style type="text/css">
 body {
+	padding-top: 60px;
+	padding-bottom: 40px;
+}
+</style>
+<link
+	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.css"
+	rel="stylesheet">
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.js"></script>
+<link
+	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap-responsive.css"
+	rel="stylesheet">
+<style type="text/css">
+body {
 	font-size: 75%;
 }
 </style>
@@ -26,6 +40,7 @@ body {
 
 <body>
 
+	<%@ include file="/resources/common/header.jsp"%>
 	batch id is : ${batchId}
 
 	<div id="tabs">
@@ -93,6 +108,6 @@ body {
 				hendrerit hendrerit.</p>
 		</div>
 	</div>
-	<%@ include file="/resources/common/footer.jsp" %>
+	<%@ include file="/resources/common/footer.jsp"%>
 </body>
 </html>

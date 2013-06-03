@@ -18,14 +18,27 @@
 	type="text/javascript"></script>
 <style type="text/css">
 body {
+	padding-top: 60px;
+	padding-bottom: 40px;
+}
+</style>
+<style type="text/css">
+body {
 	font-size: 65.5%;
 }
 </style>
-<script type="text/javascript" src="<%=request.getContextPath()%>/resources/lecturer/lecturer.js">
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/resources/lecturer/lecturer.js">
+	
 </script>
-
+<script
+	src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
+<link
+	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap-responsive.css"
+	rel="stylesheet">
 </head>
 <body>
+	<%@ include file="/resources/common/header.jsp"%>
 	<div id="dialog-message" title="Error">
 		<p>Password mismatch or no password found</p>
 	</div>
@@ -94,8 +107,8 @@ body {
 				</script></td>
 			</tr>
 		</table>
-		<button id="create-lecturer" class="btn btn-success btn-small" >Add</button>
+		<button id="create-lecturer" class="btn btn-success btn-small">Add</button>
 	</form:form>
-	<%@ include file="/resources/common/footer.jsp" %>
+	<%@ include file="/resources/common/footer.jsp"%>
 </body>
 </html>

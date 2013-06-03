@@ -5,8 +5,14 @@
 <link
 	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.css"
 	rel="stylesheet">
+<script
+	src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
+<link
+	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap-responsive.css"
+	rel="stylesheet">
 </head>
 <body onload='document.f.j_username.focus();'>
+	<%@ include file="/resources/common/header.jsp"%>
 	<h3>Login to the system</h3>
 
 	<c:if test="${not empty message}">
@@ -38,11 +44,12 @@
 					value="submit" class="btn btn-success" /></td>
 			</tr>
 			<tr>
-				<td colspan='2'><input name="reset" type="reset" class="btn btn-info" /></td>
+				<td colspan='2'><input name="reset" type="reset"
+					class="btn btn-info" /></td>
 			</tr>
 		</table>
 
 	</form>
-	<%@ include file="/resources/common/footer.jsp" %>
+	<%@ include file="/resources/common/footer.jsp"%>
 </body>
 </html>

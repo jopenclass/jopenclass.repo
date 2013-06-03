@@ -20,10 +20,21 @@
 <script
 	src="<%=request.getContextPath()%>/resources/subject/subject_list.js"
 	type="text/javascript"></script>
+<script
+	src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
+<link
+	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap-responsive.css"
+	rel="stylesheet">
+<style type="text/css">
+body {
+	padding-top: 60px;
+	padding-bottom: 40px;
+}
+</style>
 </head>
 <h4>Existing Subjects:</h4>
 <body>
-
+	<%@ include file="/resources/common/header.jsp"%>
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<div id="dialog-confirm" title="Delete the item?">
 			<p>
@@ -91,6 +102,6 @@
 			</tbody>
 		</table>
 	</div>
-	<%@ include file="/resources/common/footer.jsp" %>
+	<%@ include file="/resources/common/footer.jsp"%>
 </body>
 </html>
