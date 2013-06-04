@@ -137,13 +137,13 @@ $(function() {
 				var bValid = true;
 				allFields.removeClass("ui-state-error");
 
-				// 							bValid = bValid
-				// 									&& checkLength(batchName,
-				// 											"Class Room Name", 1, 30);
-				// 							bValid = bValid && checkLength(fee, "Fee", 1, 30);
-				// 							bValid = bValid
-				// 									&& checkLength(Intake, "Intake", 1,
-				// 											30);
+				// bValid = bValid
+				// && checkLength(batchName,
+				// "Class Room Name", 1, 30);
+				// bValid = bValid && checkLength(fee, "Fee", 1, 30);
+				// bValid = bValid
+				// && checkLength(Intake, "Intake", 1,
+				// 30);
 				if (bValid) {
 
 					createBatch();
@@ -271,4 +271,39 @@ $(function() {
 		}
 	});
 
+	$('#changePassBtn')
+			.click(
+					function(event) {
+
+						var newPass = $('input#newPassword').val();
+						var newPassConfirm = $('input#newPassConfirm').val();
+
+						if (newPass != newPassConfirm) {
+							document.getElementById("passMisMatchErr").innerHTML = "password mismatch";
+
+						} else {
+							$('#chagePassModal').modal('hide');
+
+							var dataObj = new Object();
+							dataObj.password = $('input#password').val();
+							dataObj.newPassword = newPass;
+							dataObj.newPassConfirm = newPassConfirm;
+
+							var response = $
+									.ajax({
+										type : "POST",
+										url : "/JOpenClass/changepass",
+										contentType : "application/json; charset=utf-8",
+										data : JSON.stringify(dataObj),
+										success : function(response) {
+											$('#info')
+													.html(response["message"]);
+										},
+										error : function(e) {
+											alert('Error: ' + e);
+										}
+									});
+
+						}
+					});
 });

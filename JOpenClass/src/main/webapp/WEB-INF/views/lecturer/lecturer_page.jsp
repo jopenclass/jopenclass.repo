@@ -36,6 +36,7 @@ body {
 </head>
 <body>
 	<%@ include file="/resources/common/header.jsp"%>
+	<div id="info"></div>
 	<div class="tabbable tabs-left">
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="#profilediv1" data-toggle="tab">Profile
@@ -79,8 +80,9 @@ body {
 						<td>${lecturer.lecturerInfo}</td>
 					</tr>
 				</table>
-				<button class="btn btn-success">Edit profile</button>
-				<button class="btn btn-success">Change Password</button>
+				<a href="#aboutMode" class="btn btn-success" data-toggle="modal">Edit
+					profile</a> <a href="#chagePassModal" class="btn btn-success"
+					data-toggle="modal">Change Password</a>
 			</div>
 
 			<div id="batchsdiv1" class="tab-pane">
@@ -88,7 +90,7 @@ body {
 					Class Room/Batch</button>
 				<button id="delete-batch" class="btn btn-danger">Delete
 					Class Room/Batch</button>
-				<div id="info"></div>
+				
 
 				<div id="dialog-confirm-batchdelete" title="Delete the item?">
 					<p>
@@ -193,6 +195,28 @@ body {
 			</div>
 		</div>
 	</div>
+
+	<!-- Modals -->
+	<div id="chagePassModal" class="modal hide fade" tabindex="-1">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h3 id="aboutModalLabel">Change the password</h3>
+		</div>
+
+		<div class="modal-body">
+			<div id="passMisMatchErr" class="text-error" ></div>
+			<label>Previous password</label><input id="password" type="password"> <label>New
+				password</label><input id="newPassword" type="password"> <label>Confirm new
+				password</label><input id="newPassConfirm" type="password">
+		</div>
+
+		<div class="modal-footer">
+<!-- 		data-dismiss="modal" -->
+			<button id="changePassBtn" class="btn btn-primary">Change</button>
+		</div>
+	</div>
+
+
 	<%@ include file="/resources/common/footer.jsp"%>
 </body>
 </html>
