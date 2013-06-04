@@ -44,18 +44,45 @@ body {
 			<li><a href="#subjectdiv1" data-toggle="tab">Subjects
 					Entitled to</a></li>
 		</ul>
+
 		<div class="tab-content">
+
 			<div id="profilediv1" class="tab-pane active">
-				<div class="fieldName">First name : ${lecturer.firstName}</div>
-				<div class="fieldName">Last name : ${lecturer.lastName}</div>
-				<div class="fieldName">Email address : ${lecturer.user.email}</div>
-				<div class="fieldName">Residential address :
-					${lecturer.address}</div>
-				<div class="fieldName">Contact number :
-					${lecturer.contactNumber}</div>
-				<div class="fieldName">Lecturer Information :
-					${lecturer.lecturerInfo}</div>
+				<div id="profilePic">
+					<img src="..." class="img-polaroid">
+					<button class="btn">Change Profile Pic</button>
+				</div>
+				<hr>
+				<table class="table table-striped table-hover">
+					<tr>
+						<td>First name</td>
+						<td>${lecturer.firstName}</td>
+					</tr>
+					<tr>
+						<td>Last name</td>
+						<td>${lecturer.lastName}</td>
+					</tr>
+					<tr>
+						<td>Email address</td>
+						<td>${lecturer.user.email}</td>
+					</tr>
+					<tr>
+						<td>Residential address</td>
+						<td>${lecturer.address}</td>
+					</tr>
+					<tr>
+						<td>Contact number</td>
+						<td>${lecturer.contactNumber}</td>
+					</tr>
+					<tr>
+						<td>Lecturer Information</td>
+						<td>${lecturer.lecturerInfo}</td>
+					</tr>
+				</table>
+				<button class="btn btn-success">Edit profile</button>
+				<button class="btn btn-success">Change Password</button>
 			</div>
+
 			<div id="batchsdiv1" class="tab-pane">
 				<button id="create-batch" class="btn btn-success">Create
 					Class Room/Batch</button>
@@ -142,12 +169,27 @@ body {
 				</div>
 			</div>
 			<div id="subjectdiv1" class="tab-pane">
-				<h5>Subject List</h5>
-				<c:forEach items="${lecturer.subjectList}" var="subject"
-					varStatus="status">
-					<div class="fieldName">${subject.subjectName} : for grade :
-						${subject.grade} : ${subject.subjectDetails }</div>
-				</c:forEach>
+				<h5>Subjects I'm Entitled to</h5>
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Subject Name</th>
+							<th>Grade</th>
+							<th>Subject Details</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<c:forEach items="${lecturer.subjectList}" var="subject"
+							varStatus="status">
+							<tr>
+								<td>${subject.subjectName}</td>
+								<td>${subject.grade}</td>
+								<td>${subject.subjectDetails }</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
