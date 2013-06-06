@@ -57,11 +57,11 @@ body {
 				<table class="table table-striped table-hover">
 					<tr>
 						<td>First name</td>
-						<td>${lecturer.firstName}</td>
+						<td id="tbFirstName">${lecturer.firstName}</td>
 					</tr>
 					<tr>
 						<td>Last name</td>
-						<td>${lecturer.lastName}</td>
+						<td id="tbLastName">${lecturer.lastName}</td>
 					</tr>
 					<tr>
 						<td>Email address</td>
@@ -69,20 +69,21 @@ body {
 					</tr>
 					<tr>
 						<td>Residential address</td>
-						<td>${lecturer.address}</td>
+						<td id="tbAddress">${lecturer.address}</td>
 					</tr>
 					<tr>
 						<td>Contact number</td>
-						<td>${lecturer.contactNumber}</td>
+						<td id="tbContactNumber">${lecturer.contactNumber}</td>
 					</tr>
 					<tr>
 						<td>Lecturer Information</td>
-						<td>${lecturer.lecturerInfo}</td>
+						<td id="tbLecInfo">${lecturer.lecturerInfo}</td>
 					</tr>
 				</table>
-				<a href="#aboutMode" class="btn btn-success" data-toggle="modal">Edit
-					profile</a> <a href="#chagePassModal" class="btn btn-success"
-					data-toggle="modal">Change Password</a>
+				<a href="#editProfileModal" class="btn btn-success"
+					data-toggle="modal" id="editProfileBtn">Edit profile</a> <a
+					href="#chagePassModal" class="btn btn-success" data-toggle="modal">Change
+					Password</a>
 			</div>
 
 			<div id="batchsdiv1" class="tab-pane">
@@ -90,7 +91,7 @@ body {
 					Class Room/Batch</button>
 				<button id="delete-batch" class="btn btn-danger">Delete
 					Class Room/Batch</button>
-				
+
 
 				<div id="dialog-confirm-batchdelete" title="Delete the item?">
 					<p>
@@ -204,15 +205,54 @@ body {
 		</div>
 
 		<div class="modal-body">
-			<div id="passMisMatchErr" class="text-error" ></div>
-			<label>Previous password</label><input id="password" type="password"> <label>New
-				password</label><input id="newPassword" type="password"> <label>Confirm new
-				password</label><input id="newPassConfirm" type="password">
+			<div id="passMisMatchErr" class="text-error"></div>
+			<label>Previous password</label><input id="password" type="password">
+			<label>New password</label><input id="newPassword" type="password">
+			<label>Confirm new password</label><input id="newPassConfirm"
+				type="password">
 		</div>
 
 		<div class="modal-footer">
-<!-- 		data-dismiss="modal" -->
+			<!-- 		data-dismiss="modal" -->
 			<button id="changePassBtn" class="btn btn-primary">Change</button>
+		</div>
+	</div>
+
+	<div id="editProfileModal" class="modal hide fade" tabindex="-1">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h3 id="aboutModalLabel">Edit profile information</h3>
+		</div>
+
+		<div class="modal-body">
+			<div id="editProfileErr" class="text-error"></div>
+			<label>First Name</label><input id="firstName" type="text"> <label>Last
+				Name</label><input id="lastName" type="text"> <label>Email
+				address</label><input id="email" type="text"> <label>Residential
+				address</label><input id="address" type="text"> <label>Contact
+				number</label><input id="contactNumber" type="text"> <label>Lecturer
+				Information</label><input id="lecturerInfo" type="text">
+		</div>
+
+		<div class="modal-footer">
+			<!-- 		data-dismiss="modal" -->
+			<button id="saveProfileBtn" class="btn btn-primary">Save</button>
+		</div>
+	</div>
+
+	<div id="loginMsgModal" class="modal hide fade" tabindex="-1">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h3 id="aboutModalLabel">Login Required</h3>
+		</div>
+
+		<div class="modal-body">
+			<p>Please Login with the new email address you provided.</p>
+		</div>
+
+		<div class="modal-footer">
+			<!-- 		data-dismiss="modal" -->
+			<a href="<%=request.getContextPath()%>/login" class="btn btn-primary">Ok</a>
 		</div>
 	</div>
 

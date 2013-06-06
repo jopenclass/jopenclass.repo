@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.hibernate.Query;
@@ -13,6 +14,7 @@ import org.jopenclass.form.Batch;
 import org.jopenclass.form.Lecturer;
 import org.jopenclass.form.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
@@ -25,11 +27,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class LecturerDao {
-	
+
 	private final static int SHAH_LENGTH = 40;
 
 	@Autowired
-	private SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;	
 
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
@@ -51,13 +53,13 @@ public class LecturerDao {
 		session.beginTransaction();
 
 		String hexStr = "";
-		
+
 		// if a password is set, then update to sha1 length of sha1 in db is 40
 		if (lectuer.getUser() != null
 				&& (lectuer.getUser().getPassword() != null)
 				&& (lectuer.getUser().getPassword().length()) > 0
 				&& lectuer.getUser().getPassword().length() < SHAH_LENGTH) {
-			
+
 			MessageDigest md = MessageDigest.getInstance("SHA1");
 			byte[] passwordByte = lectuer.getUser().getPassword().getBytes();
 			md.update(passwordByte);
@@ -77,22 +79,22 @@ public class LecturerDao {
 			lec.setLastName(lectuer.getLastName());
 			lec.setAddress(lectuer.getAddress());
 			lec.setContactNumber(lectuer.getContactNumber());
-			
+
 			// length of sha1 encoded string in db
 			if (lectuer.getUser().getPassword() != null
 					&& lectuer.getUser().getPassword().length() < SHAH_LENGTH
 					&& lectuer.getUser().getPassword().length() > 0) {
 				lec.getUser().setPassword(hexStr);
 			}
-			
+
 			lec.getUser().setEmail(lectuer.getUser().getEmail());
 			lec.getUser().setUserRoles(lectuer.getUser().getUserRoles());
 			lec.setSubjectList(lectuer.getSubjectList());
-			
+
 			if (lectuer.getSubjectList() == null
 					|| lectuer.getSubjectList().size() == 0)
 				lec.getSubjectList().clear();
-			
+
 			// used merge since hibernate may try to attach both Lecturers with
 			// the same id to the session
 			session.merge(lec);
@@ -134,13 +136,13 @@ public class LecturerDao {
 	 * @return
 	 */
 	public Lecturer getLecturerById(Long id) {
-		
+
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		Lecturer lecturer = (Lecturer) session.get(Lecturer.class, id);
 		session.getTransaction().commit();
 		session.close();
-		
+
 		return lecturer;
 	}
 
@@ -159,11 +161,11 @@ public class LecturerDao {
 		for (Long id : lec_ids) {
 
 			Lecturer lecturer = (Lecturer) session.get(Lecturer.class, id);
-			if (lecturer.getSubjectList() != null){
+			if (lecturer.getSubjectList() != null) {
 				System.out.println("subs not null");
 				lecturer.setSubjectList(null);
 			}
-			if (lecturer.getBatchList() != null){
+			if (lecturer.getBatchList() != null) {
 				System.out.println("not null");
 				lecturer.setBatchList(null);
 			}
@@ -210,7 +212,7 @@ public class LecturerDao {
 		Lecturer lecturer = lecturers.get(0);
 
 		session.getTransaction().commit();
-		
+
 		// setting null after committing since we do not need to lose enrolement
 		// and batch schedules and avoid hibernate lazy init dificulties
 		if (batchList != null) {
@@ -227,5 +229,53 @@ public class LecturerDao {
 			return lecturer;
 
 		return null;
+	}
+
+	/**
+	 * 
+	 * @param lecturer
+	 * @param user
+	 * @param response
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 */
+	public Object updateLoggedLecturer(Lecturer lecturer, User user,
+			Map<String, Object> response) throws NoSuchAlgorithmException {
+
+		Long loggedLecId = getLoggedInLecturer().getId();
+		String email = user.getEmail();
+		String lecturerInfo = lecturer.getLecturerInfo();
+		String firstName = lecturer.getFirstName();
+		String lastName = lecturer.getLastName();
+		String contactNumber = lecturer.getContactNumber();
+		String address = lecturer.getAddress();
+		boolean emailChanged=false;
+
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+
+		Lecturer lec = (Lecturer) session.get(Lecturer.class, loggedLecId);
+		lec.setFirstName(firstName);
+		lec.setLastName(lastName);
+		lec.setContactNumber(contactNumber);
+		lec.setLecturerInfo(lecturerInfo);
+		
+		if(!email.equals(lec.getUser().getEmail())){
+			emailChanged = true;
+			System.out.println(email);
+			System.out.println(lec.getUser().getEmail());
+		}
+		
+		lec.getUser().setEmail(email);
+		lec.setAddress(address);
+		
+		//SecurityContextHolder.getContext().setAuthentication(authentication)
+		session.merge(lec);
+		session.getTransaction().commit();
+		session.close();
+		if(emailChanged)
+			response.put("emailChanged", "yes");
+		response.put("message", "success");
+		return response;
 	}
 }

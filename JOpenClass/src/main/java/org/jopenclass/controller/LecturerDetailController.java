@@ -1,6 +1,7 @@
 package org.jopenclass.controller;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -98,6 +99,33 @@ public class LecturerDetailController {
 	public String getLecturerProfile(ModelMap model) {
 
 		return lecturerService.getLecturerProfile(model);
+	}
+
+	/**
+	 * 
+	 * @param lecturer
+	 * @return
+	 */
+	@RequestMapping(value = "/loggedlecturerinfo", method = RequestMethod.POST)
+	public @ResponseBody
+	Object getLoggedLecturerDetails() {
+		return lecturerService.getLoggedLecturerDetails();
+	}
+	
+	/**
+	 * 
+	 * @param json
+	 * @return
+	 * @throws JsonParseException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 * @throws NoSuchAlgorithmException 
+	 */
+	@RequestMapping(value = "/saveloggedlecinfo", method = RequestMethod.POST)
+	public @ResponseBody
+	Object updateLoggedLecturer(@RequestBody String json) throws JsonParseException,
+			JsonMappingException, IOException, NoSuchAlgorithmException {
+		return lecturerService.updateLoggedLecturer(json);
 	}
 
 }

@@ -60,7 +60,6 @@ public class Lecturer {
 	private String lecturerInfo;
 
 	@OneToOne(fetch = FetchType.EAGER)
-	@NotFound(action = NotFoundAction.IGNORE)
 	@Cascade({ CascadeType.ALL, CascadeType.REMOVE })
 	private User user;
 

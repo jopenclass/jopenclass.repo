@@ -306,4 +306,60 @@ $(function() {
 
 						}
 					});
+
+	$("#editProfileBtn").button().live('click', function() {
+		var response = $.ajax({
+			type : "POST",
+			url : "/JOpenClass/loggedlecturerinfo",
+			success : function(response) {
+				//console.log(response);
+				$('input#firstName').val(response.lecturer.firstName);
+				$('input#lastName').val(response.lecturer.lastName);
+				$('input#address').val(response.lecturer.address);
+				$('input#contactNumber').val(response.lecturer.contactNumber);
+				$('input#lecturerInfo').val(response.lecturer.lecturerInfo);
+				$('input#email').val(response.lecturer.user.email);
+			},
+			error : function(e) {
+				alert('Error: ' + e);
+			}
+		});
+	});
+
+	$("#saveProfileBtn").button().live('click', function() {
+
+		var data = new Object();
+		data.lecturer = new Object();
+		data.lecturer.firstName = $('input#firstName').val();
+		data.lecturer.lastName = $('input#lastName').val();
+		data.lecturer.address = $('input#address').val();
+		data.lecturer.contactNumber = $('input#contactNumber').val();
+		data.lecturer.lecturerInfo = $('input#lecturerInfo').val();
+		data.user = new Object();
+		data.user.email = $('input#email').val();
+
+		$('#editProfileModal').modal('hide');
+		var response = $.ajax({
+
+			type : "POST",
+			url : "/JOpenClass/saveloggedlecinfo",
+			contentType : "application/json; charset=utf-8",
+			data : JSON.stringify(data),
+			success : function(response) {
+				document.getElementById("info").innerHTML = "successfully updated";//response.message;
+				document.getElementById("tbFirstName").innerHTML = $('input#firstName').val();
+				document.getElementById("tbLastName").innerHTML = $('input#lastName').val();
+				document.getElementById("tbAddress").innerHTML = $('input#address').val();
+				document.getElementById("tbContactNumber").innerHTML = $('input#contactNumber').val();
+				document.getElementById("tbLecInfo").innerHTML = $('input#lecturerInfo').val();
+				
+				if(response.emailChanged=="yes"){
+					$('#loginMsgModal').modal('show');
+				}
+			},
+			error : function(e) {
+				alert('Error: ' + e);
+			}
+		});
+	});
 });

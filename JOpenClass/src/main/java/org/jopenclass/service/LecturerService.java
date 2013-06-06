@@ -1,6 +1,7 @@
 package org.jopenclass.service;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -13,6 +14,7 @@ import org.jopenclass.dao.LecturerDao;
 import org.jopenclass.dao.SubjectDao;
 import org.jopenclass.form.Lecturer;
 import org.jopenclass.form.Subject;
+import org.jopenclass.form.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
@@ -125,5 +127,39 @@ public class LecturerService {
 			response.put("message", "deletion was not successfull");
 		}
 		return response;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Object getLoggedLecturerDetails() {
+		Map<String, Object> response = new HashMap<String, Object>();
+		response.put("lecturer", lecturerDao.getLoggedInLecturer());
+		return response;
+	}
+
+	/**
+	 * 
+	 * @param json
+	 * @return
+	 * @throws IOException
+	 * @throws JsonProcessingException
+	 * @throws NoSuchAlgorithmException 
+	 */
+	public Object updateLoggedLecturer(String json)
+			throws JsonProcessingException, IOException, NoSuchAlgorithmException {
+
+		Map<String, Object> response = new HashMap<String, Object>();
+
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode rootNode = mapper.readTree(json);
+		JsonNode lecturerNode = rootNode.path("lecturer");
+		JsonNode userNode = rootNode.path("user");
+
+		Lecturer lecturer = mapper.readValue(lecturerNode, Lecturer.class);
+		User user = mapper.readValue(userNode, User.class);
+
+		return lecturerDao.updateLoggedLecturer(lecturer, user, response);
 	}
 }
