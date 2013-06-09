@@ -63,7 +63,7 @@
 								<li><a href="<%=request.getContextPath()%>/getsubjectlist">Subject
 										List</a></li>
 
-								<li><a href="<%=request.getContextPath()%>/getCourseList">Course/Batch
+								<li><a href="<%=request.getContextPath()%>/getBatchList">Course/Batch
 										List</a></li>
 							</ul></li>
 

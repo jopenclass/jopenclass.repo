@@ -7,6 +7,7 @@ import org.jopenclass.service.BatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -85,5 +86,16 @@ public class BatchController {
 		mav.addObject("batchObject", batchService.getBatchContent(id));
 		mav.setViewName("batch/batch");
 		return mav;
+	}
+
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/getBatchList", method = RequestMethod.GET)
+	public String viewAddCourse(ModelMap model) {
+		batchService.getBatchList(model);
+		return "batch/batchList";
 	}
 }

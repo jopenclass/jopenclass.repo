@@ -96,12 +96,21 @@ public class BatchService {
 		return response;
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public Object getBatchContent(Long id) {
 		return null;
 	}
 
-	public void getCourseList(ModelMap model) {
-		
+	/**
+	 * 
+	 * @param model
+	 */
+	public void getBatchList(ModelMap model) {
+		model.addAttribute("batcheList", batchDao.getAllBatches());
 	}
 
 }

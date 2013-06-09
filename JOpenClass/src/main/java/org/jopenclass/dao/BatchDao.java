@@ -53,15 +53,14 @@ public class BatchDao {
 		if (batch.getId() < 0) {
 			id = (Long) session.save(batch);
 		} else {
-			Batch bat = (Batch) session.get(Batch.class,
-					batch.getId());
+			Batch bat = (Batch) session.get(Batch.class, batch.getId());
 			bat.setBatchName(batch.getBatchName());
 			bat.setCommenceDate(batch.getCommenceDate());
 			bat.setFee(batch.getFee());
 			bat.setIntake(batch.getIntake());
 			bat.setSubject(batch.getSubject());
 			bat.setScheduleDiscription(batch.getScheduleDiscription());
-	
+
 			session.merge(bat);
 		}
 		session.getTransaction().commit();
@@ -126,6 +125,25 @@ public class BatchDao {
 		session.getTransaction().commit();
 		session.close();
 		return deletedList;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public List<Batch> getAllBatches() {
+
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		session.getTransaction().commit();
+
+		Query query = session.createQuery("from Batch");
+		@SuppressWarnings("unchecked")
+		List<Batch> batchList = query.list();
+
+		session.close();
+
+		return batchList;
 	}
 
 }
