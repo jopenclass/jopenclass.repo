@@ -108,7 +108,7 @@ public class LecturerService {
 		Lecturer lecturer = lecturerDao.getLoggedInLecturer();
 		if (lecturer != null) {
 			model.addAttribute("lecturer", lecturer);
-			return "lecturer/lecturer_page";
+			return "lecturer/lecturerPage";
 		}
 		return null;
 	}

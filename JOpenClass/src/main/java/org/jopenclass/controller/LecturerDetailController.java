@@ -62,7 +62,7 @@ public class LecturerDetailController {
 	@RequestMapping(value = "/getlecturerlist", method = RequestMethod.GET)
 	public String getLecturerList(ModelMap model) {
 		lecturerService.getLecturerList(model);
-		return "lecturer/lecturer_list";
+		return "lecturer/lecturerList";
 	}
 
 	/**

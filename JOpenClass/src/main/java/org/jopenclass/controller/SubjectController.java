@@ -80,7 +80,7 @@ public class SubjectController {
 	@RequestMapping(value = "/getsubjectlist", method = RequestMethod.GET)
 	public String getSubjectList(ModelMap model) {
 		subjectService.getSubjectList(model);
-		return "subject/subject_list";
+		return "subject/subjectList";
 	}
 
 	/**

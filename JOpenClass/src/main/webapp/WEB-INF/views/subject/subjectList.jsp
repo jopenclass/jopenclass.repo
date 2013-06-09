@@ -13,12 +13,12 @@
 <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/subject/subject_list.css" />
+	href="<%=request.getContextPath()%>/resources/subject/subjectList.css" />
 <link
 	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.css"
 	rel="stylesheet">
 <script
-	src="<%=request.getContextPath()%>/resources/subject/subject_list.js"
+	src="<%=request.getContextPath()%>/resources/subject/subjectList.js"
 	type="text/javascript"></script>
 <script
 	src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>

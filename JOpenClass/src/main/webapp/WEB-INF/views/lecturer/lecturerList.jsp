@@ -24,10 +24,10 @@
 	src="<%=request.getContextPath()%>/resources/chosen/chosen.jquery.min.js"
 	type="text/javascript"></script>
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/lecturer/lecturer_list.css">
+	href="<%=request.getContextPath()%>/resources/lecturer/lecturerList.css">
 
 <script
-	src="<%=request.getContextPath()%>/resources/lecturer/lecturer_list.js"
+	src="<%=request.getContextPath()%>/resources/lecturer/lecturerList.js"
 	type="text/javascript">
 	
 </script>

@@ -49,17 +49,21 @@
 
 					<li class="active"><a href="<%=request.getContextPath()%>">Home</a></li>
 					<sec:authorize access="hasRole('ROLE_LEC')">
-						<li><a href="<%=request.getContextPath()%>/getlecturerprofile">My
+						<li><a
+							href="<%=request.getContextPath()%>/getlecturerprofile">My
 								Profile</a></li>
 					</sec:authorize>
 					<sec:authorize access="hasRole('ROLE_ADMIN')">
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">Subjects<b class="caret"></b>
+							data-toggle="dropdown">Courses<b class="caret"></b>
 						</a>
 							<ul class="dropdown-menu">
 								<li><a href="<%=request.getContextPath()%>/savesubject">Add
 										Subject</a></li>
 								<li><a href="<%=request.getContextPath()%>/getsubjectlist">Subject
+										List</a></li>
+
+								<li><a href="<%=request.getContextPath()%>/getCourseList">Course/Batch
 										List</a></li>
 							</ul></li>
 
@@ -86,7 +90,7 @@
 						</a>
 							<ul class="dropdown-menu">
 								<li><a href="<%=request.getContextPath()%>/savelecturer">Lecturer</a></li>
-								<li><a href="<%=request.getContextPath()%>/saveStudent">Student</a></li>
+								<li><a href="#">Student</a></li>
 							</ul></li>
 					</sec:authorize>
 					<li><a href="#aboutModal" data-toggle="modal">About</a></li>

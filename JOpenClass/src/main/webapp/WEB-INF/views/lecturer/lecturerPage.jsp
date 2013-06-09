@@ -11,7 +11,7 @@
 <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/lecturer/lecturer_page.css">
+	href="<%=request.getContextPath()%>/resources/lecturer/lecturerPage.css">
 <link
 	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.css"
 	rel="stylesheet">
@@ -21,7 +21,7 @@
 	src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tab.js"></script>
 
 <script
-	src="<%=request.getContextPath()%>/resources/lecturer/lecturer_page.js"
+	src="<%=request.getContextPath()%>/resources/lecturer/lecturerPage.js"
 	type="text/javascript"></script>
 
 <link

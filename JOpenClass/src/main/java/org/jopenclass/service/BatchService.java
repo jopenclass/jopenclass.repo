@@ -14,6 +14,7 @@ import org.jopenclass.form.Batch;
 import org.jopenclass.form.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 
 /**
  * 
@@ -97,6 +98,10 @@ public class BatchService {
 
 	public Object getBatchContent(Long id) {
 		return null;
+	}
+
+	public void getCourseList(ModelMap model) {
+		
 	}
 
 }
