@@ -90,7 +90,7 @@
 						</a>
 							<ul class="dropdown-menu">
 								<li><a href="<%=request.getContextPath()%>/savelecturer">Lecturer</a></li>
-								<li><a href="#">Student</a></li>
+								<li><a href="<%=request.getContextPath()%>/saveStudent">Student</a></li>
 							</ul></li>
 					</sec:authorize>
 					<li><a href="#aboutModal" data-toggle="modal">About</a></li>
