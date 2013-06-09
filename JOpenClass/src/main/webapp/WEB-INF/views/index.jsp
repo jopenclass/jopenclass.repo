@@ -10,6 +10,8 @@
 <link
 	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.css"
 	rel="stylesheet">
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <style type="text/css">
 body {
 	padding-top: 60px;
@@ -25,6 +27,23 @@ body {
 
 <body>
 	<%@ include file="/resources/common/header.jsp"%>
+
+	<!-- Modals -->
+	<div id="batchDetailModal" class="modal hide fade" tabindex="-1">
+		<div class="modal-header">
+			<!-- 			<button type="button" class="close" data-dismiss="modal">×</button> -->
+			<h3 id="aboutModalLabel">Course Details</h3>
+		</div>
+
+		<div class="modal-body">
+			<p id="courseContentSection"></p>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary" data-dismiss="modal">Close</button>
+		</div>
+	</div>
+
+
 
 	<div class="container">
 		<div id="this-carousel-id" class="carousel slide">
@@ -63,7 +82,9 @@ body {
 					<h3>${batch.batchName}</h3>
 					<p>${batch.scheduleDiscription}</p>
 					<p>
-						<a class="btn btn-inverse" href="#">View details &raquo;</a>
+						<a class="btn btn-inverse showCourseBtn" id="view${batch.id }"
+							href="#batchDetailModal" data-toggle="modal">View details
+							&raquo;</a>
 					</p>
 				</div>
 				<%
@@ -77,12 +98,8 @@ body {
 		</c:forEach>
 
 	</div>
-	
+
 	<hr>
-
-
-	<script
-		src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 
 	<script
 		src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
