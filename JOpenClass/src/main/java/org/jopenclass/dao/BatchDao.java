@@ -51,6 +51,7 @@ public class BatchDao {
 		batch.setSubject((Subject) session.get(Subject.class, batch
 				.getSubject().getId()));
 		if (batch.getId() < 0) {
+			batch.setIsFeatured(false);
 			id = (Long) session.save(batch);
 		} else {
 			Batch bat = (Batch) session.get(Batch.class, batch.getId());
@@ -135,15 +136,44 @@ public class BatchDao {
 
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		session.getTransaction().commit();
 
 		Query query = session.createQuery("from Batch");
 		@SuppressWarnings("unchecked")
 		List<Batch> batchList = query.list();
 
+		session.getTransaction().commit();
 		session.close();
 
 		return batchList;
 	}
 
+	/**
+	 * 
+	 * @param featureIds
+	 */
+	public void featureBatches(Long[] featureIds) {
+
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+
+		Query query = session.createQuery("from Batch");
+		@SuppressWarnings("unchecked")
+		List<Batch> batchList = query.list();
+
+		if (batchList.size() > 0) {
+			for (Batch batch : batchList) {
+				batch.setIsFeatured(false);
+				for (int i = 0; i < featureIds.length; i++) {
+					if (batch.getId() == featureIds[i]) {
+						batch.setIsFeatured(true);
+
+					}
+					session.save(batch);
+				}
+			}
+		}
+
+		session.getTransaction().commit();
+		session.close();
+	}
 }

@@ -98,4 +98,12 @@ public class BatchController {
 		batchService.getBatchList(model);
 		return "batch/batchList";
 	}
+
+	@PreAuthorize("isAuthenticated() and hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/featureBatches", method = RequestMethod.POST)
+	@ResponseBody
+	public Object featureBatches(@RequestBody Long[] featureIds) {
+
+		return batchService.featureBatches(featureIds);
+	}
 }

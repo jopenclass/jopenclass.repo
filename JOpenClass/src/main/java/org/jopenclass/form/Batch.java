@@ -40,6 +40,9 @@ public class Batch {
 
 	private int intake;
 
+	@Column(name = "is_featured", nullable = false, columnDefinition = "boolean default false")
+	private boolean isFeatured;
+
 	private double fee;
 
 	@Transient
@@ -182,6 +185,14 @@ public class Batch {
 
 	public void setEnrollmentCount(int enrollmentCount) {
 		this.enrollmentCount = enrollmentCount;
+	}
+
+	public boolean getIsFeatured() {
+		return isFeatured;
+	}
+
+	public void setIsFeatured(boolean isFeatured) {
+		this.isFeatured = isFeatured;
 	}
 
 }

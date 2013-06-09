@@ -17,6 +17,8 @@
 	rel="stylesheet">
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/resources/batch/batchList.js"></script>
 
 <style type="text/css">
 body {
@@ -34,7 +36,7 @@ body {
 	<div id="info"></div>
 
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
-		<a class="btn btn-success">Feature the selected</a>
+		<button class="btn btn-success" id="featureBtn">Feature the selected</button>
 	</sec:authorize>
 
 	<table id="batches" class="table table-hover table-striped">
@@ -59,7 +61,7 @@ body {
 					<td>${batch.scheduleDiscription}</td>
 					<td>${batch.lecturer.firstName}&nbsp;${batch.lecturer.lastName}</td>
 					<sec:authorize access="hasRole('ROLE_ADMIN')">
-						<td><input type="checkbox" name="del_list"
+						<td><input type="checkbox" name="feature_list"
 							value="${batch.id}"></td>
 					</sec:authorize>
 				</tr>
