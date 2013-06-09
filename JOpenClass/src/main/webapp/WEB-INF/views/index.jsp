@@ -16,13 +16,15 @@ body {
 	padding-bottom: 40px;
 }
 </style>
+<script src="<%=request.getContextPath()%>/resources/index/js/index.js"></script>
+
 <link
 	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap-responsive.css"
 	rel="stylesheet">
 </head>
 
 <body>
-<%@ include file="/resources/common/header.jsp" %>
+	<%@ include file="/resources/common/header.jsp"%>
 
 	<div class="container">
 		<div id="this-carousel-id" class="carousel slide">
@@ -45,76 +47,39 @@ body {
 				data-slide="prev">&lsaquo;</a> <a class="carousel-control right"
 				href="#this-carousel-id" data-slide="next">&rsaquo;</a>
 		</div>
+		<%
+			int courseCount = 0;
+		%>
 
-		<div class="row">
-			<div class="span4">
-				<h3>Course 1</h3>
-				<p>he was an effective performer with bat and ball, and a
-					forceful though occasionally controversial leader; contemporaries
-					judged him the best captain in England. From 1921, he played
-					occasionally i</p>
-				<p>
-					<a class="btn btn-inverse" href="#">View details &raquo;</a>
-				</p>
+		<c:forEach items="${featuredBatches}" var="batch" varStatus="status">
+			<%
+				if (courseCount % 3 == 0) {
+			%>
+			<div class="row">
+				<%
+					}
+				%>
+				<div class="span4">
+					<h3>${batch.batchName}</h3>
+					<p>${batch.scheduleDiscription}</p>
+					<p>
+						<a class="btn btn-inverse" href="#">View details &raquo;</a>
+					</p>
+				</div>
+				<%
+					if (courseCount % 3 == 2) {
+				%>
 			</div>
-			<div class="span4">
-				<h3>Course 2</h3>
-				<p>he was an effective performer with bat and ball, and a
-					forceful though occasionally controversial leader; contemporaries
-					judged him the best captain in England. From 1921, he played
-					occasionally i</p>
-				<p>
-					<a class="btn btn-inverse" href="#">View details &raquo;</a>
-				</p>
-			</div>
-			<div class="span4">
-				<h3>Course 3</h3>
-				<p>he was an effective performer with bat and ball, and a
-					forceful though occasionally controversial leader; contemporaries
-					judged him the best captain in England. From 1921, he played
-					occasionally i</p>
-				<p>
-					<a class="btn btn-inverse" href="#">View details &raquo;</a>
-				</p>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="span4">
-				<h3>Course 1</h3>
-				<p>he was an effective performer with bat and ball, and a
-					forceful though occasionally controversial leader; contemporaries
-					judged him the best captain in England. From 1921, he played
-					occasionally i</p>
-				<p>
-					<a class="btn btn-inverse" href="#">View details &raquo;</a>
-				</p>
-			</div>
-			<div class="span4">
-				<h3>Course 2</h3>
-				<p>he was an effective performer with bat and ball, and a
-					forceful though occasionally controversial leader; contemporaries
-					judged him the best captain in England. From 1921, he played
-					occasionally i</p>
-				<p>
-					<a class="btn btn-inverse" href="#">View details &raquo;</a>
-				</p>
-			</div>
-			<div class="span4">
-				<h3>Course 3</h3>
-				<p>he was an effective performer with bat and ball, and a
-					forceful though occasionally controversial leader; contemporaries
-					judged him the best captain in England. From 1921, he played
-					occasionally i</p>
-				<p>
-					<a class="btn btn-inverse" href="#">View details &raquo;</a>
-				</p>
-			</div>
-		</div>
-
-		<hr>
+			<%
+				}
+					courseCount++;
+			%>
+		</c:forEach>
 
 	</div>
+	
+	<hr>
+
 
 	<script
 		src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
@@ -128,6 +93,6 @@ body {
 			});
 		});
 	</script>
-<%@ include file="/resources/common/footer.jsp" %>
+	<%@ include file="/resources/common/footer.jsp"%>
 </body>
 </html>

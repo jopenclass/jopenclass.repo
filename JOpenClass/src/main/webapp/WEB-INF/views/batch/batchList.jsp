@@ -36,7 +36,8 @@ body {
 	<div id="info"></div>
 
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
-		<button class="btn btn-success" id="featureBtn">Feature the selected</button>
+		<button class="btn btn-success" id="featureBtn">Feature the
+			selected</button>
 	</sec:authorize>
 
 	<table id="batches" class="table table-hover table-striped">
@@ -53,7 +54,7 @@ body {
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${batcheList}" var="batch" varStatus="status">
+			<c:forEach items="${batchList}" var="batch" varStatus="status">
 				<tr id="${batch.id}">
 					<td>${batch.batchName}</td>
 					<td>${batch.intake}</td>
@@ -62,7 +63,10 @@ body {
 					<td>${batch.lecturer.firstName}&nbsp;${batch.lecturer.lastName}</td>
 					<sec:authorize access="hasRole('ROLE_ADMIN')">
 						<td><input type="checkbox" name="feature_list"
-							value="${batch.id}"></td>
+							value="${batch.id}"
+							<c:if test="${batch.isFeatured == true}">
+						checked
+						</c:if>></td>
 					</sec:authorize>
 				</tr>
 			</c:forEach>

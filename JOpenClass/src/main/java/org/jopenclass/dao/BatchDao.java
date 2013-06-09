@@ -176,4 +176,25 @@ public class BatchDao {
 		session.getTransaction().commit();
 		session.close();
 	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Object getFeaturedBatches() {
+
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+
+		Query query = session
+				.createQuery("from Batch where isFeatured=:isFeatured");
+		query.setBoolean("isFeatured", true);
+		@SuppressWarnings("unchecked")
+		List<Batch> batchList = query.list();
+
+		session.getTransaction().commit();
+		session.close();
+
+		return batchList;
+	}
 }

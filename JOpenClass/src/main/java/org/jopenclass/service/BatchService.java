@@ -110,7 +110,7 @@ public class BatchService {
 	 * @param model
 	 */
 	public void getBatchList(ModelMap model) {
-		model.addAttribute("batcheList", batchDao.getAllBatches());
+		model.addAttribute("batchList", batchDao.getAllBatches());
 	}
 
 	/**
@@ -121,8 +121,16 @@ public class BatchService {
 	public Object featureBatches(Long[] featureIds) {
 		batchDao.featureBatches(featureIds);
 		Map<String, Object> response = new HashMap<String, Object>();
-		response.put("message", "selected batches are featured");
+		response.put("message", "selected batches are featured !!!");
 		return response;
+	}
+
+	/**
+	 * 
+	 * @param model
+	 */
+	public void getFeaturedBatchList(ModelMap model) {
+		model.addAttribute("featuredBatches",batchDao.getFeaturedBatches());
 	}
 
 }
