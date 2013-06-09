@@ -101,8 +101,8 @@ public class BatchService {
 	 * @param id
 	 * @return
 	 */
-	public Object getBatchContent(Long id) {
-		return null;
+	public Batch getBatchContent(Long id) {
+		return batchDao.getBatchById(id);
 	}
 
 	/**

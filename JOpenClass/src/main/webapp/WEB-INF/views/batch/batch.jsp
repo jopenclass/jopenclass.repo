@@ -22,17 +22,34 @@ body {
 <link
 	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap-responsive.css"
 	rel="stylesheet">
-<script>
-	$(function() {
-		$("#tabs").tabs();
-	});
-</script>
+<script type="text/javascript"
+	src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tab.js"></script>
 </head>
 
 <body>
 	<%@ include file="/resources/common/header.jsp"%>
-	batch id is : ${batchId}
+	<%-- 	batch id is : ${batchId} --%>
+
+
+	<div class="tabbable tabs-left">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#batchInfoDiv" data-toggle="tab">Batch/Course
+					Details</a></li>
+			<li><a href="#assignmentsDiv" data-toggle="tab">Assignments</a></li>
+			<li><a href="#resourcesDiv" data-toggle="tab">Resourses</a></li>
+		</ul>
+
+		<div class="tab-content">
+
+			<div id="batchInfoDiv" class="tab-pane active hero-unit">${batchObject.scheduleDiscription}</div>
+
+			<div id="assignmentsDiv" class="tab-pane">this is for
+				assignments</div>
+			<div id="resourcesDiv" class="tab-pane">this is for resources</div>
+		</div>
+	</div>
 	<%@ include file="/resources/common/footer.jsp"%>
+
 </body>
 
 </html>

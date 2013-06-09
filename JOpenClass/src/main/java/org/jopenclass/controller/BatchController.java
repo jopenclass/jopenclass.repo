@@ -80,12 +80,12 @@ public class BatchController {
 	 */
 	@PreAuthorize("isAuthenticated() and hasAnyRole('ROLE_LEC','ROLE_STUDENT')")
 	@RequestMapping(value = "/enterbatch", method = RequestMethod.GET)
-	public ModelAndView viewAddCourse(@RequestParam(value = "batchId") Long id) {
+	public String viewAddCourse(@RequestParam(value = "batchId") Long id,ModelMap model) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("batchId", id);
-		mav.addObject("batchObject", batchService.getBatchContent(id));
+		model.addAttribute("batchId", id);
+		model.addAttribute("batchObject", batchService.getBatchContent(id));
 		mav.setViewName("batch/batch");
-		return mav;
+		return "batch/batch";
 	}
 
 	/**
