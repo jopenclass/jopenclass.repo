@@ -43,8 +43,7 @@ public class DbMethodCallLogger {
 			Throwable error) {
 
 		String msg = "exception thrown at : " + joinPoint.getSignature()
-				+ " Exception : "
-				+ error;
+				+ " Exception : " + error;
 		log.error(msg, error);
 	}
 }

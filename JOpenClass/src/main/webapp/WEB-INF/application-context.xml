@@ -16,6 +16,9 @@
 
 	<mvc:annotation-driven conversion-service="conversionService" />
 	<context:component-scan base-package="org.jopenclass" />
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+
 	<aop:aspectj-autoproxy />
 	<bean id="dbMethodCallLogger" class="org.jopenclass.aspect.DbMethodCallLogger" />
 
@@ -38,9 +41,13 @@
 
 	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location">
-			<value>joc.dbconfig.properties</value>
+		<property name="locations">
+			<list>
+				<value>joc.dbconfig.properties</value>
+				<value>joc.filePath.properties</value>
+			</list>
 		</property>
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
 	</bean>
 
 </beans>

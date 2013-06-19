@@ -1,23 +1,32 @@
 package org.jopenclass.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.jopenclass.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UserService {
 
 	@Autowired
 	private UserDao userDao;
+
+	@Value("${profilePics.path}")
+	private String userProfileImgPath;
 
 	/**
 	 * 
@@ -49,6 +58,23 @@ public class UserService {
 			userDao.changePassword(password, newPassword, response);
 		}
 		return response;
+	}
+
+	/**
+	 * 
+	 * @param image
+	 */
+	public void saveImage(MultipartFile image) {
+
+		try {
+			File file = new File(userProfileImgPath
+					+ "/"
+					+ SecurityContextHolder.getContext().getAuthentication()
+							.getName() + ".jpg");
+			FileUtils.writeByteArrayToFile(file, image.getBytes());
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 
 }

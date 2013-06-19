@@ -49,10 +49,19 @@ body {
 		<div class="tab-content">
 
 			<div id="profilediv1" class="tab-pane active">
+
 				<div id="profilePic">
+
+					<h4>Change profile picture</h4>
+					<h6>only Jpg files are allowed</h6>
 					<img src="..." class="img-polaroid">
-					<button class="btn">Change Profile Pic</button>
+					<form method="post" enctype="multipart/form-data"
+						action="updateProfilePic">
+						<input name="profileImage" type="file" /><br /> <input
+							type="submit" value="submit" class="btn" />
+					</form>
 				</div>
+
 				<hr>
 				<table class="table table-striped table-hover">
 					<tr>
