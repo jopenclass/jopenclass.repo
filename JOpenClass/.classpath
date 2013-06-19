@@ -17,7 +17,7 @@
 	<classpathentry kind="var" path="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar" sourcepath="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-beans/3.1.2.RELEASE/spring-beans-3.1.2.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-beans/3.1.2.RELEASE/spring-beans-3.1.2.RELEASE-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-context/3.1.2.RELEASE/spring-context-3.1.2.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-context/3.1.2.RELEASE/spring-context-3.1.2.RELEASE-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-aop/3.0.7.RELEASE/spring-aop-3.0.7.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-aop/3.0.7.RELEASE/spring-aop-3.0.7.RELEASE-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-aop/3.1.2.RELEASE/spring-aop-3.1.2.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-aop/3.1.2.RELEASE/spring-aop-3.1.2.RELEASE-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-expression/3.1.2.RELEASE/spring-expression-3.1.2.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-expression/3.1.2.RELEASE/spring-expression-3.1.2.RELEASE-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-webmvc/3.1.2.RELEASE/spring-webmvc-3.1.2.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-webmvc/3.1.2.RELEASE/spring-webmvc-3.1.2.RELEASE-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-context-support/3.1.2.RELEASE/spring-context-support-3.1.2.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-context-support/3.1.2.RELEASE/spring-context-support-3.1.2.RELEASE-sources.jar"/>
@@ -46,6 +46,16 @@
 	<classpathentry kind="var" path="M2_REPO/org/springframework/security/spring-security-acl/3.1.2.RELEASE/spring-security-acl-3.1.2.RELEASE.jar" sourcepath="M2_REPO/org/springframework/security/spring-security-acl/3.1.2.RELEASE/spring-security-acl-3.1.2.RELEASE-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:file:/home/madhumal/.m2/repository/org/springframework/security/spring-security-acl/3.1.2.RELEASE/spring-security-acl-3.1.2.RELEASE-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/org/aspectj/aspectjrt/1.6.11/aspectjrt-1.6.11.jar" sourcepath="M2_REPO/org/aspectj/aspectjrt/1.6.11/aspectjrt-1.6.11-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/home/madhumal/.m2/repository/org/aspectj/aspectjrt/1.6.11/aspectjrt-1.6.11-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/org/aspectj/aspectjweaver/1.6.11/aspectjweaver-1.6.11.jar" sourcepath="M2_REPO/org/aspectj/aspectjweaver/1.6.11/aspectjweaver-1.6.11-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/home/madhumal/.m2/repository/org/aspectj/aspectjweaver/1.6.11/aspectjweaver-1.6.11-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-orm/3.1.2.RELEASE/spring-orm-3.1.2.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-orm/3.1.2.RELEASE/spring-orm-3.1.2.RELEASE-sources.jar"/>

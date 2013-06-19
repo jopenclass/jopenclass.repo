@@ -1,5 +1,5 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:sec="http://www.springframework.org/schema/security" xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
@@ -10,10 +10,15 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
         http://www.springframework.org/schema/security
-		http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+		http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/aop 
+	    http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 
 	<mvc:annotation-driven conversion-service="conversionService" />
 	<context:component-scan base-package="org.jopenclass" />
+	<aop:aspectj-autoproxy />
+	<bean id="dbMethodCallLogger" class="org.jopenclass.aspect.DbMethodCallLogger" />
+
 	<bean
 		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
 	<mvc:resources mapping="/resources/**" location="/resources/" />
@@ -30,6 +35,7 @@
 			</list>
 		</property>
 	</bean>
+
 	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location">
