@@ -5,7 +5,8 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
+
+import net.coobird.thumbnailator.Thumbnails;
 
 import org.apache.commons.io.FileUtils;
 import org.codehaus.jackson.JsonNode;
@@ -67,11 +68,37 @@ public class UserService {
 	public void saveImage(MultipartFile image) {
 
 		try {
+
+			// save the original upload file
 			File file = new File(userProfileImgPath
 					+ "/"
 					+ SecurityContextHolder.getContext().getAuthentication()
 							.getName() + ".jpg");
+
 			FileUtils.writeByteArrayToFile(file, image.getBytes());
+
+			// save the thumbnail
+			Thumbnails
+					.of(userProfileImgPath
+							+ "/"
+							+ SecurityContextHolder.getContext()
+									.getAuthentication().getName() + ".jpg")
+					.size(160, 160)
+					.toFile(userProfileImgPath
+							+ "/"
+							+ SecurityContextHolder.getContext()
+									.getAuthentication().getName()
+							+ "thumb.jpg");
+
+			// delete the original upload file
+			File fileTemp = new File(userProfileImgPath
+					+ "/"
+					+ SecurityContextHolder.getContext().getAuthentication()
+							.getName() + ".jpg");
+			if (fileTemp.exists()) {
+				fileTemp.delete();
+			}
+
 		} catch (Exception e) {
 			System.out.println(e);
 		}

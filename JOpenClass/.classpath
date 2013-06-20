@@ -106,6 +106,11 @@
 			<attribute name="javadoc_location" value="jar:file:/home/madhumal/.m2/repository/commons-io/commons-io/1.4/commons-io-1.4-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="var" path="M2_REPO/net/coobird/thumbnailator/0.4.3/thumbnailator-0.4.3.jar" sourcepath="M2_REPO/net/coobird/thumbnailator/0.4.3/thumbnailator-0.4.3-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/home/madhumal/.m2/repository/net/coobird/thumbnailator/0.4.3/thumbnailator-0.4.3-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>

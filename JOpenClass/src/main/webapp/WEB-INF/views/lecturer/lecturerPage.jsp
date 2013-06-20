@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page import="java.util.*"%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -54,7 +55,11 @@ body {
 
 					<h4>Change profile picture</h4>
 					<h6>only Jpg files are allowed</h6>
-					<img src="..." class="img-polaroid">
+
+					<img
+						src="<%=request.getContextPath()%>/profilePics/<%= org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication().getName()%>thumb.jpg?time=<%=new Random().nextInt()%>"
+						class="img-polaroid" height="160" width="160">
+
 					<form method="post" enctype="multipart/form-data"
 						action="updateProfilePic">
 						<input name="profileImage" type="file" /><br /> <input

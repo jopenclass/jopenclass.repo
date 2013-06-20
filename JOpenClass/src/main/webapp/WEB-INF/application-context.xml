@@ -22,9 +22,6 @@
 	<aop:aspectj-autoproxy />
 	<bean id="dbMethodCallLogger" class="org.jopenclass.aspect.DbMethodCallLogger" />
 
-	<bean
-		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
-	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<sec:global-method-security
 		pre-post-annotations="enabled" />
 
@@ -39,15 +36,22 @@
 		</property>
 	</bean>
 
-	<bean
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<bean id="properties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="locations">
 			<list>
 				<value>joc.dbconfig.properties</value>
 				<value>joc.filePath.properties</value>
 			</list>
 		</property>
-		<property name="ignoreUnresolvablePlaceholders" value="true" />
 	</bean>
 
+	<context:property-placeholder
+		properties-ref="properties" />
+
+	<bean
+		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/profilePics/**"
+		location="file:${profilePics.path}/" />
 </beans>

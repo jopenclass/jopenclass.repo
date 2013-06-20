@@ -11,5 +11,10 @@
 		<property name="suffix">
 			<value>.jsp</value>
 		</property>
+		<property name="exposedContextBeanNames">
+			<list>
+				<value>properties</value>
+			</list>
+		</property>
 	</bean>
 </beans>
