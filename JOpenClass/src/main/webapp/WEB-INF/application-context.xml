@@ -16,8 +16,11 @@
 
 	<mvc:annotation-driven conversion-service="conversionService" />
 	<context:component-scan base-package="org.jopenclass" />
+
 	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="${maxFileUpload.size}" />
+	</bean>
 
 	<aop:aspectj-autoproxy />
 	<bean id="dbMethodCallLogger" class="org.jopenclass.aspect.DbMethodCallLogger" />
@@ -42,6 +45,7 @@
 			<list>
 				<value>joc.dbconfig.properties</value>
 				<value>joc.filePath.properties</value>
+				<value>joc.common.properties</value>
 			</list>
 		</property>
 	</bean>
@@ -52,6 +56,5 @@
 	<bean
 		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
 	<mvc:resources mapping="/resources/**" location="/resources/" />
-	<mvc:resources mapping="/profilePics/**"
-		location="file:${profilePics.path}/" />
+	<mvc:resources mapping="/profilePics/**" location="file:${profilePics.path}/" />
 </beans>
