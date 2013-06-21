@@ -55,14 +55,23 @@ public class BatchDao {
 			id = (Long) session.save(batch);
 		} else {
 			Batch bat = (Batch) session.get(Batch.class, batch.getId());
-			bat.setBatchName(batch.getBatchName());
-			bat.setCommenceDate(batch.getCommenceDate());
-			bat.setFee(batch.getFee());
-			bat.setIntake(batch.getIntake());
-			bat.setSubject(batch.getSubject());
-			bat.setScheduleDiscription(batch.getScheduleDiscription());
 
-			session.merge(bat);
+			// batch can be edited only by the lecturer of that batch
+			if (bat.getLecturer().getUser().getEmail() == userName) {
+				
+				bat.setBatchName(batch.getBatchName());
+				bat.setCommenceDate(batch.getCommenceDate());
+				bat.setFee(batch.getFee());
+				bat.setIntake(batch.getIntake());
+				bat.setSubject(batch.getSubject());
+				bat.setScheduleDiscription(batch.getScheduleDiscription());
+
+				session.merge(bat);
+			} else {
+				session.getTransaction().commit();
+				session.close();
+				return -1;
+			}
 		}
 		session.getTransaction().commit();
 		session.close();

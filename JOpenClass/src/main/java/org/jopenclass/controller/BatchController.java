@@ -80,7 +80,7 @@ public class BatchController {
 	 */
 	@PreAuthorize("isAuthenticated() and hasAnyRole('ROLE_LEC','ROLE_STUDENT')")
 	@RequestMapping(value = "/enterbatch", method = RequestMethod.GET)
-	public String viewAddCourse(@RequestParam(value = "batchId") Long id,ModelMap model) {
+	public String enterBatch(@RequestParam(value = "batchId") Long id,ModelMap model) {
 		ModelAndView mav = new ModelAndView();
 		model.addAttribute("batchId", id);
 		model.addAttribute("batchObject", batchService.getBatchContent(id));
@@ -94,7 +94,7 @@ public class BatchController {
 	 * @return
 	 */
 	@RequestMapping(value = "/getBatchList", method = RequestMethod.GET)
-	public String viewAddCourse(ModelMap model) {
+	public String getBatchList(ModelMap model) {
 		batchService.getBatchList(model);
 		return "batch/batchList";
 	}

@@ -10,7 +10,7 @@
 		<form-login login-page="/login" default-target-url="/getlecturerprofile"
 			authentication-failure-url="/loginfailed" />
 		<logout logout-success-url="/logout" />
-		<remember-me key="myAppKey" token-validity-seconds="864000" />
+		<remember-me key="${rememberme.key}" token-validity-seconds="864000" />
 	</http>
 
 	<authentication-manager>

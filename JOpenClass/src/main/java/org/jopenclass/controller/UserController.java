@@ -51,11 +51,17 @@ public class UserController {
 	public String updateProfilePic(
 			@RequestParam(value = "profileImage", required = false) MultipartFile image) {
 
-			if (!image.isEmpty()) {
-				if (image.getContentType().equals("image/jpeg")) {
-					userService.saveImage(image);
-				}
+		if (!image.isEmpty()) {
+			if (image.getContentType().equals("image/jpeg")) {
+				userService.saveImage(image);
 			}
+		}
+
+		if (userService.loggedInIsALectuer()) {
+			return "redirect:/getlecturerprofile";
+		} else if (userService.loggedInIsAStudent()) {
+			return "redirect:/getStudentProfile";
+		}
 
 		return "redirect:/getlecturerprofile";
 	}

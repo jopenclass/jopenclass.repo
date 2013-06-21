@@ -24,6 +24,7 @@
 
 	<aop:aspectj-autoproxy />
 	<bean id="dbMethodCallLogger" class="org.jopenclass.aspect.DbMethodCallLogger" />
+	<bean id="resourceCleaner" class="org.jopenclass.aspect.ResourceCleaner" />
 
 	<sec:global-method-security
 		pre-post-annotations="enabled" />

@@ -3,7 +3,9 @@ package org.jopenclass.service;
 import java.io.File;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import net.coobird.thumbnailator.Thumbnails;
@@ -16,6 +18,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.jopenclass.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -102,6 +105,34 @@ public class UserService {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean loggedInIsALectuer() {
+		Collection<? extends GrantedAuthority> roles = SecurityContextHolder
+				.getContext().getAuthentication().getAuthorities();
+		for (GrantedAuthority grantedAuthority : roles) {
+			if (grantedAuthority.equals("ROLE_LEC"))
+				return true;
+		}
+		return false;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean loggedInIsAStudent() {
+		Collection<? extends GrantedAuthority> roles = SecurityContextHolder
+				.getContext().getAuthentication().getAuthorities();
+		for (GrantedAuthority grantedAuthority : roles) {
+			if (grantedAuthority.equals("ROLE_STUDENT"))
+				return true;
+		}
+		return false;
 	}
 
 }
