@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>Login Page</title>
+<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 <link
 	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.css"
 	rel="stylesheet">

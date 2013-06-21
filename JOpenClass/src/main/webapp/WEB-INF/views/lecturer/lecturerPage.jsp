@@ -57,7 +57,7 @@ body {
 					<h6>only Jpg files are allowed</h6>
 
 					<img
-						src="<%=request.getContextPath()%>/profilePics/<%= org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication().getName()%>thumb.jpg?time=<%=new Random().nextInt()%>"
+						src="<%=request.getContextPath()%>/profilePics/<%= org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication().getName()%>thumb.jpg?random=<%=new Random().nextInt()%>"
 						class="img-polaroid" height="160" width="160">
 
 					<form method="post" enctype="multipart/form-data"
