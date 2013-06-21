@@ -54,6 +54,8 @@
 								Profile</a></li>
 					</sec:authorize>
 					<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<li><a href="<%=request.getContextPath()%>/getStudentList">Student
+								List</a></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown">Courses<b class="caret"></b>
 						</a>
