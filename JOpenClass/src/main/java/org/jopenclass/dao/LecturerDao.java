@@ -48,20 +48,20 @@ public class LecturerDao {
 	 */
 	public long saveLecturer(Lecturer lectuer) throws NoSuchAlgorithmException {
 
-		Long id;
+		Long id = 1L;
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 
 		String hexStr = "";
 
 		// if a password is set, then update to sha1 length of sha1 in db is 40
-		if (lectuer.getUser() != null
-				&& (lectuer.getUser().getPassword() != null)
-				&& (lectuer.getUser().getPassword().length()) > 0
-				&& lectuer.getUser().getPassword().length() < SHAH_LENGTH) {
+		if (lectuer != null
+				&& (lectuer.getPassword() != null)
+				&& (lectuer.getPassword().length()) > 0
+				&& lectuer.getPassword().length() < SHAH_LENGTH) {
 
 			MessageDigest md = MessageDigest.getInstance("SHA1");
-			byte[] passwordByte = lectuer.getUser().getPassword().getBytes();
+			byte[] passwordByte = lectuer.getPassword().getBytes();
 			md.update(passwordByte);
 			byte[] digest = md.digest();
 
@@ -69,41 +69,41 @@ public class LecturerDao {
 				hexStr += Integer.toString((digest[i] & 0xff) + 0x100, 16)
 						.substring(1);
 			}
-			lectuer.getUser().setPassword(hexStr);
+			lectuer.setPassword(hexStr);
 		}
 
-		if (lectuer.getId() >= 0) {
-			Lecturer lec = (Lecturer) session.get(Lecturer.class,
-					lectuer.getId());
-			lec.setFirstName(lectuer.getFirstName());
-			lec.setLastName(lectuer.getLastName());
-			lec.setAddress(lectuer.getAddress());
-			lec.setContactNumber(lectuer.getContactNumber());
-
-			// length of sha1 encoded string in db
-			if (lectuer.getUser().getPassword() != null
-					&& lectuer.getUser().getPassword().length() < SHAH_LENGTH
-					&& lectuer.getUser().getPassword().length() > 0) {
-				lec.getUser().setPassword(hexStr);
-			}
-
-			lec.getUser().setEmail(lectuer.getUser().getEmail());
-			lec.getUser().setUserRoles(lectuer.getUser().getUserRoles());
-			lec.setSubjectList(lectuer.getSubjectList());
-
-			if (lectuer.getSubjectList() == null
-					|| lectuer.getSubjectList().size() == 0)
-				lec.getSubjectList().clear();
-
-			// used merge since hibernate may try to attach both Lecturers with
-			// the same id to the session
-			session.merge(lec);
-			id = lectuer.getId();
-		} else {
-			id = (Long) session.save(lectuer);
-
-		}
-
+//		if (lectuer.getId() >= 0) {
+//			Lecturer lec = (Lecturer) session.get(Lecturer.class,
+//					lectuer.getId());
+//			lec.setFirstName(lectuer.getFirstName());
+//			lec.setLastName(lectuer.getLastName());
+//			lec.setAddress(lectuer.getAddress());
+//			lec.setContactNumber(lectuer.getContactNumber());
+//
+//			// length of sha1 encoded string in db
+//			if (lectuer.getUser().getPassword() != null
+//					&& lectuer.getUser().getPassword().length() < SHAH_LENGTH
+//					&& lectuer.getUser().getPassword().length() > 0) {
+//				lec.getUser().setPassword(hexStr);
+//			}
+//
+//			lec.getUser().setEmail(lectuer.getUser().getEmail());
+//			lec.getUser().setUserRoles(lectuer.getUser().getUserRoles());
+//			lec.setSubjectList(lectuer.getSubjectList());
+//
+//			if (lectuer.getSubjectList() == null
+//					|| lectuer.getSubjectList().size() == 0)
+//				lec.getSubjectList().clear();
+//
+//			// used merge since hibernate may try to attach both Lecturers with
+//			// the same id to the session
+//			session.merge(lec);
+//			id = lectuer.getId();
+//		} else {
+//			id = (Long) session.save(lectuer);
+//
+//		}
+		id = (Long) session.save(lectuer);
 		session.getTransaction().commit();
 		session.close();
 
@@ -171,11 +171,11 @@ public class LecturerDao {
 			}
 			session.update(lecturer);
 
-			User user = lecturer.getUser();
+			User user = (User) session.get(User.class, id);
 			user.getUserRoles().clear();
 			session.update(user);
 			query.setLong("id", id);
-			query1.setLong("id", user.getId());
+			query1.setLong("id", id);
 			query.executeUpdate();
 			query1.executeUpdate();
 		}
@@ -242,7 +242,7 @@ public class LecturerDao {
 	public Object updateLoggedLecturer(Lecturer lecturer, User user,
 			Map<String, Object> response) throws NoSuchAlgorithmException {
 
-		Long loggedLecId = getLoggedInLecturer().getId();
+		Long loggedLecId = getLoggedInLecturer().getUserId();
 		String email = user.getEmail();
 		String lecturerInfo = lecturer.getLecturerInfo();
 		String firstName = lecturer.getFirstName();
@@ -260,13 +260,13 @@ public class LecturerDao {
 		lec.setContactNumber(contactNumber);
 		lec.setLecturerInfo(lecturerInfo);
 		
-		if(!email.equals(lec.getUser().getEmail())){
+		if(!email.equals(lec.getEmail())){
 			emailChanged = true;
 			System.out.println(email);
-			System.out.println(lec.getUser().getEmail());
+			System.out.println(lec.getEmail());
 		}
 		
-		lec.getUser().setEmail(email);
+		lec.setEmail(email);
 		lec.setAddress(address);
 		
 		//SecurityContextHolder.getContext().setAuthentication(authentication)
@@ -277,5 +277,6 @@ public class LecturerDao {
 			response.put("emailChanged", "yes");
 		response.put("message", "success");
 		return response;
+
 	}
 }

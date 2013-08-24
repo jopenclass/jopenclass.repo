@@ -64,8 +64,9 @@ public class LecturerService {
 			lecturer.setSubjectList(selectedSubjects);
 		}
 		try {
-			lecturer.setId(lecturerDao.saveLecturer(lecturer));
-			lecturer.setUser(lecturer.getUser());
+			//lecturer.setId(lecturerDao.saveLecturer(lecturer));
+			//lecturer.setUser(lecturer.getUser());
+			lecturerDao.saveLecturer(lecturer);
 			response.put("lecturer", lecturer);
 			response.put("message", "successfully saved!!!");
 		} catch (Exception e) {

@@ -4,7 +4,19 @@
 
 package org.jopenclass.service;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.JsonProcessingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.jopenclass.dao.StudentDao;
+import org.jopenclass.form.Lecturer;
+import org.jopenclass.form.Student;
+import org.jopenclass.form.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,5 +25,25 @@ public class StudentService {
 
 	@Autowired
 	private StudentDao studentDao;
+
+	public Object postSaveStudent(String json) throws JsonProcessingException,
+			IOException {
+		Map<String, Object> response = new HashMap<String, Object>();
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode rootNode = mapper.readTree(json);
+		JsonNode lecturerNode = rootNode.path("lecturer");
+		Student student = mapper.readValue(lecturerNode, Student.class);
+	
+		try {
+			studentDao.saveStudent(student);
+			response.put("lecturer", student);
+			response.put("message", "successfully saved!!!");
+		} catch (Exception e) {
+			System.out.println(e);
+			response.put("message",
+					"Sorry, an error has occured. Could not add the Lecturer to the system.");
+		}
+		return response;
+	}
 
 }

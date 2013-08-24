@@ -35,7 +35,7 @@ public class LecturerDetailController {
 	 */
 	@RequestMapping(value = "/savelecturer", method = RequestMethod.GET)
 	public String viewAddCourse(ModelMap model) {
-		lecturerService.getSaveLecturer(model);
+		//lecturerService.getSaveLecturer(model);
 		return "lecturer/lecturer";
 	}
 

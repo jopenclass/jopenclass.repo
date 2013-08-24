@@ -5,6 +5,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Student</title>
+<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+<script src="<%=request.getContextPath()%>/resources/chosen/chosen.jquery.min.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
+<link href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/student/student.js"> </script>
 </head>
 <body>
 	
@@ -24,9 +31,18 @@
 				<td><input type="text" id="lastName" /></td>
 			</tr>
 			<tr>
-				<td><label>Address</label></td>
-				<td><input type="text" id="address" /></td>
+				<td><label>Address Line 1</label></td>
+				<td><input type="text" id="addressLine1" /></td>
 			</tr>
+			<tr>
+				<td><label>Address Line 2</label></td>
+				<td><input type="text" id="addressLine2" /></td>
+			</tr>
+			
+			<tr>
+				<td><label>Address Line 3</label></td>
+				<td><input type="text" id="addressLine3" /></td>
+			</tr>			
 			<tr>
 				<td><label>Contact Number</label></td>
 				<td><input type="text" id="contactNumber" /></td>
@@ -45,7 +61,7 @@
 			</tr>
 						
 		</table>
-		<button id="addStudent">Add</button>
+		<button id="btnAddStudent">Add</button>
 
 </body>
 </html>
