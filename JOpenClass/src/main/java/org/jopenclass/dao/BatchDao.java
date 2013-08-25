@@ -42,7 +42,7 @@ public class BatchDao {
 		session.beginTransaction();
 
 		Query query = session
-				.createQuery("from Lecturer where user.email=:userName");
+				.createQuery("from Lecturer where email=:userName");
 		query.setString("userName", userName);
 		@SuppressWarnings("unchecked")
 		List<Lecturer> lecturers = (ArrayList<Lecturer>) query.list();
