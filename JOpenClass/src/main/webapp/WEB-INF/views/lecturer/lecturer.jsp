@@ -41,7 +41,6 @@ body {
 	<div id="info"></div>
 	<form:form method="post" action="savelecturer.html"
 		commandName="lecturer" onsubmit="return false;">
-		<form:hidden path="id" value="-1" />
 		<table>
 			<tr>
 				<td colspan="2"><div id="info"></div></td>

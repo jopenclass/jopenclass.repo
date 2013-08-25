@@ -24,7 +24,7 @@
 
 				authorities-by-username-query="
         select u.email, ur.authority from user u, user_role ur
-        where u.user = ur.userid and u.email =?  " />
+        where u.userId = ur.userid and u.email =?  " />
 
 		</authentication-provider>
 	</authentication-manager>

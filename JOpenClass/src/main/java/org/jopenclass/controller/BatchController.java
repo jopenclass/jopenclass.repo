@@ -99,6 +99,11 @@ public class BatchController {
 		return "batch/batchList";
 	}
 
+	/**
+	 * 
+	 * @param featureIds
+	 * @return
+	 */
 	@PreAuthorize("isAuthenticated() and hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/featureBatches", method = RequestMethod.POST)
 	@ResponseBody

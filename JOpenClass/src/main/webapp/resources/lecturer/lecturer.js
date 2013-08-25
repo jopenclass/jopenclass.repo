@@ -8,17 +8,16 @@ $(function() {
 		lecturer.lastName = $('#lastName').val();
 		lecturer.address = $('#address').val();
 		lecturer.contactNumber = $('#contactNumber').val();
-		lecturer.user = new Object();
-		lecturer.user.enabled = true;
-		lecturer.user.email = $('#email').val();
-		lecturer.user.password = $('#password').val();
-		lecturer.user.enabled = $("input:radio:checked").val();
+		lecturer.enabled = true;
+		lecturer.email = $('#email').val();
+		lecturer.password = $('#password').val();
+		lecturer.enabled = $("input:radio:checked").val();
 		//lecturer.subjectList = $(".chzn-select").val();
-		lecturer.user.userRoles = $('input[name="roles"]:checkbox:checked')
+		lecturer.userRoles = $('input[name="roles"]:checkbox:checked')
 				.map(function() {
 					return this.value;
 				}).get();
-		lecturer.id = -1;
+		lecturer.userId = -1;
 		data.lecturer = lecturer;
 		data.selectedSubjects = $(".chzn-select").val();
 		$.ajax({
