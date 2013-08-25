@@ -62,10 +62,9 @@ $(function() {
 		lecturer.lastName = $('#lastName').val();
 		lecturer.address = $('#address').val();
 		lecturer.contactNumber = $('#contactNumber').val();
-		lecturer.user = new Object();
-		lecturer.user.email = $('#email').val();
+		lecturer.email = $('#email').val();
 		lecturer.id = editId;
-		lecturer.user.id = editUserId;
+		lecturer.userId = editUserId;
 		data.lecturer = lecturer;
 		if (editId > 0) {
 			data.lecturer = editObject.lecturer;
@@ -73,11 +72,11 @@ $(function() {
 			data.lecturer.lastName = $('#lastName').val();
 			data.lecturer.address = $('#address').val();
 			data.lecturer.contactNumber = $('#contactNumber').val();
-			data.lecturer.user.userRoles = $(
+			data.lecturer.userRoles = $(
 					'input[name="roles"]:checkbox:checked').map(function() {
 				return this.value;
 			}).get();
-			data.lecturer.user.email = $('#email').val();
+			data.lecturer.email = $('#email').val();
 			data.selectedSubjects = $(".chzn-select").val();
 			editObject = null;
 		}
@@ -93,7 +92,7 @@ $(function() {
 							$("#lecturers tbody")
 									.append(
 											"<tr id='"
-													+ response.lecturer.id
+													+ response.lecturer.userId
 													+ "'>"
 													+ "<td>"
 													+ response.lecturer.firstName
@@ -104,23 +103,23 @@ $(function() {
 													+ response.lecturer.contactNumber
 													+ "</td>"
 													+ "<td>"
-													+ response.lecturer.user.email
+													+ response.lecturer.email
 													+ "</td>"
 													+ "<td>"
 													+ response.lecturer.address
 													+ "</td>"
 													+ "<td><a class='edit_lecturer' href='#"
-													+ response.lecturer.id
+													+ response.lecturer.userId
 													+ "'>edit</a></td>"
 													+ "<td><input type='checkbox' name='del_list' value='"
-													+ response.lecturer.id
+													+ response.lecturer.userId
 													+ "'></td>" + "</tr>");
 						} else {
 
-							$("tr#" + response.lecturer.id)
+							$("tr#" + response.lecturer.userId)
 									.replaceWith(
 											"<tr id='"
-													+ response.lecturer.id
+													+ response.lecturer.userId
 													+ "'>"
 													+ "<td>"
 													+ response.lecturer.firstName
@@ -131,16 +130,16 @@ $(function() {
 													+ response.lecturer.contactNumber
 													+ "</td>"
 													+ "<td>"
-													+ response.lecturer.user.email
+													+ response.lecturer.email
 													+ "</td>"
 													+ "<td>"
 													+ response.lecturer.address
 													+ "</td>"
 													+ "<td><a class='edit_lecturer' href='#"
-													+ response.lecturer.id
+													+ response.lecturer.userId
 													+ "'>edit</a></td>"
 													+ "<td><input type='checkbox' name='del_list' value='"
-													+ response.lecturer.id
+													+ response.lecturer.userId
 													+ "'></td>" + "</tr>");
 						}
 						editId = -1;
@@ -269,11 +268,11 @@ $(function() {
 						$('input#firstName').val(response.lecturer.firstName);
 						$('input#lastName').val(response.lecturer.lastName);
 						$('input#address').val(response.lecturer.address);
-						$('input#email').val(response.lecturer.user.email);
+						$('input#email').val(response.lecturer.email);
 						$('input#contactNumber').val(
 								response.lecturer.contactNumber);
-						$('input#lec_id').val(response.lecturer.id);
-						editUserId = response.lecturer.user.id;
+						$('input#lec_id').val(response.lecturer.userId);
+						editUserId = response.lecturer.userId;
 						if (response.lecturer.subjectList != null) {
 							var subjects = response.lecturer.subjectList;
 							var subjectIds = new Array();
@@ -284,8 +283,8 @@ $(function() {
 							}
 							$('#subjectSelect').trigger("liszt:updated");
 						}
-						if (response.lecturer.user.userRoles != null) {
-							var userRoles = response.lecturer.user.userRoles;
+						if (response.lecturer.userRoles != null) {
+							var userRoles = response.lecturer.userRoles;
 							for ( var i = 0; i < userRoles.length; i++) {
 								if (userRoles[i] == 'ROLE_ADMIN') {
 									$('#check_admin_role')

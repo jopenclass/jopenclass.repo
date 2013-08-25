@@ -72,38 +72,37 @@ public class LecturerDao {
 			lectuer.setPassword(hexStr);
 		}
 
-//		if (lectuer.getId() >= 0) {
-//			Lecturer lec = (Lecturer) session.get(Lecturer.class,
-//					lectuer.getId());
-//			lec.setFirstName(lectuer.getFirstName());
-//			lec.setLastName(lectuer.getLastName());
-//			lec.setAddress(lectuer.getAddress());
-//			lec.setContactNumber(lectuer.getContactNumber());
-//
-//			// length of sha1 encoded string in db
-//			if (lectuer.getUser().getPassword() != null
-//					&& lectuer.getUser().getPassword().length() < SHAH_LENGTH
-//					&& lectuer.getUser().getPassword().length() > 0) {
-//				lec.getUser().setPassword(hexStr);
-//			}
-//
-//			lec.getUser().setEmail(lectuer.getUser().getEmail());
-//			lec.getUser().setUserRoles(lectuer.getUser().getUserRoles());
-//			lec.setSubjectList(lectuer.getSubjectList());
-//
-//			if (lectuer.getSubjectList() == null
-//					|| lectuer.getSubjectList().size() == 0)
-//				lec.getSubjectList().clear();
-//
-//			// used merge since hibernate may try to attach both Lecturers with
-//			// the same id to the session
-//			session.merge(lec);
-//			id = lectuer.getId();
-//		} else {
-//			id = (Long) session.save(lectuer);
-//
-//		}
-		id = (Long) session.save(lectuer);
+		if (lectuer.getUserId() >= 0) {
+			Lecturer lec = (Lecturer) session.get(Lecturer.class,
+					lectuer.getUserId());
+			lec.setFirstName(lectuer.getFirstName());
+			lec.setLastName(lectuer.getLastName());
+			lec.setAddress(lectuer.getAddress());
+			lec.setContactNumber(lectuer.getContactNumber());
+
+			// length of sha1 encoded string in db
+			if (lectuer.getPassword() != null
+					&& lectuer.getPassword().length() < SHAH_LENGTH
+					&& lectuer.getPassword().length() > 0) {
+				lec.setPassword(hexStr);
+			}
+
+			lec.setEmail(lectuer.getEmail());
+			lec.setUserRoles(lectuer.getUserRoles());
+			lec.setSubjectList(lectuer.getSubjectList());
+
+			if (lectuer.getSubjectList() == null
+					|| lectuer.getSubjectList().size() == 0)
+				lec.getSubjectList().clear();
+
+			// used merge since hibernate may try to attach both Lecturers with
+			// the same id to the session
+			session.merge(lec);
+			id = lectuer.getUserId();
+		} else {
+			id = (Long) session.save(lectuer);
+		}
+		
 		session.getTransaction().commit();
 		session.close();
 
@@ -155,8 +154,7 @@ public class LecturerDao {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 
-		Query query = session.createQuery("delete from Lecturer where id=:id");
-		Query query1 = session.createQuery("delete from User where id=:id");
+		Query query = session.createQuery("delete from Lecturer where userId=:id");
 
 		for (Long id : lec_ids) {
 
@@ -171,13 +169,10 @@ public class LecturerDao {
 			}
 			session.update(lecturer);
 
-			User user = (User) session.get(User.class, id);
-			user.getUserRoles().clear();
-			session.update(user);
+			lecturer.getUserRoles().clear();
+			session.update(lecturer);
 			query.setLong("id", id);
-			query1.setLong("id", id);
 			query.executeUpdate();
-			query1.executeUpdate();
 		}
 		session.getTransaction().commit();
 		session.close();

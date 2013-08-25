@@ -131,17 +131,17 @@
 
 				<c:forEach items="${lecturerList}" var="lecturer" varStatus="status">
 
-					<tr id="${lecturer.id}">
+					<tr id="${lecturer.userId}">
 
 						<td>${lecturer.firstName}&nbsp;${lecturer.lastName}</td>
 						<td>${lecturer.contactNumber}</td>
-						<td>${lecturer.user.email}</td>
+						<td>${lecturer.email}</td>
 						<td>${lecturer.address }</td>
 
 						<sec:authorize access="hasRole('ROLE_ADMIN')">
-							<td><a class="edit_lecturer" href="#${lecturer.id}">edit</a></td>
+							<td><a class="edit_lecturer" href="#${lecturer.userId}">edit</a></td>
 							<td><input type="checkbox" name="del_list"
-								value="${lecturer.id}"></td>
+								value="${lecturer.userId}"></td>
 						</sec:authorize>
 
 					</tr>
