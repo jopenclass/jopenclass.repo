@@ -156,11 +156,9 @@ public class LecturerService {
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode rootNode = mapper.readTree(json);
 		JsonNode lecturerNode = rootNode.path("lecturer");
-		JsonNode userNode = rootNode.path("user");
-
+		System.out.println(">>>>>>>>>>>>>>>>"+json);
 		Lecturer lecturer = mapper.readValue(lecturerNode, Lecturer.class);
-		User user = mapper.readValue(userNode, User.class);
 
-		return lecturerDao.updateLoggedLecturer(lecturer, user, response);
+		return lecturerDao.updateLoggedLecturer(lecturer, response);
 	}
 }

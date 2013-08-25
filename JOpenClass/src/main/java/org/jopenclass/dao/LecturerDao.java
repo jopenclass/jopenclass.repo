@@ -199,7 +199,7 @@ public class LecturerDao {
 		session.beginTransaction();
 
 		Query query = session
-				.createQuery("from Lecturer where user.email=:userName");
+				.createQuery("from Lecturer where email=:userName");
 		query.setString("userName", userName);
 
 		List<Lecturer> lecturers = (ArrayList<Lecturer>) query.list();
@@ -239,11 +239,11 @@ public class LecturerDao {
 	 * @return
 	 * @throws NoSuchAlgorithmException
 	 */
-	public Object updateLoggedLecturer(Lecturer lecturer, User user,
+	public Object updateLoggedLecturer(Lecturer lecturer,
 			Map<String, Object> response) throws NoSuchAlgorithmException {
 
 		Long loggedLecId = getLoggedInLecturer().getUserId();
-		String email = user.getEmail();
+		String email = lecturer.getEmail();
 		String lecturerInfo = lecturer.getLecturerInfo();
 		String firstName = lecturer.getFirstName();
 		String lastName = lecturer.getLastName();
@@ -254,6 +254,8 @@ public class LecturerDao {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 
+		System.out.println(">>>>>>>>>>>>>>>>>"+email);
+		
 		Lecturer lec = (Lecturer) session.get(Lecturer.class, loggedLecId);
 		lec.setFirstName(firstName);
 		lec.setLastName(lastName);

@@ -318,7 +318,7 @@ $(function() {
 				$('input#address').val(response.lecturer.address);
 				$('input#contactNumber').val(response.lecturer.contactNumber);
 				$('input#lecturerInfo').val(response.lecturer.lecturerInfo);
-				$('input#email').val(response.lecturer.user.email);
+				$('input#email').val(response.lecturer.email);
 			},
 			error : function(e) {
 				alert('Error: ' + e);
@@ -335,8 +335,7 @@ $(function() {
 		data.lecturer.address = $('input#address').val();
 		data.lecturer.contactNumber = $('input#contactNumber').val();
 		data.lecturer.lecturerInfo = $('input#lecturerInfo').val();
-		data.user = new Object();
-		data.user.email = $('input#email').val();
+		data.lecturer.email = $('input#email').val();
 
 		$('#editProfileModal').modal('hide');
 		var response = $.ajax({

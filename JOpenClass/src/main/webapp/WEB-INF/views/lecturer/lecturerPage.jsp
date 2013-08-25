@@ -79,7 +79,7 @@ body {
 					</tr>
 					<tr>
 						<td>Email address</td>
-						<td>${lecturer.user.email}</td>
+						<td>${lecturer.email}</td>
 					</tr>
 					<tr>
 						<td>Residential address</td>
