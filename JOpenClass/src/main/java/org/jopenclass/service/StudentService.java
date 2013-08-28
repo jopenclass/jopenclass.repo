@@ -31,17 +31,16 @@ public class StudentService {
 		Map<String, Object> response = new HashMap<String, Object>();
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode rootNode = mapper.readTree(json);
-		JsonNode lecturerNode = rootNode.path("lecturer");
-		Student student = mapper.readValue(lecturerNode, Student.class);
+		//JsonNode studentNode = rootNode.path("student");
+		Student student = mapper.readValue(rootNode, Student.class);
 	
 		try {
 			studentDao.saveStudent(student);
-			response.put("lecturer", student);
+			response.put("student", student);
 			response.put("message", "successfully saved!!!");
 		} catch (Exception e) {
 			System.out.println(e);
-			response.put("message",
-					"Sorry, an error has occured. Could not add the Lecturer to the system.");
+			response.put("message", "Sorry, an error has occured. Could not add the Lecturer to the system.");
 		}
 		return response;
 	}

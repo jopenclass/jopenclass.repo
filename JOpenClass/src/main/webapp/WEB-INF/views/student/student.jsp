@@ -9,6 +9,7 @@
 <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
 <script src="<%=request.getContextPath()%>/resources/chosen/chosen.jquery.min.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/chosen/chosen.jquery.min.js" type="text/javascript"></script>
 <link href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/student/student.js"> </script>
@@ -31,18 +32,9 @@
 				<td><input type="text" id="lastName" /></td>
 			</tr>
 			<tr>
-				<td><label>Address Line 1</label></td>
-				<td><input type="text" id="addressLine1" /></td>
+				<td><label>Address</label></td>
+				<td><input type="text" id="address" /></td>
 			</tr>
-			<tr>
-				<td><label>Address Line 2</label></td>
-				<td><input type="text" id="addressLine2" /></td>
-			</tr>
-			
-			<tr>
-				<td><label>Address Line 3</label></td>
-				<td><input type="text" id="addressLine3" /></td>
-			</tr>			
 			<tr>
 				<td><label>Contact Number</label></td>
 				<td><input type="text" id="contactNumber" /></td>
@@ -52,11 +44,15 @@
 				<td><input type="text" id="email" /></td>
 			</tr>
 			<tr>
+				<td><label>Grade</label></td>
+				<td><input type="text" id="grade" /></td>
+			</tr>			
+			<tr>
 				<td><label>Password</label></td>
 				<td><input type="password" id="password" /></td>
 			</tr>
 			<tr>
-				<td><label>Password</label></td>
+				<td><label>Confirm Password</label></td>
 				<td><input type="password" id="passwordMatch" /></td>
 			</tr>
 						

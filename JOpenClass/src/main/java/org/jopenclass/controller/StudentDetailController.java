@@ -39,7 +39,7 @@ public class StudentDetailController {
 	 * @throws JsonMappingException
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/savestudent", method = RequestMethod.POST)
+	@RequestMapping(value = "/saveStudent", method = RequestMethod.POST)
 	public @ResponseBody
 	Object saveLecturer(@RequestBody String json) throws JsonParseException,
 			JsonMappingException, IOException {
