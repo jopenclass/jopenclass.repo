@@ -15,6 +15,7 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/student/student.js"> </script>
 </head>
 <body>
+	<%@ include file="/resources/common/header.jsp"%>
 	
 	<h4>Add Student</h4>
 	<div id="info"></div>
@@ -58,6 +59,6 @@
 						
 		</table>
 		<button id="btnAddStudent">Add</button>
-
+     <%@ include file="/resources/common/footer.jsp"%>
 </body>
 </html>
