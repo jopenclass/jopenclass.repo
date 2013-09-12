@@ -20,44 +20,47 @@
 	<h4>Add Student</h4>
 	<div id="info"></div>
 
-		<table>
+       <form id="studentForm">
+		<table >
 			<tr>
 				<td colspan="2"><div id="info"></div></td>
 			</tr>
 			<tr>
 				<td><label>First Name</label></td>
-				<td><input type="text" id="firstName" /></td>
+				<td><input type="text" id="firstName" required placeholder="Enter first name"/></td>
 			</tr>
 			<tr>
 				<td><label>Last Name</label></td>
-				<td><input type="text" id="lastName" /></td>
+				<td><input type="text" id="lastName" required placeholder="Enter last name"/></td>
 			</tr>
 			<tr>
 				<td><label>Address</label></td>
-				<td><input type="text" id="address" /></td>
+				<td><input type="text" id="address" required placeholder="Enter address"/></td>
 			</tr>
 			<tr>
 				<td><label>Contact Number</label></td>
-				<td><input type="text" id="contactNumber" /></td>
+				<td><input type="text" id="contactNumber" required placeholder="Enter your contact number"/></td>
 			</tr>
 			<tr>
 				<td><label>Email address</label></td>
-				<td><input type="text" id="email" /></td>
+				<td><input type="email" name="email" required placeholder="Enter a valid email address"/></td>
 			</tr>
 			<tr>
 				<td><label>Grade</label></td>
-				<td><input type="text" id="grade" /></td>
+				<td><input type="text" id="grade" required placeholder="Enter grade"/></td>
 			</tr>			
 			<tr>
 				<td><label>Password</label></td>
-				<td><input type="password" id="password" /></td>
+				<td><input type="password" id="password" required placeholder="Enter password"/></td>
 			</tr>
 			<tr>
 				<td><label>Confirm Password</label></td>
-				<td><input type="password" id="passwordMatch" /></td>
+				<td><input type="password" id="passwordMatch" required placeholder="Confirm password"/></td>
 			</tr>
 						
 		</table>
+		
+		</form>
 		<button id="btnAddStudent">Add</button>
      <%@ include file="/resources/common/footer.jsp"%>
 </body>

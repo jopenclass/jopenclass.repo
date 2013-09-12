@@ -1,5 +1,6 @@
 $(function() {
 	$("#btnAddStudent").button().live('click', function() {
+		$("#studentForm").validate();
 		addStudent();
 	});	
 });
@@ -7,7 +8,6 @@ $(function() {
 function addStudent(){
 
 	var student = new Object();
-
 	student.firstName = $('#firstName').val();
 	student.lastName = $('#lastName').val();
 	student.address = $('#address').val();
