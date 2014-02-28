@@ -1,6 +1,5 @@
 $(function() {
 	$("#btnAddStudent").button().live('click', function() {
-		$("#studentForm").validate();
 		addStudent();
 	});	
 });
@@ -15,6 +14,7 @@ function addStudent(){
 	student.email = $('#email').val();
 	student.grade = $('#grade').val();
 	student.password = $('#password').val();
+	student.enabled = $("#isActive").is(":checked");
 	$.ajax({
 		type : "POST",
 		url : "/JOpenClass/saveStudent",
@@ -30,6 +30,7 @@ function addStudent(){
 			$('#grade').val('');
 			$('#password').val('');			
 			$('#passwordMatch').val('');
+			$("#isActive").attr('checked', false);
 		},
 		error : function(e) {
 			alert('Error: ' + e);

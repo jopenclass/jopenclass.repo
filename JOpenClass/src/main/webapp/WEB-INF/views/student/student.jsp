@@ -43,7 +43,7 @@
 			</tr>
 			<tr>
 				<td><label>Email address</label></td>
-				<td><input type="email" name="email" required placeholder="Enter a valid email address"/></td>
+				<td><input type="email" id="email" required placeholder="Enter a valid email address"/></td>
 			</tr>
 			<tr>
 				<td><label>Grade</label></td>
@@ -56,6 +56,11 @@
 			<tr>
 				<td><label>Confirm Password</label></td>
 				<td><input type="password" id="passwordMatch" required placeholder="Confirm password"/></td>
+			</tr>
+			
+			<tr>
+				<td><label>Active</label></td>
+				<td><input type="checkbox" id="isActive"></td>
 			</tr>
 						
 		</table>

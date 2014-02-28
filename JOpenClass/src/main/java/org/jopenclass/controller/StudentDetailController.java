@@ -6,6 +6,7 @@ package org.jopenclass.controller;
 
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -38,11 +39,12 @@ public class StudentDetailController {
 	 * @throws JsonParseException
 	 * @throws JsonMappingException
 	 * @throws IOException
+	 * @throws NoSuchAlgorithmException 
 	 */
 	@RequestMapping(value = "/saveStudent", method = RequestMethod.POST)
 	public @ResponseBody
 	Object saveLecturer(@RequestBody String json) throws JsonParseException,
-			JsonMappingException, IOException {
+			JsonMappingException, IOException, NoSuchAlgorithmException {
 		return studentService.postSaveStudent(json);
 	}
 }
