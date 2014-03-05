@@ -52,6 +52,7 @@ public class User {
 	private String password;
 	@Column(name = "enabled")
 	private boolean enabled;
+	
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "userid"))
 	@Column(name = "authority")

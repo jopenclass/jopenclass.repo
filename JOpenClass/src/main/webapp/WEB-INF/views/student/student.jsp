@@ -59,6 +59,13 @@
 			</tr>
 			
 			<tr>
+				<td><label>User Roles</label></td>
+				<td><input type="checkbox" id="ROLE_LEC" name="roles"
+					value="ROLE_STUD">Lecturer <input type="checkbox"
+					id="ROLE_ADMIN" name="roles" value="ROLE_ADMIN">Admin</td>
+			</tr>
+			
+			<tr>
 				<td><label>Active</label></td>
 				<td><input type="checkbox" id="isActive"></td>
 			</tr>

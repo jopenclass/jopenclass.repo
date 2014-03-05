@@ -15,6 +15,10 @@ function addStudent(){
 	student.grade = $('#grade').val();
 	student.password = $('#password').val();
 	student.enabled = $("#isActive").is(":checked");
+	student.userRoles = $('input[name="roles"]:checkbox:checked')
+	.map(function() {
+		return this.value;
+	}).get();
 	$.ajax({
 		type : "POST",
 		url : "/JOpenClass/saveStudent",
@@ -31,6 +35,8 @@ function addStudent(){
 			$('#password').val('');			
 			$('#passwordMatch').val('');
 			$("#isActive").attr('checked', false);
+			$('#ROLE_LEC').prop('checked', false);
+			$('#ROLE_ADMIN').prop('checked', false);
 		},
 		error : function(e) {
 			alert('Error: ' + e);

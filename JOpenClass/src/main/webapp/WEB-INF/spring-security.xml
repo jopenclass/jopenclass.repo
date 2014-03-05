@@ -6,7 +6,7 @@
  http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
 	<http auto-config="true">
-		<intercept-url pattern="/signin*" access="ROLE_USER,ROLE_ADMIN" />
+		<intercept-url pattern="/signin" access="ROLE_STUD,ROLE_ADMIN,ROLE_LEC" />
 		<form-login login-page="/login" default-target-url="/getlecturerprofile"
 			authentication-failure-url="/loginfailed" />
 		<logout logout-success-url="/logout" />
