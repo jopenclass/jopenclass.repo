@@ -115,7 +115,7 @@ public class UserService {
 		Collection<? extends GrantedAuthority> roles = SecurityContextHolder
 				.getContext().getAuthentication().getAuthorities();
 		for (GrantedAuthority grantedAuthority : roles) {
-			if (grantedAuthority.equals("ROLE_LEC"))
+			if (grantedAuthority.toString().equals("ROLE_LEC"))
 				return true;
 		}
 		return false;
@@ -129,8 +129,9 @@ public class UserService {
 		Collection<? extends GrantedAuthority> roles = SecurityContextHolder
 				.getContext().getAuthentication().getAuthorities();
 		for (GrantedAuthority grantedAuthority : roles) {
-			if (grantedAuthority.equals("ROLE_STUDENT"))
+			if (grantedAuthority.toString().equals("ROLE_STUD")){
 				return true;
+			}
 		}
 		return false;
 	}

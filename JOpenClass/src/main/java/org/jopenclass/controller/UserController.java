@@ -60,7 +60,7 @@ public class UserController {
 		if (userService.loggedInIsALectuer()) {
 			return "redirect:/getlecturerprofile";
 		} else if (userService.loggedInIsAStudent()) {
-			return "redirect:/getStudentProfile";
+			return "redirect:/getstudentprofile";
 		}
 
 		return "redirect:/getlecturerprofile";

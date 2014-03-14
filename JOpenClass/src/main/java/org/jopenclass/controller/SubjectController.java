@@ -1,9 +1,12 @@
 package org.jopenclass.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.jopenclass.form.Subject;
 import org.jopenclass.service.SubjectService;
+import org.jopenclass.util.converter.CustomUserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -94,5 +97,39 @@ public class SubjectController {
 	Object deleteCourseCategories(@RequestBody Long[] subjectIds) {
 		return subjectService.deleteSubjects(subjectIds);
 	}
+	
+	@RequestMapping(value = "/displayallsubjects", method = RequestMethod.GET)
+	public @ResponseBody
+	CustomUserResponse DisplayAllSubejcts() {
+		
+		List<Subject> subjects = subjectService.getAllSubjects();
+    	
+    	// Initialize our custom user response wrapper
+    	CustomUserResponse<Subject> response = new CustomUserResponse<Subject>();
+    	
+    	// Assign the result from the service to this response
+    	response.setRows(subjects);
+
+    	// Assign the total number of records found. This is used for paging
+    	response.setRecords(String.valueOf(subjects.size()));
+    	
+    	// Since our service is just a simple service for teaching purposes
+    	// We didn't really do any paging. But normally your DAOs or your persistence layer should support this
+    	// Assign a dummy page
+    	response.setPage( "1" );
+    	
+    	// Same. Assign a dummy total pages
+    	response.setTotal( "10" );
+    	
+    	// Return the response
+    	// Spring will automatically convert our CustomUserResponse as JSON object. 
+    	// This is triggered by the @ResponseBody annotation. 
+    	// It knows this because the JqGrid has set the headers to accept JSON format when it made a request
+    	// Spring by default uses Jackson to convert the object to JSON
+    	return response;
+		
+	}
+	
+	
 
 }

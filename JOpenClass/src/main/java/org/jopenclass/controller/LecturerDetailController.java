@@ -127,5 +127,6 @@ public class LecturerDetailController {
 			JsonMappingException, IOException, NoSuchAlgorithmException {
 		return lecturerService.updateLoggedLecturer(json);
 	}
+	
 
 }

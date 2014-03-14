@@ -7,31 +7,33 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Jopen Class</title>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
-<link href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/lecturer/lecturerPage.css">
-<link href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" media="screen" href="<%=request.getContextPath()%>/resources/jqgrid/ui.jqgrid.css" /> 
-<link rel="stylesheet" type="text/css" media="screen" href="<%=request.getContextPath()%>/resources/jquery/ui-lightness/jquery-ui-1.8.6.custom.css" />
-	
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/lecturer/lecturerPage.css">
+<link
+	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.css"
+	rel="stylesheet">
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript"
+	src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tab.js"></script>
 
+<script
+	src="<%=request.getContextPath()%>/resources/student/studentPage.js"
+	type="text/javascript"></script>
+
+<link
+	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap-responsive.css"
+	rel="stylesheet">
 <style type="text/css">
 body {
 	padding-top: 60px;
 	padding-bottom: 40px;
 }
 </style>
-
-<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
-<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.js"></script>
-<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tab.js"></script>
-<script src="<%=request.getContextPath()%>/resources/lecturer/lecturerPage.js" type="text/javascript"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/resources/jquery/jquery-1.4.4.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/resources/jquery/jquery-ui-1.8.6.custom.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/resources/jqgrid/grid.locale-en.js" ></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/resources/jqgrid/jquery.jqGrid.min.js"></script>
-
 </head>
 <body>
 	<%@ include file="/resources/common/header.jsp"%>
@@ -69,27 +71,23 @@ body {
 				<table class="table table-striped table-hover">
 					<tr>
 						<td>First name</td>
-						<td id="tbFirstName">${lecturer.firstName}</td>
+						<td id="tbFirstName">${student.firstName}</td>
 					</tr>
 					<tr>
 						<td>Last name</td>
-						<td id="tbLastName">${lecturer.lastName}</td>
+						<td id="tbLastName">${student.lastName}</td>
 					</tr>
 					<tr>
 						<td>Email address</td>
-						<td>${lecturer.email}</td>
+						<td>${student.email}</td>
 					</tr>
 					<tr>
 						<td>Residential address</td>
-						<td id="tbAddress">${lecturer.address}</td>
+						<td id="tbAddress">${student.address}</td>
 					</tr>
 					<tr>
 						<td>Contact number</td>
-						<td id="tbContactNumber">${lecturer.contactNumber}</td>
-					</tr>
-					<tr>
-						<td>Lecturer Information</td>
-						<td id="tbLecInfo">${lecturer.lecturerInfo}</td>
+						<td id="tbContactNumber">${student.contactNumber}</td>
 					</tr>
 				</table>
 				<a href="#editProfileModal" class="btn btn-success"
@@ -184,15 +182,27 @@ body {
 				</div>
 			</div>
 			<div id="subjectdiv1" class="tab-pane">
-			<input type="checkbox" name="allSubs" id="allSubs"> All Subjects 
-			<input type="checkbox" name="enrolledSubs" id ="enrolledSubs"> Enrollded Subjects
-			
-				<h5>Subjects</h5>
-				<div id="jqgrid">
-					<table id="grid"></table>
-					<div id="pager"></div>
-				</div>
+				<h5>Subjects I'm Entitled to</h5>
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Subject Name</th>
+							<th>Grade</th>
+							<th>Subject Details</th>
+						</tr>
+					</thead>
+					<tbody>
 
+						<c:forEach items="${lecturer.subjectList}" var="subject"
+							varStatus="status">
+							<tr>
+								<td>${subject.subjectName}</td>
+								<td>${subject.grade}</td>
+								<td>${subject.subjectDetails }</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
@@ -230,8 +240,7 @@ body {
 				Name</label><input id="lastName" type="text"> <label>Email
 				address</label><input id="email" type="text"> <label>Residential
 				address</label><input id="address" type="text"> <label>Contact
-				number</label><input id="contactNumber" type="text"> <label>Lecturer
-				Information</label><input id="lecturerInfo" type="text">
+				number</label><input id="contactNumber" type="text"> 
 		</div>
 
 		<div class="modal-footer">

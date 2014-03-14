@@ -53,6 +53,17 @@
 							href="<%=request.getContextPath()%>/getlecturerprofile">My
 								Profile</a></li>
 					</sec:authorize>
+					<sec:authorize access="hasRole('ROLE_STUD')">
+						<li><a
+							href="<%=request.getContextPath()%>/getstudentprofile">My
+								Profile</a></li>
+					</sec:authorize>
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<li><a
+							href="<%=request.getContextPath()%>/getadminprofile">My
+								Profile</a></li>
+					</sec:authorize>
+					
 					<sec:authorize access="hasRole('ROLE_ADMIN')">
 						<li><a href="<%=request.getContextPath()%>/getStudentList">Student
 								List</a></li>
@@ -97,6 +108,9 @@
 					</sec:authorize>
 					<li><a href="#aboutModal" data-toggle="modal">About</a></li>
 					<li><a href="#contactModal" data-toggle="modal">Contact</a></li>
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+					<li><a href="#contactModal" data-toggle="modal">Admin</a></li>
+					</sec:authorize>
 				</ul>
 			</div>
 		</div>

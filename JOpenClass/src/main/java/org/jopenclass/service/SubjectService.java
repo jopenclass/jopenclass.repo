@@ -80,6 +80,11 @@ public class SubjectService {
 	public void getSubjectList(ModelMap model) {
 		model.addAttribute("subjectList", subjectDao.getAllSubjects());
 	}
+	
+	
+	public List<Subject> getAllSubjects(){
+		return subjectDao.getAllSubjects();
+	}
 
 	/**
 	 * 

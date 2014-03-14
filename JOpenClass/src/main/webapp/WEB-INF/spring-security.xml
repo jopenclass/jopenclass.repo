@@ -7,7 +7,7 @@
 
 	<http auto-config="true">
 		<intercept-url pattern="/signin" access="ROLE_STUD,ROLE_ADMIN,ROLE_LEC" />
-		<form-login login-page="/login" default-target-url="/getlecturerprofile"
+		<form-login login-page="/login" 
 			authentication-failure-url="/loginfailed" />
 		<logout logout-success-url="/logout" />
 		<remember-me key="${rememberme.key}" token-validity-seconds="864000" />
